@@ -6,35 +6,123 @@
 @import 'heroui-native/styles';
 
 /*
- * HeroUI Native + Uniwind tokens
- *
- * HeroUI component variants compile to semantic utilities such as bg-accent,
- * text-accent-foreground, bg-default, and text-foreground. The imported
- * heroui-native/styles package defines the default semantic theme and maps it
- * to --color-* Tailwind utilities.
- *
- * When changing brand colors, override semantic tokens inside Uniwind theme
- * variants. Do not put --accent only in a plain :root block: web may look
- * correct through CSS cascade order while Expo Go/native keeps HeroUI's
- * default blue from the active light/dark theme table.
- *
- * Example:
- *
- * @layer theme {
- *   :root {
- *     @variant light {
- *       --accent: oklch(0.63 0.18 148);
- *       --accent-foreground: oklch(0.99 0 0);
- *       --focus: var(--accent);
- *     }
- *
- *     @variant dark {
- *       --accent: oklch(0.63 0.18 148);
- *       --accent-foreground: oklch(0.99 0 0);
- *       --focus: var(--accent);
- *     }
- *   }
- * }
+ * MATCH Flow — "Biomedical Command Center" theme.
+ * Deep navy base, cyan HUD accent, tactical MATCH letter palette.
+ * Tokens live inside Uniwind theme variants so native + web resolve identically.
  */
+
+@layer theme {
+  :root {
+    @variant light {
+      --background: oklch(0.2 0.036 258);
+      --foreground: oklch(0.97 0.014 240);
+
+      --surface: oklch(0.24 0.042 258);
+      --surface-foreground: oklch(0.97 0.014 240);
+      --surface-secondary: oklch(0.28 0.044 258);
+      --surface-secondary-foreground: oklch(0.97 0.014 240);
+      --surface-tertiary: oklch(0.32 0.046 258);
+      --surface-tertiary-foreground: oklch(0.97 0.014 240);
+
+      --overlay: oklch(0.23 0.042 258);
+      --overlay-foreground: oklch(0.97 0.014 240);
+      --backdrop: oklch(0% 0 0 / 55%);
+
+      --muted: oklch(0.66 0.032 250);
+
+      --default: oklch(0.28 0.044 258);
+      --default-foreground: oklch(0.95 0.014 240);
+
+      --accent: oklch(0.85 0.135 205);
+      --accent-foreground: oklch(0.18 0.04 258);
+
+      --field-background: oklch(0.26 0.042 258);
+      --field-foreground: oklch(0.97 0.014 240);
+      --field-placeholder: var(--muted);
+      --field-border: oklch(0.34 0.05 240);
+
+      --success: oklch(0.8 0.17 152);
+      --success-foreground: oklch(0.18 0.04 258);
+      --warning: oklch(0.85 0.155 85);
+      --warning-foreground: oklch(0.18 0.04 258);
+      --danger: oklch(0.7 0.175 22);
+      --danger-foreground: oklch(0.99 0 0);
+
+      --segment: oklch(0.26 0.042 258);
+      --segment-foreground: oklch(0.97 0.014 240);
+
+      --border: oklch(0.34 0.05 240);
+      --separator: oklch(0.31 0.048 240);
+      --focus: var(--accent);
+      --link: var(--accent);
+
+      --surface-shadow: 0 0 0 0 transparent inset;
+      --overlay-shadow: 0 0 1px 0 rgba(0, 229, 255, 0.3) inset;
+      --field-shadow: 0 0 0 0 transparent inset;
+    }
+
+    @variant dark {
+      --background: oklch(0.2 0.036 258);
+      --foreground: oklch(0.97 0.014 240);
+
+      --surface: oklch(0.24 0.042 258);
+      --surface-foreground: oklch(0.97 0.014 240);
+      --surface-secondary: oklch(0.28 0.044 258);
+      --surface-secondary-foreground: oklch(0.97 0.014 240);
+      --surface-tertiary: oklch(0.32 0.046 258);
+      --surface-tertiary-foreground: oklch(0.97 0.014 240);
+
+      --overlay: oklch(0.23 0.042 258);
+      --overlay-foreground: oklch(0.97 0.014 240);
+      --backdrop: oklch(0% 0 0 / 55%);
+
+      --muted: oklch(0.66 0.032 250);
+
+      --default: oklch(0.28 0.044 258);
+      --default-foreground: oklch(0.95 0.014 240);
+
+      --accent: oklch(0.85 0.135 205);
+      --accent-foreground: oklch(0.18 0.04 258);
+
+      --field-background: oklch(0.26 0.042 258);
+      --field-foreground: oklch(0.97 0.014 240);
+      --field-placeholder: var(--muted);
+      --field-border: oklch(0.34 0.05 240);
+
+      --success: oklch(0.8 0.17 152);
+      --success-foreground: oklch(0.18 0.04 258);
+      --warning: oklch(0.85 0.155 85);
+      --warning-foreground: oklch(0.18 0.04 258);
+      --danger: oklch(0.7 0.175 22);
+      --danger-foreground: oklch(0.99 0 0);
+
+      --segment: oklch(0.26 0.042 258);
+      --segment-foreground: oklch(0.97 0.014 240);
+
+      --border: oklch(0.34 0.05 240);
+      --separator: oklch(0.31 0.048 240);
+      --focus: var(--accent);
+      --link: var(--accent);
+
+      --surface-shadow: 0 0 0 0 transparent inset;
+      --overlay-shadow: 0 0 1px 0 rgba(0, 229, 255, 0.3) inset;
+      --field-shadow: 0 0 0 0 transparent inset;
+    }
+  }
+}
+
+@theme {
+  --color-hud: #00e5ff;
+  --color-hud-dim: #0a4f63;
+  --color-abyss: #030d1a;
+  --color-panel: #0d1f36;
+  --color-panel-deep: #061222;
+
+  --color-match-m: #90b14b;
+  --color-match-a: #6e99a3;
+  --color-match-t: #a8005d;
+  --color-match-c: #dfc401;
+  --color-match-h: #ff751f;
+}
 
 @source './node_modules/heroui-native/lib';

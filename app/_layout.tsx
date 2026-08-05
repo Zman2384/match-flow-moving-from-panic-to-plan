@@ -141,8 +141,31 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <HeroUINativeProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ title: 'Habits', headerShown: false }} />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: '#0b1c31' },
+            animation: 'slide_from_right',
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="gate" options={{ animation: 'fade' }} />
+          <Stack.Screen name="piece/[key]" />
+          <Stack.Screen name="settings" />
+          <Stack.Screen name="tools/safer-score" />
+          <Stack.Screen name="tools/stress-test" />
+          <Stack.Screen name="tools/analytics" />
+          <Stack.Screen name="tools/scripts" />
+          <Stack.Screen name="tools/flow-builder" />
+          <Stack.Screen name="tools/frameworks" />
+          <Stack.Screen name="tools/emergency" />
+          <Stack.Screen name="tools/clinics" />
+          <Stack.Screen name="tools/live-session" />
+          <Stack.Screen name="tools/checkin" />
+          <Stack.Screen name="tools/anxiety" />
+          <Stack.Screen name="tools/rituals" />
+          <Stack.Screen name="tools/reminders" />
+          <Stack.Screen name="tools/resources" />
         </Stack>
         <InstallPrompt />
       </HeroUINativeProvider>

@@ -8,6 +8,9 @@ import {
 } from 'react-native-reanimated';
 import Svg, { Defs, LinearGradient, Polygon, Rect, Stop } from 'react-native-svg';
 
+import { MatchPiece } from '@/components/BrandArt';
+import type { PieceKey } from '@/lib/match';
+
 const AnimatedRect = createAnimatedComponent(Rect);
 
 function hexPoints(size: number, inset: number) {
@@ -95,14 +98,14 @@ export function HexScore({ score, size = 156, label, color, caption }: HexScoreP
 }
 
 interface PieceHexProps {
-  letter: string;
+  pieceKey: PieceKey;
   percent: number;
   color: string;
   armed: boolean;
 }
 
 /** Small per-piece hexagon used in the shield strip. */
-export function PieceHex({ letter, percent, color, armed }: PieceHexProps) {
+export function PieceHex({ pieceKey, percent, color, armed }: PieceHexProps) {
   const fill = useSharedValue(0);
 
   useEffect(() => {
@@ -118,10 +121,10 @@ export function PieceHex({ letter, percent, color, armed }: PieceHexProps) {
 
   return (
     <View className="items-center gap-1.5">
-      <View style={{ width: 52, height: 52 }}>
-        <Svg viewBox="0 0 100 100" width={52} height={52}>
+      <View style={{ width: 56, height: 56 }}>
+        <Svg viewBox="0 0 100 100" width={56} height={56}>
           <Defs>
-            <LinearGradient id={`piece-${letter}`} x1="0" y1="1" x2="0" y2="0">
+            <LinearGradient id={`piece-${pieceKey}`} x1="0" y1="1" x2="0" y2="0">
               <Stop offset="0%" stopColor={color} stopOpacity={0.25} />
               <Stop offset="100%" stopColor={color} stopOpacity={0.95} />
             </LinearGradient>
@@ -130,7 +133,7 @@ export function PieceHex({ letter, percent, color, armed }: PieceHexProps) {
           <AnimatedRect
             x={0}
             width={100}
-            fill={`url(#piece-${letter})`}
+            fill={`url(#piece-${pieceKey})`}
             animatedProps={animatedProps}
           />
           <Polygon
@@ -142,9 +145,7 @@ export function PieceHex({ letter, percent, color, armed }: PieceHexProps) {
           />
         </Svg>
         <View pointerEvents="none" className="absolute inset-0 items-center justify-center">
-          <Text className="text-lg font-bold" style={{ color: armed ? '#ffffff' : '#6b7280' }}>
-            {letter}
-          </Text>
+          <MatchPiece pieceKey={pieceKey} height={28} dimmed={!armed} />
         </View>
       </View>
       <Text

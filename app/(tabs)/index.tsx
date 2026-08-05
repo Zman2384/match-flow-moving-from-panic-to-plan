@@ -62,11 +62,11 @@ export default function CommandCenter() {
           <Text className="text-muted mt-3 px-10 text-center text-xs leading-5">{tier.blurb}</Text>
         </View>
 
-        <View className="mt-6 flex-row justify-between px-6">
+        <View className="mt-6 flex-row justify-between px-5">
           {MATCH_PIECES.map((piece) => (
             <PieceHex
               key={piece.key}
-              letter={piece.key}
+              pieceKey={piece.key}
               color={piece.color}
               percent={(scores[piece.key] / piece.weight) * 100}
               armed={scores[piece.key] > 0}

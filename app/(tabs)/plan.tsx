@@ -3,6 +3,7 @@ import { ChevronRight, RotateCcw } from 'lucide-react-native';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { MatchPiece } from '@/components/BrandArt';
 import { HexScore } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { Disclaimer } from '@/components/ScreenShell';
@@ -66,14 +67,7 @@ export default function PlanScreen() {
                   className="flex-row items-center gap-3 px-4 py-3"
                   style={{ backgroundColor: `${piece.color}1a` }}
                 >
-                  <View
-                    className="h-9 w-9 items-center justify-center rounded-xl"
-                    style={{ backgroundColor: `${piece.color}33` }}
-                  >
-                    <Text className="text-base font-bold" style={{ color: piece.color }}>
-                      {piece.key}
-                    </Text>
-                  </View>
+                  <MatchPiece pieceKey={piece.key} height={38} />
                   <View className="flex-1">
                     <Text className="text-foreground text-sm font-bold">
                       {piece.emoji} {piece.name}

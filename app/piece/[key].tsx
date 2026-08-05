@@ -1,12 +1,13 @@
 import { useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 
+import { MatchPiece } from '@/components/BrandArt';
 import { HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { ToolCard } from '@/components/ToolCard';
 import { RESOURCE_GROUPS } from '@/lib/content';
 import { PIECE_BY_KEY, type PieceKey, pieceScores } from '@/lib/match';
 import { useMatchStore } from '@/lib/store';
 import { TOOLS } from '@/lib/tools';
-import { ToolCard } from '@/components/ToolCard';
 
 const VALID: readonly PieceKey[] = ['M', 'A', 'T', 'C', 'H'];
 
@@ -32,6 +33,7 @@ export default function PieceDetail() {
       subtitle={piece.tagline}
       hint={`This piece is worth ${piece.weight} of 100 points on your shield.`}
     >
+      <MatchPiece pieceKey={key} height={92} className="mb-4 self-center" />
       <HudPanel label={`Piece ${piece.key}`} status={`${earned}/${piece.weight} armed`}>
         <Text className="text-muted text-[13px] leading-5">{piece.summary}</Text>
         <View className="bg-panel-deep mt-4 h-2 w-full overflow-hidden rounded-full">

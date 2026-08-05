@@ -2,6 +2,7 @@ import { ExternalLink } from 'lucide-react-native';
 import { useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
 
+import { MatchPiece } from '@/components/BrandArt';
 import { Disclaimer, ScreenShell } from '@/components/ScreenShell';
 import { RESOURCE_GROUPS } from '@/lib/content';
 import { MATCH_PIECES, PIECE_BY_KEY, type PieceKey } from '@/lib/match';
@@ -24,15 +25,13 @@ export default function ResourcesScreen() {
             <Pressable
               key={item.key}
               onPress={() => setPiece(item.key)}
-              className="flex-1 items-center rounded-xl border py-3 active:opacity-70"
+              className="flex-1 items-center rounded-xl border py-2.5 active:opacity-70"
               style={{
                 borderColor: on ? item.color : '#1c3a55',
                 backgroundColor: on ? `${item.color}22` : 'transparent',
               }}
             >
-              <Text className="text-base font-bold" style={{ color: on ? item.color : '#5f7791' }}>
-                {item.key}
-              </Text>
+              <MatchPiece pieceKey={item.key} height={34} dimmed={!on} />
             </Pressable>
           );
         })}

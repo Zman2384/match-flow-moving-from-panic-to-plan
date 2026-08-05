@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
+import { MatchPiece } from '@/components/BrandArt';
 import { HexScore } from '@/components/HexScore';
 import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { RISK_QUESTIONS } from '@/lib/content';
@@ -167,11 +168,12 @@ export default function SaferScoreScreen() {
             style={{ borderColor: `${piece.color}40`, backgroundColor: '#0b1c3199' }}
           >
             <View
-              className="flex-row items-center gap-2 px-4 py-2.5"
+              className="flex-row items-center gap-2 px-4 py-2"
               style={{ backgroundColor: `${piece.color}18` }}
             >
+              <MatchPiece pieceKey={question.piece} height={24} />
               <Text className="text-[10px] font-bold" style={{ color: piece.color }}>
-                {piece.key} · Q{index + 1}
+                Q{index + 1}
               </Text>
             </View>
             <View className="p-4">

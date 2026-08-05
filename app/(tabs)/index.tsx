@@ -3,6 +3,7 @@ import { ArrowRight, Settings2, TriangleAlert } from 'lucide-react-native';
 import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { MatchFlowBanner } from '@/components/BrandArt';
 import { HexScore, PieceHex } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { PanicButton } from '@/components/PanicButton';
@@ -40,6 +41,8 @@ export default function CommandCenter() {
         contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 48 }}
         showsVerticalScrollIndicator={false}
       >
+        <MatchFlowBanner className="mb-5" />
+
         <View className="flex-row items-start justify-between px-5">
           <View>
             <Text className="text-hud text-[10px] font-bold tracking-[3px] uppercase">

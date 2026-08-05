@@ -1,11 +1,10 @@
 import { router } from 'expo-router';
-import { ShieldCheck } from 'lucide-react-native';
 import { useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { MatchFlowHero, MatchWordmark } from '@/components/BrandArt';
 import { HudBackdrop } from '@/components/HudBackdrop';
-import { MATCH_PIECES } from '@/lib/match';
 import { useMatchStore } from '@/lib/store';
 
 const CHECKS = [
@@ -37,39 +36,24 @@ export default function GateScreen() {
       <HudBackdrop />
       <ScrollView
         contentContainerStyle={{
-          paddingTop: insets.top + 48,
+          paddingTop: insets.top + 24,
           paddingBottom: insets.bottom + 40,
           paddingHorizontal: 24,
         }}
         showsVerticalScrollIndicator={false}
       >
         <View className="items-center">
-          <View className="border-hud/40 bg-hud/10 h-16 w-16 items-center justify-center rounded-2xl border">
-            <ShieldCheck size={30} color="#00e5ff" />
-          </View>
-          <Text className="text-foreground mt-5 text-3xl font-bold">MATCH Flow</Text>
-          <Text className="text-hud mt-1 text-[11px] font-bold tracking-[3px] uppercase">
+          <MatchFlowHero />
+          <Text className="text-hud mt-5 text-[11px] font-bold tracking-[3px] uppercase">
             Layered protection system
           </Text>
-          <Text className="text-muted mt-4 text-center text-sm leading-5">
+          <Text className="text-muted mt-3 text-center text-sm leading-5">
             Five puzzle pieces — Medications, Awareness, Tools, Communication, Habits — stacked into
             one shield. No single layer has to be perfect.
           </Text>
         </View>
 
-        <View className="mt-7 flex-row justify-center gap-2">
-          {MATCH_PIECES.map((piece) => (
-            <View
-              key={piece.key}
-              className="h-10 w-10 items-center justify-center rounded-xl border"
-              style={{ backgroundColor: `${piece.color}22`, borderColor: `${piece.color}66` }}
-            >
-              <Text className="text-base font-bold" style={{ color: piece.color }}>
-                {piece.key}
-              </Text>
-            </View>
-          ))}
-        </View>
+        <MatchWordmark className="mt-6" />
 
         <View className="mt-8 gap-3">
           {CHECKS.map((check) => {

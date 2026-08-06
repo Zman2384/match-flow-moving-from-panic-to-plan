@@ -152,6 +152,8 @@ export default function RootLayout() {
           <Stack.Screen name="gate" options={{ animation: 'fade' }} />
           <Stack.Screen name="piece/[key]" />
           <Stack.Screen name="settings" />
+          <Stack.Screen name="legal/index" />
+          <Stack.Screen name="legal/[doc]" />
           <Stack.Screen name="tools/safer-score" />
           <Stack.Screen name="tools/stress-test" />
           <Stack.Screen name="tools/analytics" />

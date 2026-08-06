@@ -82,6 +82,28 @@ export default function GateScreen() {
           })}
         </View>
 
+        <View className="border-border bg-panel/40 mt-4 rounded-2xl border p-4">
+          <Text className="text-muted text-[11px] leading-4">
+            By continuing you agree to the Terms of Service and confirm you have read the Privacy
+            Policy and Medical Disclaimer.
+          </Text>
+          <View className="mt-3 flex-row flex-wrap gap-2">
+            <GateLegalLink label="Terms of Service" docId="terms" />
+            <GateLegalLink label="Privacy Policy" docId="privacy" />
+            <GateLegalLink label="Medical Disclaimer" docId="medical" />
+          </View>
+          <Pressable
+            onPress={() => router.push('/legal')}
+            hitSlop={8}
+            accessibilityRole="link"
+            className="mt-3 self-start active:opacity-70"
+          >
+            <Text className="text-hud text-[11px] font-semibold">
+              All legal & compliance documents →
+            </Text>
+          </Pressable>
+        </View>
+
         <Pressable
           disabled={!allChecked}
           onPress={() => {
@@ -107,5 +129,19 @@ export default function GateScreen() {
         </Text>
       </ScrollView>
     </View>
+  );
+}
+
+function GateLegalLink({ label, docId }: { label: string; docId: string }) {
+  return (
+    <Pressable
+      onPress={() => router.push({ pathname: '/legal/[doc]', params: { doc: docId } })}
+      hitSlop={8}
+      accessibilityRole="link"
+      accessibilityLabel={`Read the ${label}`}
+      className="border-hud/40 bg-hud/10 rounded-full border px-3 py-1.5 active:opacity-70"
+    >
+      <Text className="text-hud text-[10px] font-bold">{label}</Text>
+    </Pressable>
   );
 }

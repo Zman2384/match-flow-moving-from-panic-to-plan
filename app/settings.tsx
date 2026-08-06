@@ -1,3 +1,5 @@
+import { router } from 'expo-router';
+import { ChevronRight, Scale } from 'lucide-react-native';
 import { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -165,6 +167,25 @@ export default function SettingsScreen() {
           <Text className="text-muted mt-1 text-center text-[11px]">
             Clears your plan, logs, scripts, and contacts from this device.
           </Text>
+        </Pressable>
+
+        <SectionLabel>Legal & compliance</SectionLabel>
+        <Pressable
+          onPress={() => router.push('/legal')}
+          accessibilityRole="button"
+          accessibilityLabel="Legal and compliance documents"
+          className="border-border bg-panel/60 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
+        >
+          <View className="h-11 w-11 items-center justify-center rounded-2xl bg-[#f9731626]">
+            <Scale size={19} color="#f97316" />
+          </View>
+          <View className="flex-1">
+            <Text className="text-foreground text-sm font-semibold">Legal & Compliance</Text>
+            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+              Terms, privacy, medical disclaimer, facilitator protocols, accessibility
+            </Text>
+          </View>
+          <ChevronRight size={16} color="#5f7b96" />
         </Pressable>
 
         <Disclaimer />

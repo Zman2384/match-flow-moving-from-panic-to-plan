@@ -1,4 +1,5 @@
 import { ChevronLeft } from 'lucide-react-native';
+import type { Href } from 'expo-router';
 import type { ReactNode } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -14,6 +15,10 @@ interface ScreenShellProps {
   /** Render children without a ScrollView (for FlatList screens). */
   plain?: boolean;
   showBack?: boolean;
+  /** Label on the back chip. Defaults to the Command Center. */
+  backLabel?: string;
+  /** Where back goes when the screen was opened directly with no history. */
+  backHref?: Href;
 }
 
 export function ScreenShell({
@@ -23,6 +28,8 @@ export function ScreenShell({
   children,
   plain = false,
   showBack = true,
+  backLabel = 'Command Center',
+  backHref = '/(tabs)',
 }: ScreenShellProps) {
   const insets = useSafeAreaInsets();
 
@@ -30,12 +37,12 @@ export function ScreenShell({
     <View className="px-5 pt-2 pb-4">
       {showBack ? (
         <Pressable
-          onPress={() => goBackOrReplace('/(tabs)')}
+          onPress={() => goBackOrReplace(backHref)}
           hitSlop={10}
           className="border-hud/30 bg-hud/10 mb-3 flex-row items-center gap-1 self-start rounded-full border px-3 py-1.5 active:opacity-70"
         >
           <ChevronLeft size={14} color="#00e5ff" />
-          <Text className="text-hud text-[11px] font-semibold">Command Center</Text>
+          <Text className="text-hud text-[11px] font-semibold">{backLabel}</Text>
         </Pressable>
       ) : null}
       <Text className="text-foreground text-2xl font-bold">{title}</Text>

@@ -18,13 +18,16 @@ import { Uniwind } from 'uniwind';
 import {
   ErrorBoundary as ExpoErrorBoundary,
   type ErrorBoundaryProps,
+  router,
   SplashScreen,
   Stack,
 } from 'expo-router';
 
+import { addNudgeTapListener, NOTIFICATIONS_SUPPORTED, syncReminders } from '@/lib/notifications';
 import { initPostHog } from '@/lib/posthog';
 import { registerServiceWorker } from '@/lib/registerServiceWorker';
 import { reportErrorToParent } from '@/lib/reportPreviewError';
+import { useMatchStore } from '@/lib/store';
 import { InstallPrompt } from '@/components/InstallPrompt';
 
 /**
@@ -126,6 +129,28 @@ export default function RootLayout() {
 
   useEffect(() => {
     registerServiceWorker();
+  }, []);
+
+  // Keep the on-device nudge schedule alive across launches, and never prompt
+  // for permission on a cold start — the reminders screen owns that ask.
+  useEffect(() => {
+    if (!NOTIFICATIONS_SUPPORTED) return undefined;
+    const rebuild = () => {
+      void syncReminders({ prompt: false });
+    };
+    if (useMatchStore.persist.hasHydrated()) {
+      rebuild();
+      return undefined;
+    }
+    return useMatchStore.persist.onFinishHydration(rebuild);
+  }, []);
+
+  // Tapping a nudge opens the cadence plan it came from.
+  useEffect(() => {
+    const subscription = addNudgeTapListener((href) => {
+      router.push(href);
+    });
+    return () => subscription.remove();
   }, []);
 
   useEffect(() => {

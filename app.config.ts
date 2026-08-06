@@ -5,7 +5,17 @@ type ExpoPlugins = NonNullable<ExpoConfig['plugins']>;
 export default ({ config }: ConfigContext): ExpoConfig => {
   const nativePlugins: ExpoPlugins =
     process.env.EXPO_PLATFORM === 'native'
-      ? [['expo-dev-client', { launchMode: 'most-recent' }], 'react-native-maps']
+      ? [
+          ['expo-dev-client', { launchMode: 'most-recent' }],
+          'react-native-maps',
+          [
+            'expo-notifications',
+            {
+              color: '#00e5ff',
+              defaultChannel: 'maintenance',
+            },
+          ],
+        ]
       : [];
 
   return {

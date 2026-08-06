@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import type { PieceKey } from '@/lib/match';
+import { type CadenceId, DEFAULT_REMINDER_CADENCES } from '@/lib/reminders';
 
 export interface SafetyContact {
   id: string;
@@ -75,6 +76,7 @@ interface MatchState {
   emergencyContactPhone: string;
   remindersEnabled: boolean;
   reminderTime: string;
+  reminderCadences: Record<CadenceId, boolean>;
   stressTestBest: number | null;
 
   confirmAge: () => void;
@@ -98,6 +100,7 @@ interface MatchState {
   setEmergencyContact: (name: string, phone: string) => void;
   setRemindersEnabled: (enabled: boolean) => void;
   setReminderTime: (time: string) => void;
+  toggleReminderCadence: (id: CadenceId) => void;
   recordStressTest: (score: number) => void;
   wipeLocalData: () => void;
 }
@@ -125,6 +128,7 @@ const initial = {
   emergencyContactPhone: '',
   remindersEnabled: false,
   reminderTime: '09:00',
+  reminderCadences: { ...DEFAULT_REMINDER_CADENCES },
   stressTestBest: null as number | null,
 };
 
@@ -218,6 +222,11 @@ export const useMatchStore = create<MatchState>()(
 
       setRemindersEnabled: (enabled) => set({ remindersEnabled: enabled }),
       setReminderTime: (time) => set({ reminderTime: time }),
+
+      toggleReminderCadence: (id) =>
+        set((state) => ({
+          reminderCadences: { ...state.reminderCadences, [id]: !state.reminderCadences[id] },
+        })),
 
       recordStressTest: (score) =>
         set((state) => ({

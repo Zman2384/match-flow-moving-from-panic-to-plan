@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { ChevronRight, Scale } from 'lucide-react-native';
+import { BellRing, ChevronRight, Scale } from 'lucide-react-native';
 import { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { NOTIFICATIONS_SUPPORTED, syncReminders } from '@/lib/notifications';
 import { useMatchStore } from '@/lib/store';
 
 export default function SettingsScreen() {
@@ -141,17 +142,38 @@ export default function SettingsScreen() {
           </View>
           <Switch
             value={remindersEnabled}
-            onValueChange={setRemindersEnabled}
+            onValueChange={(value) => {
+              setRemindersEnabled(value);
+              void syncReminders();
+            }}
+            disabled={!NOTIFICATIONS_SUPPORTED}
             thumbColor={remindersEnabled ? '#00e5ff' : '#94a3b8'}
             trackColor={{ false: '#1c3a55', true: '#0a4f63' }}
           />
         </View>
+        <Pressable
+          onPress={() => router.push('/tools/reminders')}
+          accessibilityRole="button"
+          className="border-hud/25 bg-hud/[0.07] mt-2 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
+        >
+          <View className="bg-hud/15 h-9 w-9 items-center justify-center rounded-xl">
+            <BellRing size={17} color="#00e5ff" />
+          </View>
+          <View className="flex-1">
+            <Text className="text-hud text-[13px] font-bold">Cadence plan</Text>
+            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+              Choose which nudges fire, set the time, send a test prompt
+            </Text>
+          </View>
+          <ChevronRight size={16} color="#5f7b96" />
+        </Pressable>
 
         <SectionLabel>Data</SectionLabel>
         <Pressable
           onPress={() => {
             if (confirmWipe) {
               wipeLocalData();
+              void syncReminders();
               setConfirmWipe(false);
               setName('');
               setPhone('');

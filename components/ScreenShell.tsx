@@ -1,11 +1,10 @@
-import { ChevronLeft } from 'lucide-react-native';
 import type { Href } from 'expo-router';
 import type { ReactNode } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { BackChip, isCommandCenter } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
-import { goBackOrReplace } from '@/lib/navigation';
 
 interface ScreenShellProps {
   title: string;
@@ -36,14 +35,12 @@ export function ScreenShell({
   const header = (
     <View className="px-5 pt-2 pb-4">
       {showBack ? (
-        <Pressable
-          onPress={() => goBackOrReplace(backHref)}
-          hitSlop={10}
-          className="border-hud/30 bg-hud/10 mb-3 flex-row items-center gap-1 self-start rounded-full border px-3 py-1.5 active:opacity-70"
-        >
-          <ChevronLeft size={14} color="#00e5ff" />
-          <Text className="text-hud text-[11px] font-semibold">{backLabel}</Text>
-        </Pressable>
+        <View className="mb-3 flex-row flex-wrap items-center gap-2">
+          <BackChip label={backLabel} href={backHref} />
+          {isCommandCenter(backHref) ? null : (
+            <BackChip label="Command Center" href="/(tabs)" mode="jump" />
+          )}
+        </View>
       ) : null}
       <Text className="text-foreground text-2xl font-bold">{title}</Text>
       {subtitle ? <Text className="text-muted mt-1 text-xs">{subtitle}</Text> : null}

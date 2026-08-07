@@ -4,6 +4,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { MatchPiece } from '@/components/BrandArt';
+import { BackChip } from '@/components/BackChip';
 import { HexScore } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { Disclaimer } from '@/components/ScreenShell';
@@ -28,6 +29,10 @@ export default function PlanScreen() {
         contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 48 }}
         showsVerticalScrollIndicator={false}
       >
+        <View className="px-5 pb-3">
+          <BackChip mode="jump" />
+        </View>
+
         <View className="flex-row items-start justify-between px-5">
           <View className="flex-1">
             <Text className="text-hud text-[10px] font-bold tracking-[3px] uppercase">

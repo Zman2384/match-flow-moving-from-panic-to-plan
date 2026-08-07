@@ -4,6 +4,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { MatchFlowBanner } from '@/components/BrandArt';
+import { BackChip } from '@/components/BackChip';
 import { HexScore, PieceHex } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { PanicButton } from '@/components/PanicButton';
@@ -42,6 +43,10 @@ export default function CommandCenter() {
         showsVerticalScrollIndicator={false}
       >
         <MatchFlowBanner className="mb-5" />
+
+        <View className="px-5 pb-3">
+          <BackChip label="Consent gate" href="/gate" mode="push" />
+        </View>
 
         <View className="flex-row items-start justify-between px-5">
           <View>

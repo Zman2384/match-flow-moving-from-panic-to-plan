@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { BackChip } from '@/components/BackChip';
 import { MatchFlowHero, MatchWordmark } from '@/components/BrandArt';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { useMatchStore } from '@/lib/store';
@@ -27,8 +28,11 @@ const CHECKS = [
 
 export default function GateScreen() {
   const insets = useSafeAreaInsets();
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
   const confirmAge = useMatchStore((s) => s.confirmAge);
+  const ageConfirmed = useMatchStore((s) => s.ageConfirmed);
+  const [checked, setChecked] = useState<Record<string, boolean>>(() =>
+    ageConfirmed ? Object.fromEntries(CHECKS.map((c) => [c.id, true])) : {},
+  );
   const allChecked = CHECKS.every((c) => checked[c.id]);
 
   return (
@@ -42,6 +46,8 @@ export default function GateScreen() {
         }}
         showsVerticalScrollIndicator={false}
       >
+        {ageConfirmed ? <BackChip className="mb-5" /> : null}
+
         <View className="items-center">
           <MatchFlowHero />
           <Text className="text-hud mt-5 text-[11px] font-bold tracking-[3px] uppercase">
@@ -119,7 +125,7 @@ export default function GateScreen() {
               allChecked ? 'text-abyss' : 'text-muted'
             }`}
           >
-            Enter command center
+            {ageConfirmed ? 'Back to command center' : 'Enter command center'}
           </Text>
         </Pressable>
 

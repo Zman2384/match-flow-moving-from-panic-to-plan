@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { BackChip } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { PanicButton } from '@/components/PanicButton';
 import { ToolCard } from '@/components/ToolCard';
@@ -31,6 +32,7 @@ export default function ToolkitScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View className="px-5">
+          <BackChip mode="jump" className="mb-3" />
           <Text className="text-hud text-[10px] font-bold tracking-[3px] uppercase">
             Tactical toolkit
           </Text>

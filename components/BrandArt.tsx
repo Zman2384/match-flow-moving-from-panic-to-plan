@@ -7,13 +7,20 @@ import { cn } from '@/lib/utils';
 const BANNER_ASPECT = 1830 / 1030;
 
 /**
- * Generated wordmark is 1536 x 1024 with transparent padding above and below the
- * puzzle row. These fractions crop the artboard down to the pieces themselves so
- * the wordmark does not carry a tall empty box around it.
+ * Brand puzzle lockup (assets/match-puzzle-wordmark.png) is a 1255 x 396 RGBA
+ * artboard. Its white plate was keyed out to true transparency, so it sits
+ * straight on the starfield with no panel behind it. These fractions are the
+ * measured bounding box of the visible pieces inside that artboard, so the
+ * lockup never carries dead padding.
  */
-const WORDMARK_ASPECT = 1536 / 1024;
-const WORDMARK_CONTENT_TOP = 0.275;
-const WORDMARK_CONTENT_HEIGHT = 0.44;
+const PUZZLE_CANVAS_WIDTH = 1255;
+const PUZZLE_CANVAS_HEIGHT = 396;
+const PUZZLE_CONTENT_LEFT = 34 / PUZZLE_CANVAS_WIDTH;
+const PUZZLE_CONTENT_TOP = 26 / PUZZLE_CANVAS_HEIGHT;
+const PUZZLE_CONTENT_WIDTH = 1160 / PUZZLE_CANVAS_WIDTH;
+const PUZZLE_CONTENT_HEIGHT = 342 / PUZZLE_CANVAS_HEIGHT;
+/** Width / height of the cropped lockup. */
+const PUZZLE_ASPECT = 1160 / 342;
 
 function useArtWidth(gutter: number, max: number) {
   const { width } = useWindowDimensions();
@@ -126,28 +133,30 @@ export function MatchPiece({ pieceKey, height, dimmed = false, className }: Matc
   );
 }
 
-/** Interlocking puzzle-piece wordmark spelling M A T C H. */
+/** Interlocking puzzle-piece wordmark spelling M A T C H. Transparent artwork. */
 export function MatchWordmark({ width, className }: { width?: number; className?: string }) {
   const responsive = useArtWidth(72, 340);
   const artWidth = width ?? responsive;
-  const artHeight = artWidth / WORDMARK_ASPECT;
+  const artHeight = artWidth / PUZZLE_ASPECT;
+  const fullWidth = artWidth / PUZZLE_CONTENT_WIDTH;
+  const fullHeight = artHeight / PUZZLE_CONTENT_HEIGHT;
 
   return (
     <View
       className={cn('self-center overflow-hidden', className)}
-      style={{ width: artWidth, height: artHeight * WORDMARK_CONTENT_HEIGHT }}
+      style={{ width: artWidth, height: artHeight }}
     >
       <Image
-        source={require('../assets/match-wordmark.png')}
+        source={require('../assets/match-puzzle-wordmark.png')}
         style={{
           position: 'absolute',
-          left: 0,
-          top: -artHeight * WORDMARK_CONTENT_TOP,
-          width: artWidth,
-          height: artHeight,
+          left: -fullWidth * PUZZLE_CONTENT_LEFT,
+          top: -fullHeight * PUZZLE_CONTENT_TOP,
+          width: fullWidth,
+          height: fullHeight,
         }}
-        resizeMode="contain"
-        accessibilityLabel="MATCH"
+        resizeMode="stretch"
+        accessibilityLabel="MATCH — Medications, Awareness, Tools, Communication, Habits"
       />
     </View>
   );

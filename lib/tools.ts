@@ -22,7 +22,8 @@ export interface ToolEntry {
     | 'workflow'
     | 'book'
     | 'chart'
-    | 'bell';
+    | 'bell'
+    | 'ghost';
   accent: string;
   pieces: PieceKey[];
   category: 'Assess' | 'Rehearse' | 'Respond' | 'Sustain';
@@ -37,6 +38,16 @@ export const TOOLS: ToolEntry[] = [
     icon: 'gauge',
     accent: '#22d3ee',
     pieces: ['M', 'A', 'T', 'C', 'H'],
+    category: 'Assess',
+  },
+  {
+    id: 'ghost-vault',
+    title: 'Digital Ghost Vault',
+    blurb: 'Name the fears blocking care and map each one to a MATCH piece.',
+    href: '/tools/ghost-vault',
+    icon: 'ghost',
+    accent: '#a87ee0',
+    pieces: ['A', 'C', 'H'],
     category: 'Assess',
   },
   {

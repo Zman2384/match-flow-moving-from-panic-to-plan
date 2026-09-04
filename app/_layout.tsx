@@ -190,6 +190,7 @@ export default function RootLayout() {
           <Stack.Screen name="tools/live-session" />
           <Stack.Screen name="tools/checkin" />
           <Stack.Screen name="tools/anxiety" />
+          <Stack.Screen name="tools/ghost-vault" />
           <Stack.Screen name="tools/rituals" />
           <Stack.Screen name="tools/reminders" />
           <Stack.Screen name="tools/resources" />

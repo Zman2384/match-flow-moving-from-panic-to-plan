@@ -7,6 +7,7 @@ import {
   CheckCheck,
   FlaskConical,
   Gauge,
+  Ghost,
   MapPin,
   MessageSquareQuote,
   Radar,
@@ -35,6 +36,7 @@ const ICONS = {
   book: BookOpen,
   chart: ChartNoAxesColumn,
   bell: Bell,
+  ghost: Ghost,
 } as const;
 
 export function ToolCard({ tool }: { tool: ToolEntry }) {

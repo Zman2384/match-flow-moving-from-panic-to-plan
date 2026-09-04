@@ -1,3 +1,5 @@
+import { router } from 'expo-router';
+import { Ghost } from 'lucide-react-native';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 
@@ -57,6 +59,23 @@ export default function AnxietyScreen() {
             concrete step — then stop researching for the night.
           </Text>
         </HudPanel>
+
+        <Pressable
+          onPress={() => router.push('/tools/ghost-vault')}
+          accessibilityRole="button"
+          accessibilityLabel="Open the Digital Ghost Vault"
+          className="border-hud/25 bg-panel/60 mt-3 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
+        >
+          <Ghost size={18} color="#a87ee0" />
+          <View className="flex-1">
+            <Text className="text-foreground text-[13px] font-bold">
+              Same fear keeps coming back?
+            </Text>
+            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+              Name it once in the Ghost Vault and map it to the MATCH piece that carries it.
+            </Text>
+          </View>
+        </Pressable>
 
         {STEPS.map((step) => (
           <View key={step.key} className="mt-4">

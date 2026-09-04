@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+import { DEFAULT_SPECTRUM, type GhostCategoryId, type SpectrumId } from '@/lib/ghosts';
 import type { PieceKey } from '@/lib/match';
 import { type CadenceId, DEFAULT_REMINDER_CADENCES } from '@/lib/reminders';
 
@@ -50,6 +51,23 @@ export interface FlowNode {
   ifNo: string;
 }
 
+/** A ghost the user has dragged into the light. Local only, never synced. */
+export interface GhostRecord {
+  /** Archetype id, or the id of a custom ghost. */
+  id: string;
+  namedAt: string;
+  /** Set when the user marks the matching MATCH layer as handled. */
+  disarmedAt: string | null;
+  /** Private note — the user's own words about this fear. */
+  note: string;
+}
+
+export interface CustomGhost {
+  id: string;
+  label: string;
+  category: GhostCategoryId;
+}
+
 export interface CustomScript {
   id: string;
   title: string;
@@ -71,6 +89,9 @@ interface MatchState {
   checkIns: CheckInRecord[];
   riskResults: RiskResult[];
   anxietyEntries: AnxietyEntry[];
+  ghostRecords: Record<string, GhostRecord>;
+  customGhosts: CustomGhost[];
+  ghostSpectrum: SpectrumId;
   flowNodes: FlowNode[];
   emergencyContactName: string;
   emergencyContactPhone: string;
@@ -95,6 +116,12 @@ interface MatchState {
   addRiskResult: (result: Omit<RiskResult, 'date'>) => void;
   addAnxietyEntry: (entry: Omit<AnxietyEntry, 'id' | 'date'>) => void;
   removeAnxietyEntry: (id: string) => void;
+  nameGhost: (id: string) => void;
+  releaseGhost: (id: string) => void;
+  toggleGhostDisarmed: (id: string) => void;
+  setGhostNote: (id: string, note: string) => void;
+  addCustomGhost: (label: string, category: GhostCategoryId) => void;
+  setGhostSpectrum: (stage: SpectrumId) => void;
   addFlowNode: (node: Omit<FlowNode, 'id'>) => void;
   removeFlowNode: (id: string) => void;
   setEmergencyContact: (name: string, phone: string) => void;
@@ -123,6 +150,9 @@ const initial = {
   checkIns: [] as CheckInRecord[],
   riskResults: [] as RiskResult[],
   anxietyEntries: [] as AnxietyEntry[],
+  ghostRecords: {} as Record<string, GhostRecord>,
+  customGhosts: [] as CustomGhost[],
+  ghostSpectrum: DEFAULT_SPECTRUM,
   flowNodes: [] as FlowNode[],
   emergencyContactName: '',
   emergencyContactPhone: '',
@@ -210,6 +240,64 @@ export const useMatchStore = create<MatchState>()(
 
       removeAnxietyEntry: (id) =>
         set((state) => ({ anxietyEntries: state.anxietyEntries.filter((e) => e.id !== id) })),
+
+      nameGhost: (id) =>
+        set((state) =>
+          state.ghostRecords[id]
+            ? state
+            : {
+                ghostRecords: {
+                  ...state.ghostRecords,
+                  [id]: { id, namedAt: new Date().toISOString(), disarmedAt: null, note: '' },
+                },
+              },
+        ),
+
+      releaseGhost: (id) =>
+        set((state) => {
+          const next = { ...state.ghostRecords };
+          delete next[id];
+          return {
+            ghostRecords: next,
+            customGhosts: state.customGhosts.filter((ghost) => ghost.id !== id),
+          };
+        }),
+
+      toggleGhostDisarmed: (id) =>
+        set((state) => {
+          const record = state.ghostRecords[id];
+          if (!record) return state;
+          return {
+            ghostRecords: {
+              ...state.ghostRecords,
+              [id]: {
+                ...record,
+                disarmedAt: record.disarmedAt ? null : new Date().toISOString(),
+              },
+            },
+          };
+        }),
+
+      setGhostNote: (id, note) =>
+        set((state) => {
+          const record = state.ghostRecords[id];
+          if (!record) return state;
+          return { ghostRecords: { ...state.ghostRecords, [id]: { ...record, note } } };
+        }),
+
+      addCustomGhost: (label, category) =>
+        set((state) => {
+          const id = `own-${uid()}`;
+          return {
+            customGhosts: [{ id, label, category }, ...state.customGhosts],
+            ghostRecords: {
+              ...state.ghostRecords,
+              [id]: { id, namedAt: new Date().toISOString(), disarmedAt: null, note: '' },
+            },
+          };
+        }),
+
+      setGhostSpectrum: (stage) => set({ ghostSpectrum: stage }),
 
       addFlowNode: (node) =>
         set((state) => ({ flowNodes: [...state.flowNodes, { ...node, id: uid() }] })),

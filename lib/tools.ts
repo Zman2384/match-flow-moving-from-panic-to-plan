@@ -23,7 +23,8 @@ export interface ToolEntry {
     | 'book'
     | 'chart'
     | 'bell'
-    | 'ghost';
+    | 'ghost'
+    | 'guide';
   accent: string;
   pieces: PieceKey[];
   category: 'Assess' | 'Rehearse' | 'Respond' | 'Sustain';
@@ -99,6 +100,16 @@ export const TOOLS: ToolEntry[] = [
     accent: '#60a5fa',
     pieces: ['C', 'A'],
     category: 'Rehearse',
+  },
+  {
+    id: 'lil-z',
+    title: 'Ask Lil Z',
+    blurb: "Christopher Zacharie's digital avatar, on call for the questions you can't Google.",
+    href: '/lil-z',
+    icon: 'guide',
+    accent: '#00e5ff',
+    pieces: ['M', 'A', 'T', 'C', 'H'],
+    category: 'Respond',
   },
   {
     id: 'emergency',

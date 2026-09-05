@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { DEFAULT_SPECTRUM, type GhostCategoryId, type SpectrumId } from '@/lib/ghosts';
+import type { LilZMemory, LilZMessage } from '@/lib/lilz';
 import type { PieceKey } from '@/lib/match';
 import { type CadenceId, DEFAULT_REMINDER_CADENCES } from '@/lib/reminders';
 
@@ -99,6 +100,11 @@ interface MatchState {
   reminderTime: string;
   reminderCadences: Record<CadenceId, boolean>;
   stressTestBest: number | null;
+  /** Lil Z transcript. Device-local, capped, erased with everything else. */
+  lilzMessages: LilZMessage[];
+  /** Durable facts Lil Z carries between chats. Never leaves the device unprompted. */
+  lilzMemories: LilZMemory[];
+  lilzMemoryEnabled: boolean;
 
   confirmAge: () => void;
   confirmStatus: () => void;
@@ -129,6 +135,11 @@ interface MatchState {
   setReminderTime: (time: string) => void;
   toggleReminderCadence: (id: CadenceId) => void;
   recordStressTest: (score: number) => void;
+  addLilzMessage: (message: Omit<LilZMessage, 'id' | 'at'>) => void;
+  clearLilzChat: () => void;
+  rememberLilz: (text: string) => void;
+  forgetLilz: (id: string) => void;
+  setLilzMemoryEnabled: (enabled: boolean) => void;
   wipeLocalData: () => void;
 }
 
@@ -160,7 +171,14 @@ const initial = {
   reminderTime: '09:00',
   reminderCadences: { ...DEFAULT_REMINDER_CADENCES },
   stressTestBest: null as number | null,
+  lilzMessages: [] as LilZMessage[],
+  lilzMemories: [] as LilZMemory[],
+  lilzMemoryEnabled: true,
 };
+
+/** Transcript and memory caps — the vault stays small enough to stay private. */
+const LILZ_MESSAGE_CAP = 80;
+const LILZ_MEMORY_CAP = 24;
 
 export const useMatchStore = create<MatchState>()(
   persist(
@@ -320,6 +338,41 @@ export const useMatchStore = create<MatchState>()(
         set((state) => ({
           stressTestBest:
             state.stressTestBest === null ? score : Math.max(state.stressTestBest, score),
+        })),
+
+      addLilzMessage: (message) =>
+        set((state) => ({
+          lilzMessages: [
+            ...state.lilzMessages,
+            { ...message, id: uid(), at: new Date().toISOString() },
+          ].slice(-LILZ_MESSAGE_CAP),
+        })),
+
+      clearLilzChat: () => set({ lilzMessages: [] }),
+
+      rememberLilz: (text) =>
+        set((state) => {
+          const clean = text.trim();
+          if (!clean || !state.lilzMemoryEnabled) return state;
+          const exists = state.lilzMemories.some(
+            (memory) => memory.text.toLowerCase() === clean.toLowerCase(),
+          );
+          if (exists) return state;
+          return {
+            lilzMemories: [
+              { id: uid(), text: clean, at: new Date().toISOString() },
+              ...state.lilzMemories,
+            ].slice(0, LILZ_MEMORY_CAP),
+          };
+        }),
+
+      forgetLilz: (id) =>
+        set((state) => ({ lilzMemories: state.lilzMemories.filter((m) => m.id !== id) })),
+
+      setLilzMemoryEnabled: (enabled) =>
+        set((state) => ({
+          lilzMemoryEnabled: enabled,
+          lilzMemories: enabled ? state.lilzMemories : [],
         })),
 
       wipeLocalData: () => set({ ...initial }),

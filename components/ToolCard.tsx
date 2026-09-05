@@ -10,6 +10,7 @@ import {
   Ghost,
   MapPin,
   MessageSquareQuote,
+  MessagesSquare,
   Radar,
   Siren,
   Sparkles,
@@ -37,6 +38,7 @@ const ICONS = {
   chart: ChartNoAxesColumn,
   bell: Bell,
   ghost: Ghost,
+  guide: MessagesSquare,
 } as const;
 
 export function ToolCard({ tool }: { tool: ToolEntry }) {

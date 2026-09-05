@@ -7,6 +7,7 @@ import { MatchPiece } from '@/components/BrandArt';
 import { BackChip } from '@/components/BackChip';
 import { HexScore } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
+import { LilZDock } from '@/components/LilZ';
 import { Disclaimer } from '@/components/ScreenShell';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
 import { useMatchStore } from '@/lib/store';
@@ -146,6 +147,7 @@ export default function PlanScreen() {
           <Disclaimer />
         </View>
       </ScrollView>
+      <LilZDock bottomOffset={24} />
     </View>
   );
 }

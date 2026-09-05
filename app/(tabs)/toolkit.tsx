@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BackChip } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
+import { LilZDock } from '@/components/LilZ';
 import { PanicButton } from '@/components/PanicButton';
 import { ToolCard } from '@/components/ToolCard';
 import { CATEGORY_BLURB, TOOLS, TOOL_CATEGORIES, type ToolEntry } from '@/lib/tools';
@@ -85,6 +86,7 @@ export default function ToolkitScreen() {
           ))}
         </View>
       </ScrollView>
+      <LilZDock bottomOffset={24} />
       <PanicButton bottomOffset={24} />
     </View>
   );

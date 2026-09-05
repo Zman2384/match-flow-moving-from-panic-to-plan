@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BackChip, isCommandCenter } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
+import { LilZDock } from '@/components/LilZ';
 
 interface ScreenShellProps {
   title: string;
@@ -18,6 +19,8 @@ interface ScreenShellProps {
   backLabel?: string;
   /** Where back goes when the screen was opened directly with no history. */
   backHref?: Href;
+  /** Floating Lil Z dock. Off for screens whose own controls sit bottom-left. */
+  showGuide?: boolean;
 }
 
 export function ScreenShell({
@@ -29,6 +32,7 @@ export function ScreenShell({
   showBack = true,
   backLabel = 'Command Center',
   backHref = '/(tabs)',
+  showGuide = true,
 }: ScreenShellProps) {
   const insets = useSafeAreaInsets();
 
@@ -63,7 +67,7 @@ export function ScreenShell({
           </>
         ) : (
           <ScrollView
-            contentContainerStyle={{ paddingBottom: insets.bottom + 40 }}
+            contentContainerStyle={{ paddingBottom: insets.bottom + (showGuide ? 96 : 40) }}
             showsVerticalScrollIndicator={false}
           >
             {header}
@@ -71,6 +75,7 @@ export function ScreenShell({
           </ScrollView>
         )}
       </View>
+      {showGuide ? <LilZDock bottomOffset={insets.bottom + 16} /> : null}
     </View>
   );
 }

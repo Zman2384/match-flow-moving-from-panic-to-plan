@@ -1,12 +1,13 @@
 import { Link, Redirect, router } from 'expo-router';
 import { ArrowRight, Settings2, TriangleAlert } from 'lucide-react-native';
-import { ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { MatchFlowBanner } from '@/components/BrandArt';
 import { BackChip } from '@/components/BackChip';
 import { HexScore, PieceHex } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
+import { LilZAvatar, LilZDock } from '@/components/LilZ';
 import { PanicButton } from '@/components/PanicButton';
 import { ToolCard } from '@/components/ToolCard';
 import { MATCH_PIECES, armedCount, pieceScores, saferScore, scoreTier } from '@/lib/match';
@@ -113,6 +114,29 @@ export default function CommandCenter() {
           </Link>
         </View>
 
+        <View className="mt-4 px-5">
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Open a conversation with Lil Z"
+            onPress={() => router.push('/lil-z')}
+            className="border-hud/35 bg-hud/[0.08] flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-80"
+          >
+            <LilZAvatar size={48} pulse />
+            <View className="flex-1">
+              <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">
+                Your guide
+              </Text>
+              <Text className="text-foreground mt-0.5 text-sm font-bold">Ask Lil Z</Text>
+              <Text className="text-muted mt-0.5 text-[11px] leading-4">
+                {layers === 0
+                  ? "New here? Say 'give me the tour' and I'll walk you through all five layers."
+                  : `PrEP, PEP timing, testing, or the words for the talk — ask me about ${weakest.name.toLowerCase()} first.`}
+              </Text>
+            </View>
+            <ArrowRight size={18} color="#00e5ff" />
+          </Pressable>
+        </View>
+
         <View className="mt-6 px-5">
           <View className="mb-3 flex-row items-center justify-between">
             <Text className="text-hud/70 text-[11px] font-bold tracking-[2px] uppercase">
@@ -130,6 +154,7 @@ export default function CommandCenter() {
           ))}
         </View>
       </ScrollView>
+      <LilZDock bottomOffset={24} />
       <PanicButton bottomOffset={24} />
     </View>
   );

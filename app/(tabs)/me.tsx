@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BackChip } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
+import { LilZDock } from '@/components/LilZ';
 import { Disclaimer } from '@/components/ScreenShell';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
 import { useMatchStore } from '@/lib/store';
@@ -113,6 +114,7 @@ export default function MeScreen() {
           <Disclaimer />
         </View>
       </ScrollView>
+      <LilZDock bottomOffset={24} />
     </View>
   );
 }

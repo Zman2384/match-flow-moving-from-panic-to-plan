@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 
+import { LilZAvatar } from '@/components/LilZ';
 import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { NOTIFICATIONS_SUPPORTED, syncReminders } from '@/lib/notifications';
 import { useMatchStore } from '@/lib/store';
@@ -24,6 +25,9 @@ export default function SettingsScreen() {
   const removeContact = useMatchStore((s) => s.removeContact);
   const remindersEnabled = useMatchStore((s) => s.remindersEnabled);
   const setRemindersEnabled = useMatchStore((s) => s.setRemindersEnabled);
+  const lilzMemories = useMatchStore((s) => s.lilzMemories);
+  const lilzMemoryEnabled = useMatchStore((s) => s.lilzMemoryEnabled);
+  const setLilzMemoryEnabled = useMatchStore((s) => s.setLilzMemoryEnabled);
   const wipeLocalData = useMatchStore((s) => s.wipeLocalData);
 
   const [name, setName] = useState(emergencyContactName);
@@ -167,6 +171,40 @@ export default function SettingsScreen() {
           </View>
           <ChevronRight size={16} color="#5f7b96" />
         </Pressable>
+
+        <SectionLabel>Lil Z</SectionLabel>
+        <Pressable
+          onPress={() => router.push('/lil-z')}
+          accessibilityRole="button"
+          className="border-hud/25 bg-hud/[0.07] flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
+        >
+          <LilZAvatar size={38} />
+          <View className="flex-1">
+            <Text className="text-hud text-[13px] font-bold">Open the conversation</Text>
+            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+              Your guide for PrEP, PEP timing, testing, and the words for the talk
+            </Text>
+          </View>
+          <ChevronRight size={16} color="#5f7b96" />
+        </Pressable>
+        <View className="border-border bg-panel/60 mt-2 flex-row items-center rounded-2xl border p-4">
+          <View className="flex-1 pr-3">
+            <Text className="text-foreground text-sm font-semibold">Agent memory</Text>
+            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+              {lilzMemoryEnabled
+                ? `Lil Z is carrying ${lilzMemories.length} ${
+                    lilzMemories.length === 1 ? 'fact' : 'facts'
+                  } between chats, stored on this device only.`
+                : 'Off — every chat starts from scratch and nothing is saved.'}
+            </Text>
+          </View>
+          <Switch
+            value={lilzMemoryEnabled}
+            onValueChange={setLilzMemoryEnabled}
+            thumbColor={lilzMemoryEnabled ? '#00e5ff' : '#94a3b8'}
+            trackColor={{ false: '#1c3a55', true: '#0a4f63' }}
+          />
+        </View>
 
         <SectionLabel>Data</SectionLabel>
         <Pressable

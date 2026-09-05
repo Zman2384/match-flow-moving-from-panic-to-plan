@@ -56,6 +56,7 @@ export default function ClinicsScreen() {
       title="Clinic Finder"
       subtitle="Sample access points — verify hours before you travel"
       hint="For exposure inside 72 hours, an emergency department is always an option."
+      showGuide={false}
     >
       <View className="border-hud/25 h-56 overflow-hidden rounded-3xl border">
         <MapView

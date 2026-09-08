@@ -340,6 +340,9 @@ const ANON_KEY = process.env.EXPO_PUBLIC_BILT_ANON_KEY ?? '';
 const NOTICE: Record<string, string> = {
   no_model: 'Live guidance is not configured yet, so this came from my on-device briefing.',
   bad_key: 'My model key was rejected, so this came from my on-device briefing.',
+  no_credit:
+    'The account behind my live voice is out of credit, so this came from my on-device briefing.',
+  busy: 'Too many requests at once, so this came from my on-device briefing. Try again shortly.',
   network: "I couldn't reach the network, so this came from my on-device briefing.",
   upstream: 'The model was unavailable just now, so this came from my on-device briefing.',
 };

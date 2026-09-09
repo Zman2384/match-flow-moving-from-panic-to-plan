@@ -3,7 +3,8 @@ import { Ghost } from 'lucide-react-native';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { GHOST_COLOR } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 const STEPS = [
@@ -54,10 +55,10 @@ export default function AnxietyScreen() {
         hint="Waiting on a test result is where most spirals happen. Write it down instead of replaying it."
       >
         <HudPanel label="Grounding">
-          <Text className="text-muted text-[13px] leading-5">
+          <BodyText className="text-muted">
             Anxiety is not proof of exposure. It is a signal to check your layers and take one
             concrete step — then stop researching for the night.
-          </Text>
+          </BodyText>
         </HudPanel>
 
         <Pressable
@@ -66,14 +67,14 @@ export default function AnxietyScreen() {
           accessibilityLabel="Open the Digital Ghost Vault"
           className="border-hud/25 bg-panel/60 mt-3 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
         >
-          <Ghost size={18} color="#a87ee0" />
+          <Ghost size={18} color={GHOST_COLOR.internal} />
           <View className="flex-1">
-            <Text className="text-foreground text-[13px] font-bold">
+            <Text className="text-foreground text-base font-bold">
               Same fear keeps coming back?
             </Text>
-            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+            <BodyText className="text-muted mt-0.5">
               Name it once in the Ghost Vault and map it to the MATCH piece that carries it.
-            </Text>
+            </BodyText>
           </View>
         </Pressable>
 
@@ -131,15 +132,9 @@ export default function AnxietyScreen() {
                 <Text className="text-muted text-[10px]">
                   {new Date(entry.date).toLocaleDateString()}
                 </Text>
-                <Text className="text-foreground mt-1.5 text-[13px] font-semibold">
-                  {entry.fear}
-                </Text>
-                <Text className="text-muted mt-1 text-[12px] leading-5">
-                  Evidence: {entry.evidence}
-                </Text>
-                <Text className="text-hud mt-1 text-[12px] leading-5 font-semibold">
-                  Action: {entry.action}
-                </Text>
+                <Text className="text-foreground mt-1.5 text-base font-semibold">{entry.fear}</Text>
+                <BodyText className="text-muted mt-1">Evidence: {entry.evidence}</BodyText>
+                <BodyText className="text-hud mt-1">Action: {entry.action}</BodyText>
                 <Text
                   onPress={() => removeAnxietyEntry(entry.id)}
                   className="text-danger mt-2 text-[11px] font-bold"
@@ -150,8 +145,6 @@ export default function AnxietyScreen() {
             ))}
           </>
         ) : null}
-
-        <Disclaimer />
       </ScreenShell>
     </KeyboardAvoidingView>
   );

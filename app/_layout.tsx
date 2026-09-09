@@ -2,6 +2,7 @@
 import '../global.css';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BreeSerif_400Regular } from '@expo-google-fonts/bree-serif';
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -25,6 +26,7 @@ import {
 
 import { addNudgeTapListener, NOTIFICATIONS_SUPPORTED, syncReminders } from '@/lib/notifications';
 import { initPostHog } from '@/lib/posthog';
+import { NAVY } from '@/lib/palette';
 import { registerServiceWorker } from '@/lib/registerServiceWorker';
 import { reportErrorToParent } from '@/lib/reportPreviewError';
 import { useMatchStore } from '@/lib/store';
@@ -57,6 +59,7 @@ export default function RootLayout() {
     Inter_500Medium,
     Inter_600SemiBold,
     Inter_700Bold,
+    BreeSerif_400Regular,
   });
 
   // Report uncaught JS errors and unhandled promise rejections to parent (Bilt preview iframe)
@@ -96,16 +99,15 @@ export default function RootLayout() {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href =
-          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bree+Serif&display=swap';
         link.crossOrigin = 'anonymous';
         document.head.appendChild(link);
       }
 
-      // Note: The @import in global.css and the link tag above ensure Inter font loads
-      // expo-font will register the font family names (Inter_400Regular, etc.)
-      // If expo-font fails due to proxy issues, the fonts should still be available
-      // via the direct Google Fonts CDN link, though the specific font family names
-      // might not be registered. The app should still render with Inter font.
+      // Note: The @import in global.css and the link tag above ensure Inter and
+      // Bree Serif load. expo-font registers the family names (Inter_400Regular,
+      // BreeSerif_400Regular). If expo-font fails due to proxy issues the faces
+      // are still available via the direct Google Fonts CDN link.
     }
   }, []);
 
@@ -169,7 +171,7 @@ export default function RootLayout() {
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: '#0b1c31' },
+            contentStyle: { backgroundColor: NAVY },
             animation: 'slide_from_right',
           }}
         >

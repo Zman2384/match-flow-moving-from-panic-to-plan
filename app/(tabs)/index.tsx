@@ -9,8 +9,10 @@ import { HexScore, PieceHex } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZAvatar, LilZDock } from '@/components/LilZ';
 import { PanicButton } from '@/components/PanicButton';
+import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
 import { ToolCard } from '@/components/ToolCard';
 import { MATCH_PIECES, armedCount, pieceScores, saferScore, scoreTier } from '@/lib/match';
+import { HUD } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 import { TOOLS } from '@/lib/tools';
 
@@ -49,6 +51,8 @@ export default function CommandCenter() {
           <BackChip label="Consent gate" href="/gate" mode="push" />
         </View>
 
+        <Disclaimer className="mx-5 mb-4" />
+
         <View className="flex-row items-start justify-between px-5">
           <View>
             <Text className="text-hud text-[10px] font-bold tracking-[3px] uppercase">
@@ -58,14 +62,14 @@ export default function CommandCenter() {
           </View>
           <Link href="/settings" asChild>
             <View className="border-hud/30 bg-hud/10 h-9 w-9 items-center justify-center rounded-full border">
-              <Settings2 size={16} color="#00e5ff" />
+              <Settings2 size={16} color={HUD} />
             </View>
           </Link>
         </View>
 
         <View className="mt-5 items-center">
           <HexScore score={score} label={tier.label} color={tier.color} />
-          <Text className="text-muted mt-3 px-10 text-center text-xs leading-5">{tier.blurb}</Text>
+          <BodyText className="text-muted mt-3 px-10 text-center">{tier.blurb}</BodyText>
         </View>
 
         <View className="mt-6 flex-row justify-between px-5">
@@ -104,10 +108,10 @@ export default function CommandCenter() {
                 >
                   Thinnest layer
                 </Text>
-                <Text className="text-foreground mt-0.5 text-sm font-bold">
+                <Text className="text-foreground mt-0.5 text-base font-bold">
                   {weakest.emoji} {weakest.name}
                 </Text>
-                <Text className="text-muted mt-0.5 text-[11px]">{weakest.tagline}</Text>
+                <BodyText className="text-muted mt-0.5">{weakest.tagline}</BodyText>
               </View>
               <ArrowRight size={18} color={weakest.color} />
             </View>
@@ -126,14 +130,14 @@ export default function CommandCenter() {
               <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">
                 Your guide
               </Text>
-              <Text className="text-foreground mt-0.5 text-sm font-bold">Ask Lil Z</Text>
-              <Text className="text-muted mt-0.5 text-[11px] leading-4">
+              <Text className="text-foreground mt-0.5 text-base font-bold">Ask Lil Z</Text>
+              <BodyText className="text-muted mt-0.5">
                 {layers === 0
                   ? "New here? Say 'give me the tour' and I'll walk you through all five layers."
                   : `PrEP, PEP timing, testing, or the words for the talk — ask me about ${weakest.name.toLowerCase()} first.`}
-              </Text>
+              </BodyText>
             </View>
-            <ArrowRight size={18} color="#00e5ff" />
+            <ArrowRight size={18} color={HUD} />
           </Pressable>
         </View>
 
@@ -153,6 +157,8 @@ export default function CommandCenter() {
             <ToolCard key={tool.id} tool={tool} />
           ))}
         </View>
+
+        <BrandFooter className="px-5" />
       </ScrollView>
       <LilZDock bottomOffset={24} />
       <PanicButton bottomOffset={24} />

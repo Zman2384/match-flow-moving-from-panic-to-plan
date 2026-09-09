@@ -10,6 +10,7 @@ import Svg, { Defs, LinearGradient, Polygon, Rect, Stop } from 'react-native-svg
 
 import { MatchPiece } from '@/components/BrandArt';
 import type { PieceKey } from '@/lib/match';
+import { LINE, PANEL, STEEL } from '@/lib/palette';
 
 const AnimatedRect = createAnimatedComponent(Rect);
 
@@ -59,7 +60,7 @@ export function HexScore({ score, size = 156, label, color, caption }: HexScoreP
               <Stop offset="100%" stopColor={color} stopOpacity={0.95} />
             </LinearGradient>
           </Defs>
-          <Polygon points={outer} fill="#0b1c31" stroke="#1c3a55" strokeWidth={1.5} />
+          <Polygon points={outer} fill={PANEL} stroke={LINE} strokeWidth={1.5} />
           <Polygon points={inner} fill="#081627" />
           <AnimatedRect
             x={0}
@@ -129,7 +130,7 @@ export function PieceHex({ pieceKey, percent, color, armed }: PieceHexProps) {
               <Stop offset="100%" stopColor={color} stopOpacity={0.95} />
             </LinearGradient>
           </Defs>
-          <Polygon points={points} fill="#0b1c31" stroke="#1c3a55" strokeWidth={1.5} />
+          <Polygon points={points} fill={PANEL} stroke={LINE} strokeWidth={1.5} />
           <AnimatedRect
             x={0}
             width={100}
@@ -150,7 +151,7 @@ export function PieceHex({ pieceKey, percent, color, armed }: PieceHexProps) {
       </View>
       <Text
         className="text-[9px] font-bold tracking-wider uppercase"
-        style={{ color: armed ? color : '#6b7280' }}
+        style={{ color: armed ? color : STEEL }}
       >
         {Math.round(percent)}%
       </Text>

@@ -3,9 +3,10 @@ import { Pressable, Text, View } from 'react-native';
 
 import { MatchPiece } from '@/components/BrandArt';
 import { HexScore } from '@/components/HexScore';
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { RISK_QUESTIONS } from '@/lib/content';
 import { MATCH_PIECES, PIECE_BY_KEY, type PieceKey, scoreTier } from '@/lib/match';
+import { PANEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 export default function SaferScoreScreen() {
@@ -68,7 +69,7 @@ export default function SaferScoreScreen() {
         </View>
 
         <HudPanel label="Read-out" status={`${exposure}% exposure`} className="mt-4">
-          <Text className="text-muted text-[13px] leading-5">{tier.blurb}</Text>
+          <BodyText className="text-muted">{tier.blurb}</BodyText>
           <View className="mt-4 gap-2">
             {MATCH_PIECES.map((piece) => {
               const entry = byPiece[piece.key];
@@ -107,9 +108,7 @@ export default function SaferScoreScreen() {
           <Text className="text-foreground mt-1 text-sm font-bold">
             {PIECE_BY_KEY[weakest].emoji} {PIECE_BY_KEY[weakest].name}
           </Text>
-          <Text className="text-muted mt-1 text-[12px] leading-5">
-            {PIECE_BY_KEY[weakest].summary}
-          </Text>
+          <BodyText className="text-muted mt-1">{PIECE_BY_KEY[weakest].summary}</BodyText>
         </View>
 
         <Pressable
@@ -140,8 +139,6 @@ export default function SaferScoreScreen() {
             ))}
           </>
         ) : null}
-
-        <Disclaimer />
       </ScreenShell>
     );
   }
@@ -165,7 +162,7 @@ export default function SaferScoreScreen() {
           <View
             key={question.id}
             className="mb-3 overflow-hidden rounded-2xl border"
-            style={{ borderColor: `${piece.color}40`, backgroundColor: '#0b1c3199' }}
+            style={{ borderColor: `${piece.color}40`, backgroundColor: `${PANEL}99` }}
           >
             <View
               className="flex-row items-center gap-2 px-4 py-2"
@@ -177,7 +174,7 @@ export default function SaferScoreScreen() {
               </Text>
             </View>
             <View className="p-4">
-              <Text className="text-foreground text-[13px] leading-5 font-semibold">
+              <Text className="text-foreground text-base leading-6 font-semibold">
                 {question.prompt}
               </Text>
               <View className="mt-3 gap-2">
@@ -195,7 +192,7 @@ export default function SaferScoreScreen() {
                       style={on ? { borderColor: piece.color } : undefined}
                     >
                       <Text
-                        className={`text-[12px] font-semibold ${
+                        className={`text-base font-semibold ${
                           on ? 'text-foreground' : 'text-muted'
                         }`}
                       >
@@ -228,8 +225,6 @@ export default function SaferScoreScreen() {
           {complete ? 'Calculate SafER score' : `${RISK_QUESTIONS.length - answeredCount} left`}
         </Text>
       </Pressable>
-
-      <Disclaimer />
     </ScreenShell>
   );
 }

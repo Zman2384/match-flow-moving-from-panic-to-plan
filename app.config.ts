@@ -11,7 +11,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
           [
             'expo-notifications',
             {
-              color: '#00e5ff',
+              color: '#00bdbd',
               defaultChannel: 'maintenance',
             },
           ],

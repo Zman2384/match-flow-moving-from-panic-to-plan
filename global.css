@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bree+Serif&display=swap');
 
 @import 'tailwindcss';
 @import 'uniwind';
@@ -33,7 +33,7 @@
       --default: oklch(0.28 0.044 258);
       --default-foreground: oklch(0.95 0.014 240);
 
-      --accent: oklch(0.85 0.135 205);
+      --accent: oklch(0.706 0.104 195);
       --accent-foreground: oklch(0.18 0.04 258);
 
       --field-background: oklch(0.26 0.042 258);
@@ -57,7 +57,7 @@
       --link: var(--accent);
 
       --surface-shadow: 0 0 0 0 transparent inset;
-      --overlay-shadow: 0 0 1px 0 rgba(0, 229, 255, 0.3) inset;
+      --overlay-shadow: 0 0 1px 0 rgba(0, 189, 189, 0.3) inset;
       --field-shadow: 0 0 0 0 transparent inset;
     }
 
@@ -81,7 +81,7 @@
       --default: oklch(0.28 0.044 258);
       --default-foreground: oklch(0.95 0.014 240);
 
-      --accent: oklch(0.85 0.135 205);
+      --accent: oklch(0.706 0.104 195);
       --accent-foreground: oklch(0.18 0.04 258);
 
       --field-background: oklch(0.26 0.042 258);
@@ -105,24 +105,46 @@
       --link: var(--accent);
 
       --surface-shadow: 0 0 0 0 transparent inset;
-      --overlay-shadow: 0 0 1px 0 rgba(0, 229, 255, 0.3) inset;
+      --overlay-shadow: 0 0 1px 0 rgba(0, 189, 189, 0.3) inset;
       --field-shadow: 0 0 0 0 transparent inset;
     }
   }
 }
 
 @theme {
-  --color-hud: #00e5ff;
+  /* Body type — Bree Serif per brand, 16pt floor enforced by <BodyText />. */
+  --font-body: 'BreeSerif_400Regular';
+
+  /* Active signal — Neon Cyan telemetry / heartbeat. */
+  --color-hud: #00bdbd;
   --color-hud-dim: #0a4f63;
+
+  /* Atmosphere — dark navy starfield falling to black. */
+  --color-navy: #0d1a2e;
   --color-abyss: #030d1a;
   --color-panel: #0d1f36;
   --color-panel-deep: #061222;
 
+  /* MATCH framework palette. */
   --color-match-m: #90b14b;
   --color-match-a: #6e99a3;
   --color-match-t: #a8005d;
   --color-match-c: #dfc401;
   --color-match-h: #ff751f;
+
+  /* Ghost grid categories. */
+  --color-ghost-logistical: #03c8e0;
+  --color-ghost-relational: #e05780;
+  --color-ghost-internal: #a87ee0;
+
+  /* Mandated caution banner — gold headline on an orange edge. */
+  --color-caution: #dfc401;
+  --color-caution-soft: #f6d9ae;
+  --color-caution-edge: #ff751f;
+
+  /* Pass / fail readouts, drawn from the framework palette. */
+  --color-state-pass: #90b14b;
+  --color-state-fail: #a8005d;
 }
 
 @source './node_modules/heroui-native/lib';

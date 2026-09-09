@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
-import { ScreenShell } from '@/components/ScreenShell';
+import { BodyText, ScreenShell } from '@/components/ScreenShell';
 import {
   getLegalDocument,
   LEGAL_LAST_UPDATED,
@@ -50,7 +50,7 @@ export default function LegalDocumentScreen() {
         >
           {doc.summary}
         </Text>
-        <Text className="text-foreground/90 mt-2 text-[13px] leading-6">{doc.intro}</Text>
+        <BodyText className="text-foreground/90 mt-2">{doc.intro}</BodyText>
       </View>
 
       {doc.sections.map((section) => (
@@ -58,7 +58,7 @@ export default function LegalDocumentScreen() {
       ))}
 
       <View className="border-border/60 mt-8 rounded-2xl border border-dashed p-4">
-        <Text className="text-muted text-[11px] leading-5">
+        <Text className="font-body text-muted text-[13px] leading-5">
           {doc.title} · Version {LEGAL_VERSION} · {LEGAL_LAST_UPDATED}. Retain a copy for your
           records; the text may be revised in a future release.
         </Text>
@@ -72,21 +72,17 @@ function Section({ section, accent }: { section: LegalSection; accent: string })
     <View className="mt-6">
       <View className="flex-row items-start gap-2">
         <View className="mt-[7px] h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-        <Text className="text-foreground flex-1 text-[14px] font-bold">{section.heading}</Text>
+        <Text className="text-foreground flex-1 text-base font-bold">{section.heading}</Text>
       </View>
 
-      {section.body ? (
-        <Text className="text-muted mt-2 text-[13px] leading-6">{section.body}</Text>
-      ) : null}
+      {section.body ? <BodyText className="text-muted mt-2">{section.body}</BodyText> : null}
 
       {section.bullets ? (
         <View className="mt-3 gap-2">
           {section.bullets.map((bullet) => (
             <View key={bullet} className="bg-panel-deep/70 flex-row gap-2 rounded-xl p-3">
-              <Text className="text-[12px] leading-5" style={{ color: accent }}>
-                ·
-              </Text>
-              <Text className="text-muted flex-1 text-[12px] leading-5">{bullet}</Text>
+              <BodyText style={{ color: accent }}>·</BodyText>
+              <BodyText className="text-muted flex-1">{bullet}</BodyText>
             </View>
           ))}
         </View>

@@ -2,10 +2,12 @@ import { Tabs } from 'expo-router';
 import { LayoutGrid, Radar, ShieldHalf, UserRound } from 'lucide-react-native';
 import { StatusBar } from 'expo-status-bar';
 
-const ACTIVE = '#00e5ff';
-const INACTIVE = '#5f7791';
-const BAR_BG = '#061222';
-const BAR_BORDER = '#12324c';
+import { HUD, LINE, NAVY, PANEL_DEEP, STEEL } from '@/lib/palette';
+
+const ACTIVE = HUD;
+const INACTIVE = STEEL;
+const BAR_BG = PANEL_DEEP;
+const BAR_BORDER = LINE;
 
 export default function TabsLayout() {
   return (
@@ -26,7 +28,7 @@ export default function TabsLayout() {
             shadowRadius: 0,
           },
           tabBarLabelStyle: { fontSize: 10, fontWeight: '600' },
-          sceneStyle: { backgroundColor: '#0b1c31' },
+          sceneStyle: { backgroundColor: NAVY },
         }}
       >
         <Tabs.Screen

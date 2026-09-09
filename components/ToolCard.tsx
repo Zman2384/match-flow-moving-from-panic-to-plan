@@ -19,6 +19,7 @@ import {
 } from 'lucide-react-native';
 import { Pressable, Text, View } from 'react-native';
 
+import { BodyText } from '@/components/ScreenShell';
 import { PIECE_COLOR } from '@/lib/match';
 import type { ToolEntry } from '@/lib/tools';
 
@@ -58,8 +59,8 @@ export function ToolCard({ tool }: { tool: ToolEntry }) {
           <Icon size={20} color={tool.accent} />
         </View>
         <View className="flex-1">
-          <Text className="text-foreground text-[15px] font-bold">{tool.title}</Text>
-          <Text className="text-muted mt-1 text-xs leading-4">{tool.blurb}</Text>
+          <Text className="text-foreground text-base font-bold">{tool.title}</Text>
+          <BodyText className="text-muted mt-1">{tool.blurb}</BodyText>
           <View className="mt-2 flex-row gap-1">
             {tool.pieces.map((piece) => (
               <View

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { Disclaimer, HudPanel, ScreenShell } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell } from '@/components/ScreenShell';
 import { RELATIONSHIP_FRAMEWORKS } from '@/lib/content';
+import { PANEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 export default function FrameworksScreen() {
@@ -17,10 +18,10 @@ export default function FrameworksScreen() {
       hint="No structure is safer than another. What matters is whether the agreement is explicit."
     >
       <HudPanel label="Why this matters">
-        <Text className="text-muted text-[13px] leading-5">
+        <BodyText className="text-muted">
           Most protection failures are agreement failures: two people running different assumptions.
           Pick the model that matches your life, then read the tools it needs.
-        </Text>
+        </BodyText>
       </HudPanel>
 
       <View className="mt-4">
@@ -33,7 +34,7 @@ export default function FrameworksScreen() {
               className="mb-3 overflow-hidden rounded-2xl border"
               style={{
                 borderColor: selected ? framework.accent : `${framework.accent}44`,
-                backgroundColor: '#0b1c3199',
+                backgroundColor: `${PANEL}99`,
               }}
             >
               <Pressable
@@ -53,7 +54,7 @@ export default function FrameworksScreen() {
                   >
                     {framework.category}
                   </Text>
-                  <Text className="text-foreground mt-0.5 text-[14px] font-bold">
+                  <Text className="text-foreground mt-0.5 text-base font-bold">
                     {framework.title}
                   </Text>
                 </View>
@@ -69,21 +70,16 @@ export default function FrameworksScreen() {
 
               {open ? (
                 <View className="px-4 pb-4">
-                  <Text className="text-muted text-[12px] leading-5">{framework.description}</Text>
-                  <Text
-                    className="mt-3 text-[12px] font-semibold italic"
-                    style={{ color: framework.accent }}
-                  >
+                  <BodyText className="text-muted">{framework.description}</BodyText>
+                  <BodyText className="mt-3" style={{ color: framework.accent }}>
                     “{framework.motto}”
-                  </Text>
+                  </BodyText>
 
                   <View className="mt-3 gap-2">
                     {framework.tools.map((tool) => (
                       <View key={tool.name} className="bg-panel-deep rounded-xl p-3">
-                        <Text className="text-foreground text-[12px] font-bold">{tool.name}</Text>
-                        <Text className="text-muted mt-0.5 text-[11px] leading-4">
-                          {tool.detail}
-                        </Text>
+                        <Text className="text-foreground text-base font-bold">{tool.name}</Text>
+                        <BodyText className="text-muted mt-0.5">{tool.detail}</BodyText>
                       </View>
                     ))}
                   </View>
@@ -109,8 +105,6 @@ export default function FrameworksScreen() {
           );
         })}
       </View>
-
-      <Disclaimer />
     </ScreenShell>
   );
 }

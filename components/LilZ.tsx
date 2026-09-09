@@ -10,6 +10,7 @@ import {
 } from 'react-native-reanimated';
 
 import { AnimatedView } from '@/components/ui/primitives/AnimatedView';
+import { MATCH_COLOR, NAVY } from '@/lib/palette';
 import { cn } from '@/lib/utils';
 
 /**
@@ -21,8 +22,8 @@ const CROP_SIDE = 0.62;
 const CROP_LEFT = 0.19;
 const CROP_TOP = 0.04;
 
-const MAGENTA = '#A8005D';
-const GOLD = '#DFC401';
+const MAGENTA = MATCH_COLOR.T;
+const GOLD = MATCH_COLOR.C;
 
 interface LilZAvatarProps {
   size?: number;
@@ -50,7 +51,7 @@ export function LilZAvatar({ size = 44, ring = true, pulse = false, className }:
       ) : null}
       <View
         className={cn('overflow-hidden rounded-full', ring ? 'border-hud/70 border' : '')}
-        style={{ width: size, height: size, backgroundColor: '#0D1A2E' }}
+        style={{ width: size, height: size, backgroundColor: NAVY }}
       >
         <Image
           source={require('../assets/lil-z-avatar.png')}

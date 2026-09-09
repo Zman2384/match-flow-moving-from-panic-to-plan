@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 
 import { GlitchLabel, VaultCore } from '@/components/GhostVaultCore';
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import {
   archetypeEntry,
   CATEGORY_BY_ID,
@@ -18,9 +18,8 @@ import {
   SPECTRUM_BY_ID,
 } from '@/lib/ghosts';
 import { PIECE_BY_KEY, type PieceKey } from '@/lib/match';
+import { ABYSS, HUD, LINE, STATE_FAIL, STEEL_SOFT } from '@/lib/palette';
 import { type GhostRecord, useMatchStore } from '@/lib/store';
-
-const HUD = '#00e5ff';
 
 type Filter = GhostCategoryId | 'all';
 
@@ -77,11 +76,11 @@ export default function GhostVaultScreen() {
         hint="A fear you can name is a task. A fear you cannot name runs the whole night."
       >
         <HudPanel label="Before you start">
-          <Text className="text-muted text-[13px] leading-5">
+          <BodyText className="text-muted">
             Fear is a biological response, not a character flaw. Your body is doing exactly what it
             evolved to do — flooding the system so you freeze instead of act. Naming the specific
             ghost gives that flood somewhere to go.
-          </Text>
+          </BodyText>
         </HudPanel>
 
         <SectionLabel>Emotional transition spectrum</SectionLabel>
@@ -97,13 +96,13 @@ export default function GhostVaultScreen() {
                   accessibilityLabel={`Mark yourself as ${item.label}`}
                   className="flex-1 items-center rounded-xl border py-2.5 active:opacity-70"
                   style={{
-                    borderColor: active ? item.color : '#24415d',
+                    borderColor: active ? item.color : LINE,
                     backgroundColor: active ? `${item.color}22` : 'transparent',
                   }}
                 >
                   <Text
                     className="text-[10px] font-bold tracking-wider uppercase"
-                    style={{ color: active ? item.color : '#7f8ea3' }}
+                    style={{ color: active ? item.color : STEEL_SOFT }}
                   >
                     {item.label}
                   </Text>
@@ -128,12 +127,12 @@ export default function GhostVaultScreen() {
             ))}
           </View>
 
-          <Text className="text-foreground mt-3 text-[13px] leading-5">{stage.state}</Text>
+          <BodyText className="text-foreground mt-3">{stage.state}</BodyText>
           <View className="border-hud/25 bg-hud/[0.07] mt-3 rounded-xl border p-3">
             <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">
               Next move
             </Text>
-            <Text className="text-foreground/90 mt-1 text-[12px] leading-5">{stage.guidance}</Text>
+            <BodyText className="text-foreground/90 mt-1">{stage.guidance}</BodyText>
           </View>
         </HudPanel>
 
@@ -148,18 +147,18 @@ export default function GhostVaultScreen() {
             />
           </View>
           <View className="mt-2 flex-row justify-between">
-            <Text className="text-muted text-[11px]">
+            <BodyText className="text-muted">
               {named.length} named of {entries.length} in the library
-            </Text>
-            <Text className="text-hud text-[11px] font-bold">{disarmedCount} disarmed</Text>
+            </BodyText>
+            <Text className="text-hud text-base font-bold">{disarmedCount} disarmed</Text>
           </View>
 
           <View className="border-hud/20 mt-4 flex-row items-center gap-2 rounded-xl border border-dashed p-3">
             <Lock size={14} color={HUD} />
-            <Text className="text-muted flex-1 text-[11px] leading-4">
+            <BodyText className="text-muted flex-1">
               Stored on this device only. No account, no upload, no backup — delete the app and
               every ghost here is gone for good.
-            </Text>
+            </BodyText>
           </View>
         </HudPanel>
 
@@ -167,10 +166,10 @@ export default function GhostVaultScreen() {
           <>
             <SectionLabel>Logic engine</SectionLabel>
             <HudPanel label="Armor priorities" status="FROM YOUR LIVE GHOSTS">
-              <Text className="text-muted mb-3 text-[12px] leading-5">
+              <BodyText className="text-muted mb-3">
                 Every ghost still loose maps to a MATCH piece. These are the pieces carrying your
                 fear right now.
-              </Text>
+              </BodyText>
               {priorities.map(({ piece: key, count }) => {
                 const piece = PIECE_BY_KEY[key];
                 return (
@@ -191,8 +190,8 @@ export default function GhostVaultScreen() {
                         </Text>
                       </View>
                       <View className="flex-1">
-                        <Text className="text-foreground text-[13px] font-bold">{piece.name}</Text>
-                        <Text className="text-muted text-[11px]">{piece.tagline}</Text>
+                        <Text className="text-foreground text-base font-bold">{piece.name}</Text>
+                        <BodyText className="text-muted">{piece.tagline}</BodyText>
                       </View>
                       <Text className="text-[11px] font-bold" style={{ color: piece.color }}>
                         {count} {count === 1 ? 'ghost' : 'ghosts'}
@@ -236,12 +235,12 @@ export default function GhostVaultScreen() {
         {loose.length === 0 ? (
           <View className="border-hud/25 bg-panel/50 items-center rounded-2xl border border-dashed p-6">
             <ShieldCheck size={22} color={HUD} />
-            <Text className="text-foreground mt-2 text-center text-[13px] font-semibold">
+            <Text className="text-foreground mt-2 text-center text-base font-semibold">
               Nothing loose in this category.
             </Text>
-            <Text className="text-muted mt-1 text-center text-[11px] leading-4">
+            <BodyText className="text-muted mt-1 text-center">
               Every ghost here is named. Add your own below if one is missing.
-            </Text>
+            </BodyText>
           </View>
         ) : (
           loose.map((entry, index) => (
@@ -256,17 +255,17 @@ export default function GhostVaultScreen() {
 
         <SectionLabel>Your own words</SectionLabel>
         <HudPanel label="Private entry">
-          <Text className="text-muted mb-3 text-[12px] leading-5">
+          <BodyText className="text-muted mb-3">
             If your ghost is not on the list, write it. One sentence is enough — the engine files it
             by category and hands you the matching pieces.
-          </Text>
+          </BodyText>
           <TextInput
             value={ownGhost}
             onChangeText={setOwnGhost}
             placeholder="What exactly are you afraid of?"
             placeholderTextColorClassName="accent-muted"
             multiline
-            className="border-border bg-panel-deep text-foreground min-h-[72px] rounded-2xl border px-3 py-3 text-sm"
+            className="border-border bg-panel-deep text-foreground font-body min-h-[72px] rounded-2xl border px-3 py-3 text-base"
             style={{ textAlignVertical: 'top' }}
           />
           <View className="mt-3 flex-row flex-wrap gap-2">
@@ -292,7 +291,7 @@ export default function GhostVaultScreen() {
               canAdd ? 'bg-hud active:opacity-80' : 'bg-panel-deep'
             }`}
           >
-            <Plus size={15} color={canAdd ? '#030d1a' : '#7f8ea3'} />
+            <Plus size={15} color={canAdd ? ABYSS : STEEL_SOFT} />
             <Text
               className={`text-xs font-bold tracking-widest uppercase ${
                 canAdd ? 'text-abyss' : 'text-muted'
@@ -311,16 +310,14 @@ export default function GhostVaultScreen() {
         >
           <Sparkles size={18} color={HUD} />
           <View className="flex-1">
-            <Text className="text-foreground text-[13px] font-bold">
+            <Text className="text-foreground text-base font-bold">
               Spiralling on one specific night?
             </Text>
-            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+            <BodyText className="text-muted mt-0.5">
               The Anxiety Reframe separates that fear from the evidence and gives you one action.
-            </Text>
+            </BodyText>
           </View>
         </Pressable>
-
-        <Disclaimer />
       </ScreenShell>
     </KeyboardAvoidingView>
   );
@@ -344,13 +341,13 @@ function FilterChip({
       accessibilityLabel={label}
       className="rounded-full border px-3 py-1.5 active:opacity-70"
       style={{
-        borderColor: active ? color : '#24415d',
+        borderColor: active ? color : LINE,
         backgroundColor: active ? `${color}22` : 'transparent',
       }}
     >
       <Text
         className="text-[11px] font-bold tracking-wider uppercase"
-        style={{ color: active ? color : '#7f8ea3' }}
+        style={{ color: active ? color : STEEL_SOFT }}
       >
         {label}
       </Text>
@@ -412,7 +409,7 @@ function LooseGhostCard({
         </View>
         <View className="flex-1">
           <GlitchLabel text={entry.name} color={category.color} delay={delay} />
-          <Text className="text-muted mt-1.5 text-[12px] leading-5 italic">“{entry.fear}”</Text>
+          <BodyText className="text-muted mt-1.5">“{entry.fear}”</BodyText>
           <View className="mt-2.5 flex-row items-center gap-1.5">
             <Plus size={12} color={category.color} />
             <Text
@@ -440,7 +437,7 @@ function NamedGhostCard({ entry, record }: { entry: GhostEntry; record: GhostRec
   return (
     <View
       className="border-hud/25 bg-panel-deep/80 mb-2.5 overflow-hidden rounded-2xl border"
-      style={disarmed ? { borderColor: '#00e5ff66' } : undefined}
+      style={disarmed ? { borderColor: `${HUD}66` } : undefined}
     >
       <View
         className="flex-row items-center justify-between border-b border-black/30 px-4 py-2.5"
@@ -462,8 +459,8 @@ function NamedGhostCard({ entry, record }: { entry: GhostEntry; record: GhostRec
           <View
             className="h-9 w-9 items-center justify-center rounded-lg border"
             style={{
-              borderColor: disarmed ? '#00e5ff66' : `${category.color}55`,
-              backgroundColor: disarmed ? '#00e5ff1f' : `${category.color}1f`,
+              borderColor: disarmed ? `${HUD}66` : `${category.color}55`,
+              backgroundColor: disarmed ? `${HUD}1f` : `${category.color}1f`,
             }}
           >
             {disarmed ? (
@@ -473,10 +470,8 @@ function NamedGhostCard({ entry, record }: { entry: GhostEntry; record: GhostRec
             )}
           </View>
           <View className="flex-1">
-            <Text className="text-foreground text-[14px] font-bold">{entry.name}</Text>
-            {entry.custom ? null : (
-              <Text className="text-muted mt-1 text-[12px] leading-5 italic">“{entry.fear}”</Text>
-            )}
+            <Text className="text-foreground text-base font-bold">{entry.name}</Text>
+            {entry.custom ? null : <BodyText className="text-muted mt-1">“{entry.fear}”</BodyText>}
           </View>
         </View>
 
@@ -484,7 +479,7 @@ function NamedGhostCard({ entry, record }: { entry: GhostEntry; record: GhostRec
           <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">
             Counter-move
           </Text>
-          <Text className="text-foreground/90 mt-1 text-[12px] leading-5">{entry.disarm}</Text>
+          <BodyText className="text-foreground/90 mt-1">{entry.disarm}</BodyText>
         </View>
 
         <Text className="text-hud/70 mt-3 mb-2 text-[10px] font-bold tracking-[2px] uppercase">
@@ -500,7 +495,7 @@ function NamedGhostCard({ entry, record }: { entry: GhostEntry; record: GhostRec
           placeholder="Private note — what this one actually costs you"
           placeholderTextColorClassName="accent-muted"
           multiline
-          className="border-border bg-panel-deep text-foreground mt-3 min-h-[60px] rounded-xl border px-3 py-2.5 text-[13px]"
+          className="border-border bg-panel-deep text-foreground font-body mt-3 min-h-[60px] rounded-xl border px-3 py-2.5 text-base"
           style={{ textAlignVertical: 'top' }}
         />
 
@@ -521,7 +516,7 @@ function NamedGhostCard({ entry, record }: { entry: GhostEntry; record: GhostRec
               disarmed ? 'border-hud/40 border bg-transparent' : 'bg-hud'
             }`}
           >
-            <ShieldCheck size={14} color={disarmed ? HUD : '#030d1a'} />
+            <ShieldCheck size={14} color={disarmed ? HUD : ABYSS} />
             <Text
               className={`text-[11px] font-bold tracking-widest uppercase ${
                 disarmed ? 'text-hud' : 'text-abyss'
@@ -537,7 +532,7 @@ function NamedGhostCard({ entry, record }: { entry: GhostEntry; record: GhostRec
             hitSlop={8}
             className="border-border h-11 w-11 items-center justify-center rounded-xl border active:opacity-70"
           >
-            <Trash2 size={15} color="#f87171" />
+            <Trash2 size={15} color={STATE_FAIL} />
           </Pressable>
         </View>
       </View>

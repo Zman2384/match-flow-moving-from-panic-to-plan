@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
+import { HUD, LINE_SOFT } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 const SWEEP = [
@@ -79,7 +80,7 @@ export default function LiveSessionScreen() {
       {SWEEP.map((item) => {
         const on = checks[item.id];
         const piece = MATCH_PIECES.find((p) => p.key === item.piece);
-        const color = piece?.color ?? '#00e5ff';
+        const color = piece?.color ?? HUD;
         const armedPiece = piece ? scores[piece.key] > 0 : false;
         return (
           <Pressable
@@ -93,19 +94,17 @@ export default function LiveSessionScreen() {
             <View
               className="mt-0.5 h-5 w-5 items-center justify-center rounded-md border"
               style={{
-                borderColor: on ? color : '#33506b',
+                borderColor: on ? color : LINE_SOFT,
                 backgroundColor: on ? color : 'transparent',
               }}
             >
               {on ? <Text className="text-[11px] font-bold text-black">✓</Text> : null}
             </View>
             <View className="flex-1">
-              <Text
-                className={`text-[13px] font-semibold ${on ? 'text-foreground' : 'text-muted'}`}
-              >
+              <Text className={`text-base font-semibold ${on ? 'text-foreground' : 'text-muted'}`}>
                 {item.label}
               </Text>
-              <Text className="text-muted mt-0.5 text-[11px]">{item.detail}</Text>
+              <BodyText className="text-muted mt-0.5">{item.detail}</BodyText>
             </View>
             {!armedPiece ? (
               <Text className="text-[9px] font-bold uppercase" style={{ color }}>
@@ -168,8 +167,6 @@ export default function LiveSessionScreen() {
           {logged ? 'Session logged' : 'Log this session'}
         </Text>
       </Pressable>
-
-      <Disclaimer />
     </ScreenShell>
   );
 }

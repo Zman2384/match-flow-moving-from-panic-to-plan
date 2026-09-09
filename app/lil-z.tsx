@@ -16,6 +16,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BackChip } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZAvatar, LilZThinking } from '@/components/LilZ';
+import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
 import {
   askLilZ,
   buildPlanContext,
@@ -25,10 +26,11 @@ import {
   QUICK_PROMPTS,
   targetFor,
 } from '@/lib/lilz';
+import { INK_ON_SIGNAL, HUD, HUD_DIM, LINE, STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
-const CYAN = '#00e5ff';
-const TRACK_OFF = '#1B2A44';
+const CYAN = HUD;
+const TRACK_OFF = LINE;
 
 /** The model is told to write plainly; strip any markdown emphasis that slips through. */
 function plain(text: string) {
@@ -116,9 +118,9 @@ export default function LilZScreen() {
             <LilZAvatar size={46} pulse />
             <View className="flex-1">
               <Text className="text-foreground text-xl font-bold">Lil Z</Text>
-              <Text className="text-muted text-[11px]">
+              <BodyText className="text-muted">
                 Christopher Zacharie&apos;s digital avatar · your guide, not your doctor
-              </Text>
+              </BodyText>
             </View>
             <Pressable
               accessibilityRole="button"
@@ -135,17 +137,12 @@ export default function LilZScreen() {
                 onPress={clearLilzChat}
                 className="border-border/60 h-9 w-9 items-center justify-center rounded-full border active:opacity-70"
               >
-                <Trash2 size={16} color="#8FA3BF" />
+                <Trash2 size={16} color={STEEL} />
               </Pressable>
             ) : null}
           </View>
 
-          <View className="mt-3 rounded-xl border border-[#FF751F]/40 bg-[#FF751F]/10 px-3 py-2">
-            <Text className="text-[11px] font-semibold text-[#FFB27A]">
-              Educational Tool — Not Medical Advice. Talk to a qualified provider about
-              prescriptions and diagnoses.
-            </Text>
-          </View>
+          <Disclaimer compact className="mt-3" />
         </View>
 
         {memoryOpen ? (
@@ -155,16 +152,16 @@ export default function LilZScreen() {
                 <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">
                   Agent memory
                 </Text>
-                <Text className="text-muted mt-1 text-[11px] leading-4">
+                <BodyText className="text-muted mt-1">
                   Lets Lil Z carry a few facts between chats. Stored on this device only, and wiped
                   with everything else.
-                </Text>
+                </BodyText>
               </View>
               <Switch
                 value={memoryEnabled}
                 onValueChange={setLilzMemoryEnabled}
-                thumbColor={memoryEnabled ? CYAN : '#94a3b8'}
-                trackColor={{ false: TRACK_OFF, true: '#0a4f63' }}
+                thumbColor={memoryEnabled ? CYAN : STEEL}
+                trackColor={{ false: TRACK_OFF, true: HUD_DIM }}
               />
             </View>
 
@@ -176,25 +173,23 @@ export default function LilZScreen() {
                       key={memory.id}
                       className="border-hud/20 flex-row items-center gap-2 rounded-xl border bg-black/25 px-3 py-2"
                     >
-                      <Text className="text-foreground flex-1 text-[12px] leading-4">
-                        {memory.text}
-                      </Text>
+                      <BodyText className="text-foreground flex-1">{memory.text}</BodyText>
                       <Pressable
                         accessibilityRole="button"
                         accessibilityLabel={`Forget: ${memory.text}`}
                         onPress={() => forgetLilz(memory.id)}
                         className="active:opacity-70"
                       >
-                        <X size={14} color="#8FA3BF" />
+                        <X size={14} color={STEEL} />
                       </Pressable>
                     </View>
                   ))}
                 </View>
               ) : (
-                <Text className="text-muted mt-3 text-[11px]">
+                <BodyText className="text-muted mt-3">
                   Nothing saved yet. Tell Lil Z something worth remembering — which PrEP you take,
                   what you are working on — and it lands here.
-                </Text>
+                </BodyText>
               )
             ) : null}
           </View>
@@ -220,6 +215,8 @@ export default function LilZScreen() {
               </View>
             </View>
           ) : null}
+
+          <BrandFooter />
         </ScrollView>
 
         <View
@@ -251,9 +248,9 @@ export default function LilZScreen() {
               value={draft}
               onChangeText={setDraft}
               placeholder="Ask Lil Z anything…"
-              placeholderTextColor="#6A7E9C"
+              placeholderTextColor={STEEL}
               multiline
-              className="text-foreground flex-1 text-[14px] leading-5"
+              className="font-body text-foreground flex-1 text-base leading-6"
               style={{ minHeight: 36, maxHeight: 112 }}
               onSubmitEditing={() => void send(draft)}
             />
@@ -265,11 +262,11 @@ export default function LilZScreen() {
               style={{ opacity: pending || draft.trim().length === 0 ? 0.3 : 1 }}
               className="bg-hud h-9 w-9 items-center justify-center rounded-full active:opacity-80"
             >
-              <Send size={16} color="#04121F" />
+              <Send size={16} color={INK_ON_SIGNAL} />
             </Pressable>
           </View>
 
-          <Text className="text-muted/70 mt-2 text-center text-[9px]">
+          <Text className="font-body text-muted/70 mt-2 text-center text-[13px]">
             No accounts, no names. This conversation lives on your device.
           </Text>
         </View>
@@ -283,7 +280,7 @@ function Bubble({ message }: { message: LilZMessage }) {
     return (
       <View className="items-end">
         <View className="border-hud/40 bg-hud/15 max-w-[85%] rounded-2xl rounded-br-md border px-4 py-3">
-          <Text className="text-foreground text-[14px] leading-5">{message.text}</Text>
+          <Text className="font-body text-foreground text-base leading-6">{message.text}</Text>
         </View>
       </View>
     );
@@ -298,13 +295,13 @@ function Bubble({ message }: { message: LilZMessage }) {
       <LilZAvatar size={26} className="mt-1" />
       <View
         className={`max-w-[88%] flex-1 rounded-2xl rounded-bl-md border px-4 py-3 ${
-          message.crisis ? 'border-[#A8005D]/70 bg-[#A8005D]/15' : 'border-hud/25 bg-panel-deep/85'
+          message.crisis ? 'border-match-t/70 bg-match-t/15' : 'border-hud/25 bg-panel-deep/85'
         }`}
       >
-        <Text className="text-foreground text-[14px] leading-5">{plain(message.text)}</Text>
+        <Text className="font-body text-foreground text-base leading-6">{plain(message.text)}</Text>
 
         {message.notice ? (
-          <Text className="text-muted mt-2 text-[10px] italic">{message.notice}</Text>
+          <Text className="font-body text-muted mt-2 text-[13px] italic">{message.notice}</Text>
         ) : null}
 
         {actions.length > 0 ? (

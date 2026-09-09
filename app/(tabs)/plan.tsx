@@ -8,8 +8,9 @@ import { BackChip } from '@/components/BackChip';
 import { HexScore } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZDock } from '@/components/LilZ';
-import { Disclaimer } from '@/components/ScreenShell';
+import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
+import { LINE_SOFT, PANEL, STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 export default function PlanScreen() {
@@ -40,20 +41,22 @@ export default function PlanScreen() {
               MATCH plan builder
             </Text>
             <Text className="text-foreground mt-1 text-2xl font-bold">Arm your layers</Text>
-            <Text className="text-muted mt-1 text-xs">
+            <BodyText className="text-muted mt-1">
               {planUpdatedAt
                 ? `Last updated ${new Date(planUpdatedAt).toLocaleDateString()}`
                 : 'Nothing armed yet — tap what is true for you today.'}
-            </Text>
+            </BodyText>
           </View>
           <Pressable
             onPress={resetPlan}
             hitSlop={8}
             className="border-border bg-panel/70 ml-3 h-9 w-9 items-center justify-center rounded-full border active:opacity-60"
           >
-            <RotateCcw size={15} color="#94a3b8" />
+            <RotateCcw size={15} color={STEEL} />
           </Pressable>
         </View>
+
+        <Disclaimer className="mx-5 mt-3" />
 
         <View className="mt-4 items-center">
           <HexScore score={score} label={tier.label} color={tier.color} size={126} />
@@ -67,7 +70,7 @@ export default function PlanScreen() {
               <View
                 key={piece.key}
                 className="mb-4 overflow-hidden rounded-3xl border"
-                style={{ borderColor: `${piece.color}44`, backgroundColor: '#0b1c3199' }}
+                style={{ borderColor: `${piece.color}44`, backgroundColor: `${PANEL}99` }}
               >
                 <View
                   className="flex-row items-center gap-3 px-4 py-3"
@@ -75,13 +78,13 @@ export default function PlanScreen() {
                 >
                   <MatchPiece pieceKey={piece.key} height={38} />
                   <View className="flex-1">
-                    <Text className="text-foreground text-sm font-bold">
+                    <Text className="text-foreground text-base font-bold">
                       {piece.emoji} {piece.name}
                     </Text>
-                    <Text className="text-muted text-[10px]">{piece.tagline}</Text>
+                    <BodyText className="text-muted">{piece.tagline}</BodyText>
                   </View>
                   <View className="items-end">
-                    <Text className="text-sm font-bold" style={{ color: piece.color }}>
+                    <Text className="text-base font-bold" style={{ color: piece.color }}>
                       {earned}/{piece.weight}
                     </Text>
                     <Text className="text-muted text-[9px]">{pct}% armed</Text>
@@ -110,7 +113,7 @@ export default function PlanScreen() {
                         <View
                           className="mt-0.5 h-5 w-5 items-center justify-center rounded-md border"
                           style={{
-                            borderColor: on ? piece.color : '#33506b',
+                            borderColor: on ? piece.color : LINE_SOFT,
                             backgroundColor: on ? piece.color : 'transparent',
                           }}
                         >
@@ -118,15 +121,15 @@ export default function PlanScreen() {
                         </View>
                         <View className="flex-1">
                           <Text
-                            className={`text-[13px] font-semibold ${
+                            className={`text-base font-semibold ${
                               on ? 'text-foreground' : 'text-muted'
                             }`}
                           >
                             {option.label}
                           </Text>
-                          <Text className="text-muted mt-0.5 text-[11px]">{option.detail}</Text>
+                          <BodyText className="text-muted mt-0.5">{option.detail}</BodyText>
                         </View>
-                        <Text className="text-muted text-[10px] font-bold">+{option.points}</Text>
+                        <Text className="text-muted text-[11px] font-bold">+{option.points}</Text>
                       </Pressable>
                     );
                   })}
@@ -143,9 +146,9 @@ export default function PlanScreen() {
               </View>
             );
           })}
-
-          <Disclaimer />
         </View>
+
+        <BrandFooter className="px-5" />
       </ScrollView>
       <LilZDock bottomOffset={24} />
     </View>

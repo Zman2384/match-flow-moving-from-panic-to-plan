@@ -7,6 +7,8 @@
  * operating jurisdiction review the text before public release.
  */
 
+import { GHOST_COLOR, HUD, MATCH_COLOR } from '@/lib/palette';
+
 export type LegalDocId = 'terms' | 'privacy' | 'medical' | 'safety' | 'accessibility';
 
 export type LegalIconKey = 'document' | 'lock' | 'stethoscope' | 'shield' | 'eye';
@@ -43,7 +45,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
     title: 'Terms of Service',
     summary: 'EULA, license, prohibited conduct, purchases',
     icon: 'document',
-    accent: '#a78bfa',
+    accent: GHOST_COLOR.internal,
     intro: `These Terms of Service ("Terms") are a binding agreement between you and ${LEGAL_ENTITY} ("we", "us") covering your use of the ${LEGAL_ENTITY} mobile and web application (the "App"). By installing, opening, or continuing to use the App you accept these Terms. If you do not accept them, delete the App.`,
     sections: [
       {
@@ -145,7 +147,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
     title: 'Privacy Policy',
     summary: 'Zero Stigma Tax model, CCPA, GDPR, COPPA',
     icon: 'lock',
-    accent: '#f97316',
+    accent: MATCH_COLOR.H,
     intro: `${LEGAL_ENTITY} is built local-first. There is no account, no login, no profile, and no server that stores what you write. This policy explains what that means in practice and what rights you have under GDPR, CCPA/CPRA, and other privacy laws.`,
     sections: [
       {
@@ -243,7 +245,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
     title: 'Medical Disclaimer',
     summary: 'Educational only, no emergency services',
     icon: 'stethoscope',
-    accent: '#f87171',
+    accent: MATCH_COLOR.T,
     intro: `${LEGAL_ENTITY} is an educational tool. Nothing in it is medical advice, diagnosis, or treatment, and it must not be used in place of care from a qualified professional. Read this section before acting on anything the App shows you.`,
     sections: [
       {
@@ -295,7 +297,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
     title: 'Safety & Facilitator Protocols',
     summary: 'Governance for facilitated & institutional use',
     icon: 'shield',
-    accent: '#a3b545',
+    accent: MATCH_COLOR.M,
     intro: `${LEGAL_ENTITY} was designed for private, individual use. When it is used in a facilitated setting — a clinic, a classroom, a harm-reduction programme, a peer group — additional rules apply. These protocols are binding on any facilitator or institution that deploys the App with other people.`,
     sections: [
       {
@@ -381,7 +383,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
     title: 'Accessibility Statement',
     summary: 'WCAG 2.1 AA commitment',
     icon: 'eye',
-    accent: '#4ade80',
+    accent: HUD,
     intro: `We want ${LEGAL_ENTITY} to be usable by everyone, including people who use screen readers, magnification, switch control, voice control, or larger text. Our target is conformance with WCAG 2.1 Level AA, applied to a native mobile interface.`,
     sections: [
       {

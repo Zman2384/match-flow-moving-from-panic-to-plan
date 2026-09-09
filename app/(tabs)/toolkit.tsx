@@ -6,6 +6,7 @@ import { BackChip } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZDock } from '@/components/LilZ';
 import { PanicButton } from '@/components/PanicButton';
+import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
 import { ToolCard } from '@/components/ToolCard';
 import { CATEGORY_BLURB, TOOLS, TOOL_CATEGORIES, type ToolEntry } from '@/lib/tools';
 
@@ -40,9 +41,10 @@ export default function ToolkitScreen() {
           <Text className="text-foreground mt-1 text-2xl font-bold">
             {TOOLS.length} tools, one system
           </Text>
-          <Text className="text-muted mt-1 text-xs">
+          <BodyText className="text-muted mt-1">
             Every tool strengthens at least one MATCH piece.
-          </Text>
+          </BodyText>
+          <Disclaimer className="mt-3" />
         </View>
 
         <ScrollView
@@ -75,16 +77,18 @@ export default function ToolkitScreen() {
         <View className="px-5">
           {groups.map((group) => (
             <View key={group.category} className="mb-4">
-              <Text className="text-foreground text-sm font-bold">{group.category}</Text>
-              <Text className="text-muted mt-0.5 mb-3 text-[11px]">
+              <Text className="text-foreground text-base font-bold">{group.category}</Text>
+              <BodyText className="text-muted mt-0.5 mb-3">
                 {CATEGORY_BLURB[group.category]}
-              </Text>
+              </BodyText>
               {group.items.map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
               ))}
             </View>
           ))}
         </View>
+
+        <BrandFooter className="px-5" />
       </ScrollView>
       <LilZDock bottomOffset={24} />
       <PanicButton bottomOffset={24} />

@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
 import { useMatchStore } from '@/lib/store';
 
@@ -38,7 +38,7 @@ export default function AnalyticsScreen() {
           {score}
           <Text className="text-muted text-lg font-semibold"> / 100</Text>
         </Text>
-        <Text className="text-muted mt-2 text-[12px] leading-5">{tier.blurb}</Text>
+        <BodyText className="text-muted mt-2">{tier.blurb}</BodyText>
       </HudPanel>
 
       <SectionLabel>Layer balance</SectionLabel>
@@ -64,9 +64,9 @@ export default function AnalyticsScreen() {
 
       <SectionLabel>SafER score history</SectionLabel>
       {history.length === 0 ? (
-        <Text className="text-muted text-[12px]">
+        <BodyText className="text-muted">
           No assessments yet. Run the SafER Score tool to start a trend line.
-        </Text>
+        </BodyText>
       ) : (
         <View className="border-border bg-panel/60 rounded-2xl border p-4">
           <View className="h-32 flex-row items-end gap-2">
@@ -97,9 +97,9 @@ export default function AnalyticsScreen() {
 
       <SectionLabel>Session contexts</SectionLabel>
       {sessions.length === 0 ? (
-        <Text className="text-muted text-[12px]">
+        <BodyText className="text-muted">
           Log a session from the Live Session tool to see patterns here.
-        </Text>
+        </BodyText>
       ) : (
         <View className="border-border bg-panel/60 rounded-2xl border p-4">
           {Object.entries(environments).map(([name, count]) => (
@@ -116,8 +116,6 @@ export default function AnalyticsScreen() {
           ))}
         </View>
       )}
-
-      <Disclaimer />
     </ScreenShell>
   );
 }

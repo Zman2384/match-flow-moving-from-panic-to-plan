@@ -12,8 +12,9 @@ import {
 } from 'react-native';
 
 import { LilZAvatar } from '@/components/LilZ';
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { NOTIFICATIONS_SUPPORTED, syncReminders } from '@/lib/notifications';
+import { HUD, HUD_DIM, LINE, MATCH_COLOR, STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 export default function SettingsScreen() {
@@ -48,9 +49,9 @@ export default function SettingsScreen() {
         subtitle="Everything here is stored only on this device"
       >
         <HudPanel label="Primary support contact">
-          <Text className="text-muted mb-3 text-[11px]">
+          <BodyText className="text-muted mb-3">
             Shown first in the emergency sheet so you never have to search for it.
-          </Text>
+          </BodyText>
           <Field label="Name" value={name} onChangeText={setName} placeholder="Who you trust" />
           <Field
             label="Phone"
@@ -74,9 +75,9 @@ export default function SettingsScreen() {
 
         <SectionLabel>Safety network</SectionLabel>
         {contacts.length === 0 ? (
-          <Text className="text-muted mb-3 text-[12px]">
+          <BodyText className="text-muted mb-3">
             No extra contacts yet. Add the people who would know where you are.
-          </Text>
+          </BodyText>
         ) : (
           contacts.map((contact) => (
             <View
@@ -84,10 +85,10 @@ export default function SettingsScreen() {
               className="border-border bg-panel/60 mb-2 flex-row items-center rounded-2xl border p-4"
             >
               <View className="flex-1">
-                <Text className="text-foreground text-sm font-semibold">{contact.name}</Text>
-                <Text className="text-muted text-[11px]">
+                <Text className="text-foreground text-base font-semibold">{contact.name}</Text>
+                <BodyText className="text-muted">
                   {contact.relationship || 'Contact'} · {contact.phone}
-                </Text>
+                </BodyText>
               </View>
               <Text
                 onPress={() => removeContact(contact.id)}
@@ -139,10 +140,10 @@ export default function SettingsScreen() {
         <SectionLabel>Notifications</SectionLabel>
         <View className="border-border bg-panel/60 flex-row items-center rounded-2xl border p-4">
           <View className="flex-1 pr-3">
-            <Text className="text-foreground text-sm font-semibold">Maintenance nudges</Text>
-            <Text className="text-muted mt-0.5 text-[11px]">
+            <Text className="text-foreground text-base font-semibold">Maintenance nudges</Text>
+            <BodyText className="text-muted mt-0.5">
               Local prompts for doses, restocks, and testing cadence.
-            </Text>
+            </BodyText>
           </View>
           <Switch
             value={remindersEnabled}
@@ -151,8 +152,8 @@ export default function SettingsScreen() {
               void syncReminders();
             }}
             disabled={!NOTIFICATIONS_SUPPORTED}
-            thumbColor={remindersEnabled ? '#00e5ff' : '#94a3b8'}
-            trackColor={{ false: '#1c3a55', true: '#0a4f63' }}
+            thumbColor={remindersEnabled ? HUD : STEEL}
+            trackColor={{ false: LINE, true: HUD_DIM }}
           />
         </View>
         <Pressable
@@ -161,15 +162,15 @@ export default function SettingsScreen() {
           className="border-hud/25 bg-hud/[0.07] mt-2 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
         >
           <View className="bg-hud/15 h-9 w-9 items-center justify-center rounded-xl">
-            <BellRing size={17} color="#00e5ff" />
+            <BellRing size={17} color={HUD} />
           </View>
           <View className="flex-1">
-            <Text className="text-hud text-[13px] font-bold">Cadence plan</Text>
-            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+            <Text className="text-hud text-base font-bold">Cadence plan</Text>
+            <BodyText className="text-muted mt-0.5">
               Choose which nudges fire, set the time, send a test prompt
-            </Text>
+            </BodyText>
           </View>
-          <ChevronRight size={16} color="#5f7b96" />
+          <ChevronRight size={16} color={STEEL} />
         </Pressable>
 
         <SectionLabel>Lil Z</SectionLabel>
@@ -180,29 +181,29 @@ export default function SettingsScreen() {
         >
           <LilZAvatar size={38} />
           <View className="flex-1">
-            <Text className="text-hud text-[13px] font-bold">Open the conversation</Text>
-            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+            <Text className="text-hud text-base font-bold">Open the conversation</Text>
+            <BodyText className="text-muted mt-0.5">
               Your guide for PrEP, PEP timing, testing, and the words for the talk
-            </Text>
+            </BodyText>
           </View>
-          <ChevronRight size={16} color="#5f7b96" />
+          <ChevronRight size={16} color={STEEL} />
         </Pressable>
         <View className="border-border bg-panel/60 mt-2 flex-row items-center rounded-2xl border p-4">
           <View className="flex-1 pr-3">
-            <Text className="text-foreground text-sm font-semibold">Agent memory</Text>
-            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+            <Text className="text-foreground text-base font-semibold">Agent memory</Text>
+            <BodyText className="text-muted mt-0.5">
               {lilzMemoryEnabled
                 ? `Lil Z is carrying ${lilzMemories.length} ${
                     lilzMemories.length === 1 ? 'fact' : 'facts'
                   } between chats, stored on this device only.`
                 : 'Off — every chat starts from scratch and nothing is saved.'}
-            </Text>
+            </BodyText>
           </View>
           <Switch
             value={lilzMemoryEnabled}
             onValueChange={setLilzMemoryEnabled}
-            thumbColor={lilzMemoryEnabled ? '#00e5ff' : '#94a3b8'}
-            trackColor={{ false: '#1c3a55', true: '#0a4f63' }}
+            thumbColor={lilzMemoryEnabled ? HUD : STEEL}
+            trackColor={{ false: LINE, true: HUD_DIM }}
           />
         </View>
 
@@ -221,12 +222,12 @@ export default function SettingsScreen() {
           }}
           className="border-danger/50 bg-danger/10 items-center rounded-2xl border p-4 active:opacity-70"
         >
-          <Text className="text-danger text-sm font-bold">
+          <Text className="text-danger text-base font-bold">
             {confirmWipe ? 'Tap again to erase everything' : 'Wipe all local data'}
           </Text>
-          <Text className="text-muted mt-1 text-center text-[11px]">
+          <BodyText className="text-muted mt-1 text-center">
             Clears your plan, logs, scripts, and contacts from this device.
-          </Text>
+          </BodyText>
         </Pressable>
 
         <SectionLabel>Legal & compliance</SectionLabel>
@@ -236,19 +237,17 @@ export default function SettingsScreen() {
           accessibilityLabel="Legal and compliance documents"
           className="border-border bg-panel/60 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
         >
-          <View className="h-11 w-11 items-center justify-center rounded-2xl bg-[#f9731626]">
-            <Scale size={19} color="#f97316" />
+          <View className="bg-match-h/15 h-11 w-11 items-center justify-center rounded-2xl">
+            <Scale size={19} color={MATCH_COLOR.H} />
           </View>
           <View className="flex-1">
-            <Text className="text-foreground text-sm font-semibold">Legal & Compliance</Text>
-            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+            <Text className="text-foreground text-base font-semibold">Legal & Compliance</Text>
+            <BodyText className="text-muted mt-0.5">
               Terms, privacy, medical disclaimer, facilitator protocols, accessibility
-            </Text>
+            </BodyText>
           </View>
-          <ChevronRight size={16} color="#5f7b96" />
+          <ChevronRight size={16} color={STEEL} />
         </Pressable>
-
-        <Disclaimer />
       </ScreenShell>
     </KeyboardAvoidingView>
   );
@@ -278,7 +277,7 @@ function Field({
         placeholder={placeholder}
         keyboardType={keyboardType ?? 'default'}
         placeholderTextColorClassName="accent-muted"
-        className="border-border bg-panel-deep text-foreground rounded-xl border px-3 py-3 text-sm"
+        className="border-border bg-panel-deep text-foreground font-body rounded-xl border px-3 py-3 text-base"
       />
     </View>
   );

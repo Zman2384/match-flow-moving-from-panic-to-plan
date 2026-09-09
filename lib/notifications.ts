@@ -14,6 +14,7 @@ import {
   REMINDER_CADENCES,
   type ReminderCadence,
 } from '@/lib/reminders';
+import { HUD } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 export const NOTIFICATIONS_SUPPORTED = Platform.OS !== 'web';
@@ -52,7 +53,7 @@ async function ensureChannel() {
   await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
     name: 'Maintenance nudges',
     importance: Notifications.AndroidImportance.DEFAULT,
-    lightColor: '#00e5ff',
+    lightColor: HUD,
     vibrationPattern: [0, 180, 120, 180],
   });
   channelReady = true;

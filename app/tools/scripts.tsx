@@ -2,9 +2,10 @@ import { Star } from 'lucide-react-native';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { SCRIPT_SITUATIONS } from '@/lib/content';
 import { PIECE_COLOR } from '@/lib/match';
+import { MATCH_COLOR, STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 type Group = 'field' | 'clinic' | 'saved' | 'mine';
@@ -109,9 +110,9 @@ export default function ScriptVaultScreen() {
             </HudPanel>
 
             {customScripts.length === 0 ? (
-              <Text className="text-muted mt-4 text-[12px]">
+              <BodyText className="text-muted mt-4">
                 Nothing saved yet. Your own words beat a template every time.
-              </Text>
+              </BodyText>
             ) : (
               <>
                 <SectionLabel>Saved by you</SectionLabel>
@@ -123,9 +124,7 @@ export default function ScriptVaultScreen() {
                     <Text className="text-hud text-[10px] font-bold tracking-widest uppercase">
                       {script.title}
                     </Text>
-                    <Text className="text-foreground mt-1.5 text-[13px] leading-5">
-                      “{script.body}”
-                    </Text>
+                    <BodyText className="text-foreground mt-1.5">“{script.body}”</BodyText>
                     <Text
                       onPress={() => removeCustomScript(script.id)}
                       className="text-danger mt-2 text-[11px] font-bold"
@@ -138,9 +137,9 @@ export default function ScriptVaultScreen() {
             )}
           </>
         ) : situations.length === 0 ? (
-          <Text className="text-muted text-[12px]">
+          <BodyText className="text-muted">
             No starred lines yet. Tap the star on any script to keep it here.
-          </Text>
+          </BodyText>
         ) : (
           situations.map((situation) => {
             const open = openId === situation.id;
@@ -196,18 +195,16 @@ export default function ScriptVaultScreen() {
                             >
                               <Star
                                 size={15}
-                                color={starred ? '#dfc401' : '#5f7791'}
-                                fill={starred ? '#dfc401' : 'transparent'}
+                                color={starred ? MATCH_COLOR.C : STEEL}
+                                fill={starred ? MATCH_COLOR.C : 'transparent'}
                               />
                             </Pressable>
                           </View>
-                          <Text className="text-foreground mt-1 text-[13px] leading-5">
-                            “{line.text}”
-                          </Text>
+                          <BodyText className="text-foreground mt-1">“{line.text}”</BodyText>
                           {line.followUp ? (
-                            <Text className="text-muted mt-1 text-[11px] leading-4 italic">
+                            <BodyText className="text-muted mt-1">
                               If they push back: “{line.followUp}”
-                            </Text>
+                            </BodyText>
                           ) : null}
                         </View>
                       );
@@ -218,8 +215,6 @@ export default function ScriptVaultScreen() {
             );
           })
         )}
-
-        <Disclaimer />
       </ScreenShell>
     </KeyboardAvoidingView>
   );

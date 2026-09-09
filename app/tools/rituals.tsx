@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { Disclaimer, HudPanel, ScreenShell } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell } from '@/components/ScreenShell';
 import { AFFIRMATIONS, RITUAL_CARDS } from '@/lib/content';
+import { PANEL } from '@/lib/palette';
 
 const WINDOWS = ['morning', 'midday', 'evening', 'night'] as const;
 
@@ -21,7 +22,7 @@ export default function RitualsScreen() {
       hint="Habits stick when they feel like care instead of homework."
     >
       <HudPanel label="Grounding line" status={window}>
-        <Text className="text-foreground text-[15px] leading-6">{line}</Text>
+        <BodyText className="text-foreground">{line}</BodyText>
         <View className="mt-4 flex-row flex-wrap gap-2">
           {WINDOWS.map((item) => {
             const on = item === window;
@@ -64,7 +65,7 @@ export default function RitualsScreen() {
             <View
               key={card.id}
               className="mb-3 overflow-hidden rounded-2xl border"
-              style={{ borderColor: `${card.accent}44`, backgroundColor: '#0b1c3199' }}
+              style={{ borderColor: `${card.accent}44`, backgroundColor: `${PANEL}99` }}
             >
               <Pressable
                 onPress={() => setOpenId(open ? null : card.id)}
@@ -76,8 +77,8 @@ export default function RitualsScreen() {
                 >
                   {card.category} · {card.window}
                 </Text>
-                <Text className="text-foreground mt-1 text-[14px] font-bold">{card.title}</Text>
-                <Text className="text-muted mt-1 text-[12px] leading-5">{card.prompt}</Text>
+                <Text className="text-foreground mt-1 text-base font-bold">{card.title}</Text>
+                <BodyText className="text-muted mt-1">{card.prompt}</BodyText>
               </Pressable>
 
               {open ? (
@@ -87,7 +88,7 @@ export default function RitualsScreen() {
                       <Text className="text-[11px] font-bold" style={{ color: card.accent }}>
                         {i + 1}
                       </Text>
-                      <Text className="text-muted flex-1 text-[12px] leading-5">{step}</Text>
+                      <BodyText className="text-muted flex-1">{step}</BodyText>
                     </View>
                   ))}
                 </View>
@@ -96,8 +97,6 @@ export default function RitualsScreen() {
           );
         })}
       </View>
-
-      <Disclaimer />
     </ScreenShell>
   );
 }

@@ -3,7 +3,7 @@ import { BellRing, Check, ShieldAlert } from 'lucide-react-native';
 import { Linking, Platform, Pressable, Switch, Text, View } from 'react-native';
 
 import { MatchPiece } from '@/components/BrandArt';
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { PIECE_COLOR } from '@/lib/match';
 import {
   countScheduled,
@@ -21,6 +21,7 @@ import {
   REMINDER_TIMES,
   RHYTHM_LABEL,
 } from '@/lib/reminders';
+import { CAUTION_EDGE, HUD, HUD_DIM, LINE, PANEL, STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 export default function RemindersScreen() {
@@ -102,58 +103,58 @@ export default function RemindersScreen() {
       <HudPanel label="Nudges" status={remindersEnabled ? `${armedCount} armed` : 'Off'}>
         <View className="flex-row items-center">
           <View className="flex-1 pr-3">
-            <Text className="text-foreground text-sm font-semibold">Enable local nudges</Text>
-            <Text className="text-muted mt-0.5 text-[11px] leading-4">
+            <Text className="text-foreground text-base font-semibold">Enable local nudges</Text>
+            <BodyText className="text-muted mt-0.5">
               Scheduled by this device, delivered by this device. Nothing is sent anywhere and no
               account is involved.
-            </Text>
+            </BodyText>
           </View>
           <Switch
             value={remindersEnabled}
             onValueChange={onToggleMaster}
             disabled={!NOTIFICATIONS_SUPPORTED}
-            thumbColor={remindersEnabled ? '#00e5ff' : '#94a3b8'}
-            trackColor={{ false: '#1c3a55', true: '#0a4f63' }}
+            thumbColor={remindersEnabled ? HUD : STEEL}
+            trackColor={{ false: LINE, true: HUD_DIM }}
           />
         </View>
 
         {!NOTIFICATIONS_SUPPORTED ? (
-          <View className="mt-4 flex-row items-start gap-2 rounded-xl border border-[#f59e0b66] bg-[#f59e0b1a] p-3">
-            <ShieldAlert size={15} color="#f59e0b" />
-            <Text className="flex-1 text-[11px] leading-4 text-[#f7c26b]">
+          <View className="border-caution-edge/40 bg-caution-edge/10 mt-4 flex-row items-start gap-2 rounded-xl border p-3">
+            <ShieldAlert size={15} color={CAUTION_EDGE} />
+            <BodyText className="text-caution-soft flex-1">
               Scheduled nudges need the installed iOS or Android app. The browser preview can hold
               your settings but cannot fire prompts.
-            </Text>
+            </BodyText>
           </View>
         ) : blocked ? (
           <Pressable
             onPress={onGrant}
             accessibilityRole="button"
-            className="mt-4 rounded-xl border border-[#f59e0b80] bg-[#f59e0b1a] p-3 active:opacity-70"
+            className="border-caution-edge/60 bg-caution-edge/10 mt-4 rounded-xl border p-3 active:opacity-70"
           >
             <View className="flex-row items-start gap-2">
-              <ShieldAlert size={15} color="#f59e0b" />
+              <ShieldAlert size={15} color={CAUTION_EDGE} />
               <View className="flex-1">
-                <Text className="text-[12px] font-bold text-[#f7c26b]">
+                <Text className="text-caution-soft text-base font-bold">
                   {permission === 'denied'
                     ? 'Notifications are blocked in system settings'
                     : 'One permission left to grant'}
                 </Text>
-                <Text className="mt-0.5 text-[11px] leading-4 text-[#f7c26bcc]">
+                <BodyText className="text-caution-soft/80 mt-0.5">
                   {permission === 'denied'
                     ? 'Tap to open settings and allow notifications for MATCH Flow.'
                     : 'Tap to allow MATCH Flow to post prompts on this device.'}
-                </Text>
+                </BodyText>
               </View>
             </View>
           </Pressable>
         ) : remindersEnabled ? (
           <View className="border-hud/30 bg-hud/[0.07] mt-4 flex-row items-center gap-2 rounded-xl border p-3">
-            <Check size={15} color="#00e5ff" />
-            <Text className="text-hud flex-1 text-[11px] leading-4">
+            <Check size={15} color={HUD} />
+            <BodyText className="text-hud flex-1">
               {activeCount} of {REMINDER_CADENCES.length} cadences armed. Prompts continue even if
               you never open the app.
-            </Text>
+            </BodyText>
           </View>
         ) : null}
 
@@ -173,17 +174,17 @@ export default function RemindersScreen() {
                   on ? 'border-hud bg-hud/15' : 'border-border'
                 }`}
               >
-                <Text className={`text-[12px] font-bold ${on ? 'text-hud' : 'text-muted'}`}>
+                <Text className={`text-base font-bold ${on ? 'text-hud' : 'text-muted'}`}>
                   {time}
                 </Text>
               </Pressable>
             );
           })}
         </View>
-        <Text className="text-muted mt-2 text-[10px] leading-4">
+        <BodyText className="text-muted mt-2">
           Daily and weekly nudges land at this time. Refill, restock, and testing prompts run on
           their own interval from the moment you arm them.
-        </Text>
+        </BodyText>
       </HudPanel>
 
       <SectionLabel>Cadence plan</SectionLabel>
@@ -195,7 +196,7 @@ export default function RemindersScreen() {
             className="mb-2 rounded-2xl border p-4"
             style={{
               borderColor: `${PIECE_COLOR[item.piece]}${on ? '66' : '2e'}`,
-              backgroundColor: '#0b1c3199',
+              backgroundColor: `${PANEL}99`,
             }}
           >
             <View className="flex-row items-start gap-3">
@@ -206,14 +207,14 @@ export default function RemindersScreen() {
                 <MatchPiece pieceKey={item.piece} height={26} dimmed={!on} />
               </View>
               <View className="flex-1">
-                <Text className="text-foreground text-[13px] font-bold">{item.title}</Text>
-                <Text className="text-muted mt-0.5 text-[11px] leading-4">{item.detail}</Text>
+                <Text className="text-foreground text-base font-bold">{item.title}</Text>
+                <BodyText className="text-muted mt-0.5">{item.detail}</BodyText>
               </View>
               <Switch
                 value={on}
                 onValueChange={() => onToggleCadence(item.id)}
-                thumbColor={on ? '#00e5ff' : '#94a3b8'}
-                trackColor={{ false: '#1c3a55', true: '#0a4f63' }}
+                thumbColor={on ? HUD : STEEL}
+                trackColor={{ false: LINE, true: HUD_DIM }}
               />
             </View>
             <View className="border-border/60 mt-3 flex-row items-center justify-between border-t pt-2.5">
@@ -239,29 +240,27 @@ export default function RemindersScreen() {
             className="border-hud/40 bg-hud/10 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
           >
             <View className="bg-hud/20 h-10 w-10 items-center justify-center rounded-xl">
-              <BellRing size={18} color="#00e5ff" />
+              <BellRing size={18} color={HUD} />
             </View>
             <View className="flex-1">
-              <Text className="text-hud text-[13px] font-bold">
+              <Text className="text-hud text-base font-bold">
                 {testSent ? 'Test nudge queued' : 'Send a test nudge'}
               </Text>
-              <Text className="text-muted mt-0.5 text-[11px] leading-4">
+              <BodyText className="text-muted mt-0.5">
                 {testSent
                   ? 'It lands in a few seconds — leave the app to see it on your lock screen.'
                   : 'Fires once, a few seconds from now, so you know exactly what to expect.'}
-              </Text>
+              </BodyText>
             </View>
           </Pressable>
           {Platform.OS === 'ios' ? (
-            <Text className="text-muted mt-2 text-[10px] leading-4">
+            <BodyText className="text-muted mt-2">
               iOS delivers scheduled prompts on its own timing when the device is in Low Power Mode
               or Focus.
-            </Text>
+            </BodyText>
           ) : null}
         </>
       ) : null}
-
-      <Disclaimer />
     </ScreenShell>
   );
 }

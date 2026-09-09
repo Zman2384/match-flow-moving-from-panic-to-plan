@@ -3,6 +3,8 @@
  * Weights sum to 100 and drive the SafER shield score.
  */
 
+import { HUD, MATCH_COLOR } from '@/lib/palette';
+
 export type PieceKey = 'M' | 'A' | 'T' | 'C' | 'H';
 
 export interface MatchOption {
@@ -29,7 +31,7 @@ export const MATCH_PIECES: MatchPiece[] = [
     key: 'M',
     name: 'Medications',
     emoji: '💊',
-    color: '#90B14B',
+    color: MATCH_COLOR.M,
     weight: 40,
     tagline: 'Medical shields that lower transmission risk',
     summary:
@@ -83,7 +85,7 @@ export const MATCH_PIECES: MatchPiece[] = [
     key: 'A',
     name: 'Awareness',
     emoji: '🧠',
-    color: '#6E99A3',
+    color: MATCH_COLOR.A,
     weight: 10,
     tagline: 'Knowing your status, their status, and your schedule',
     summary:
@@ -119,7 +121,7 @@ export const MATCH_PIECES: MatchPiece[] = [
     key: 'T',
     name: 'Tools',
     emoji: '🛡️',
-    color: '#A8005D',
+    color: MATCH_COLOR.T,
     weight: 15,
     tagline: 'Physical barriers and supplies you actually have',
     summary:
@@ -155,7 +157,7 @@ export const MATCH_PIECES: MatchPiece[] = [
     key: 'C',
     name: 'Communication',
     emoji: '💬',
-    color: '#DFC401',
+    color: MATCH_COLOR.C,
     weight: 15,
     tagline: 'Consent, disclosure, and boundary language',
     summary:
@@ -191,7 +193,7 @@ export const MATCH_PIECES: MatchPiece[] = [
     key: 'H',
     name: 'Habits',
     emoji: '🔁',
-    color: '#FF751F',
+    color: MATCH_COLOR.H,
     weight: 20,
     tagline: 'Routines that keep the other four pieces alive',
     summary:
@@ -246,11 +248,11 @@ function buildPieceRecord(pieces: readonly MatchPiece[]): Record<PieceKey, Match
 }
 
 export const PIECE_COLOR: Record<PieceKey, string> = {
-  M: '#90B14B',
-  A: '#6E99A3',
-  T: '#A8005D',
-  C: '#DFC401',
-  H: '#FF751F',
+  M: MATCH_COLOR.M,
+  A: MATCH_COLOR.A,
+  T: MATCH_COLOR.T,
+  C: MATCH_COLOR.C,
+  H: MATCH_COLOR.H,
 };
 
 export interface ScoreTier {
@@ -263,30 +265,34 @@ export function scoreTier(score: number): ScoreTier {
   if (score >= 85) {
     return {
       label: 'Fortified',
-      color: '#4ade80',
+      color: MATCH_COLOR.M,
       blurb: 'Multiple independent layers. One failure will not sink you.',
     };
   }
   if (score >= 65) {
     return {
       label: 'Solid',
-      color: '#22d3ee',
+      color: HUD,
       blurb: 'Strong core coverage with a couple of thin spots.',
     };
   }
   if (score >= 45) {
     return {
       label: 'Partial',
-      color: '#fbbf24',
+      color: MATCH_COLOR.C,
       blurb: 'Real protection, but too dependent on a single layer.',
     };
   }
   if (score >= 20) {
-    return { label: 'Exposed', color: '#fb923c', blurb: 'Thin coverage. Add a medication layer.' };
+    return {
+      label: 'Exposed',
+      color: MATCH_COLOR.H,
+      blurb: 'Thin coverage. Add a medication layer.',
+    };
   }
   return {
     label: 'Critical',
-    color: '#f87171',
+    color: MATCH_COLOR.T,
     blurb: 'No puzzle pieces armed. Start with one medication and one tool.',
   };
 }

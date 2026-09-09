@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
 
 import { MatchPiece } from '@/components/BrandArt';
-import { Disclaimer, ScreenShell } from '@/components/ScreenShell';
+import { BodyText, ScreenShell } from '@/components/ScreenShell';
 import { RESOURCE_GROUPS } from '@/lib/content';
 import { MATCH_PIECES, PIECE_BY_KEY, type PieceKey } from '@/lib/match';
+import { HUD, LINE } from '@/lib/palette';
 
 export default function ResourcesScreen() {
   const [piece, setPiece] = useState<PieceKey>('M');
@@ -27,7 +28,7 @@ export default function ResourcesScreen() {
               onPress={() => setPiece(item.key)}
               className="flex-1 items-center rounded-xl border py-2.5 active:opacity-70"
               style={{
-                borderColor: on ? item.color : '#1c3a55',
+                borderColor: on ? item.color : LINE,
                 backgroundColor: on ? `${item.color}22` : 'transparent',
               }}
             >
@@ -47,13 +48,13 @@ export default function ResourcesScreen() {
         >
           {active.name}
         </Text>
-        <Text className="text-foreground mt-1 text-[13px] leading-5">{active.summary}</Text>
+        <BodyText className="text-foreground mt-1">{active.summary}</BodyText>
       </View>
 
       {group?.tips.map((tip) => (
         <View key={tip.title} className="border-border bg-panel/60 mt-3 rounded-2xl border p-4">
-          <Text className="text-foreground text-[13px] font-bold">{tip.title}</Text>
-          <Text className="text-muted mt-1 text-[12px] leading-5">{tip.body}</Text>
+          <Text className="text-foreground text-base font-bold">{tip.title}</Text>
+          <BodyText className="text-muted mt-1">{tip.body}</BodyText>
         </View>
       ))}
 
@@ -68,14 +69,12 @@ export default function ResourcesScreen() {
               onPress={() => void Linking.openURL(link.url).catch(() => undefined)}
               className="border-hud/25 bg-panel/70 mb-2 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
             >
-              <ExternalLink size={15} color="#00e5ff" />
-              <Text className="text-foreground flex-1 text-[12px] font-semibold">{link.label}</Text>
+              <ExternalLink size={15} color={HUD} />
+              <Text className="text-foreground flex-1 text-base font-semibold">{link.label}</Text>
             </Pressable>
           ))}
         </>
       ) : null}
-
-      <Disclaimer />
     </ScreenShell>
   );
 }

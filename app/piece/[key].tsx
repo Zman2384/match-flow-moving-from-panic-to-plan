@@ -2,10 +2,11 @@ import { useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 
 import { MatchPiece } from '@/components/BrandArt';
-import { HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { ToolCard } from '@/components/ToolCard';
 import { RESOURCE_GROUPS } from '@/lib/content';
 import { PIECE_BY_KEY, type PieceKey, pieceScores } from '@/lib/match';
+import { INK_ON_SIGNAL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 import { TOOLS } from '@/lib/tools';
 
@@ -35,7 +36,7 @@ export default function PieceDetail() {
     >
       <MatchPiece pieceKey={key} height={92} className="mb-4 self-center" />
       <HudPanel label={`Piece ${piece.key}`} status={`${earned}/${piece.weight} armed`}>
-        <Text className="text-muted text-[13px] leading-5">{piece.summary}</Text>
+        <BodyText className="text-muted">{piece.summary}</BodyText>
         <View className="bg-panel-deep mt-4 h-2 w-full overflow-hidden rounded-full">
           <View
             className="h-2 rounded-full"
@@ -56,18 +57,16 @@ export default function PieceDetail() {
             className="border-border bg-panel/60 mb-2 flex-row items-center rounded-2xl border p-4"
           >
             <View className="flex-1 pr-3">
-              <Text
-                className={`text-[13px] font-semibold ${on ? 'text-foreground' : 'text-muted'}`}
-              >
+              <Text className={`text-base font-semibold ${on ? 'text-foreground' : 'text-muted'}`}>
                 {option.label}
               </Text>
-              <Text className="text-muted mt-0.5 text-[11px]">{option.detail}</Text>
+              <BodyText className="text-muted mt-0.5">{option.detail}</BodyText>
             </View>
             <Text
               onPress={() => toggleOption(option.id)}
               className="rounded-full border px-3 py-1.5 text-[11px] font-bold"
               style={{
-                color: on ? '#02121f' : piece.color,
+                color: on ? INK_ON_SIGNAL : piece.color,
                 backgroundColor: on ? piece.color : 'transparent',
                 borderColor: piece.color,
               }}
@@ -83,8 +82,8 @@ export default function PieceDetail() {
           <SectionLabel>Briefing</SectionLabel>
           {group.tips.map((tip) => (
             <View key={tip.title} className="border-hud/20 bg-panel/60 mb-2 rounded-2xl border p-4">
-              <Text className="text-foreground text-[13px] font-bold">{tip.title}</Text>
-              <Text className="text-muted mt-1 text-[12px] leading-5">{tip.body}</Text>
+              <Text className="text-foreground text-base font-bold">{tip.title}</Text>
+              <BodyText className="text-muted mt-1">{tip.body}</BodyText>
             </View>
           ))}
         </>

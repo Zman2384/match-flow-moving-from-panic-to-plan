@@ -19,6 +19,8 @@ import Svg, {
   Stop,
 } from 'react-native-svg';
 
+import { HUD, HUD_DIM, LINE, MATCH_COLOR } from '@/lib/palette';
+
 const AnimatedCircle = createAnimatedComponent(Circle);
 const AnimatedPath = createAnimatedComponent(Path);
 const AnimatedPolygon = createAnimatedComponent(Polygon);
@@ -122,20 +124,20 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
               <Stop offset="100%" stopColor="#2c4763" stopOpacity={0.95} />
             </LinearGradient>
             <LinearGradient id="ghostCore" x1="0" y1="1" x2="0" y2="0">
-              <Stop offset="0%" stopColor="#0a4f63" stopOpacity={0.9} />
-              <Stop offset="100%" stopColor="#00e5ff" stopOpacity={0.85} />
+              <Stop offset="0%" stopColor={HUD_DIM} stopOpacity={0.9} />
+              <Stop offset="100%" stopColor={HUD} stopOpacity={0.85} />
             </LinearGradient>
             <RadialGradient id="ghostFlame" cx="50%" cy="50%" r="50%">
               <Stop offset="0%" stopColor="#fff6c9" stopOpacity={1} />
-              <Stop offset="45%" stopColor="#dfc401" stopOpacity={0.9} />
-              <Stop offset="100%" stopColor="#dfc401" stopOpacity={0} />
+              <Stop offset="45%" stopColor={MATCH_COLOR.C} stopOpacity={0.9} />
+              <Stop offset="100%" stopColor={MATCH_COLOR.C} stopOpacity={0} />
             </RadialGradient>
           </Defs>
 
           <Polygon
             points={SHIELD_HALO}
             fill="none"
-            stroke="#00e5ff"
+            stroke={HUD}
             strokeOpacity={0.2}
             strokeWidth={0.8}
             strokeDasharray="3 7"
@@ -145,7 +147,7 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
             cx={CENTER}
             cy={CENTER}
             fill="none"
-            stroke="#A8005D"
+            stroke={MATCH_COLOR.T}
             strokeWidth={1.4}
             animatedProps={magentaRing}
           />
@@ -153,7 +155,7 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
             cx={CENTER}
             cy={CENTER}
             fill="none"
-            stroke="#DFC401"
+            stroke={MATCH_COLOR.C}
             strokeWidth={1}
             animatedProps={goldRing}
           />
@@ -167,7 +169,7 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
                   points={facet.points}
                   fill="#081627"
                   fillOpacity={0.85}
-                  stroke="#24415d"
+                  stroke={LINE}
                   strokeOpacity={0.7}
                   strokeWidth={0.7}
                   strokeDasharray="2 4"
@@ -179,7 +181,7 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
                 key={facet.id}
                 points={facet.points}
                 fill={facet.kind === 'plate' ? 'url(#ghostPlate)' : 'url(#ghostCore)'}
-                stroke="#00e5ff"
+                stroke={HUD}
                 strokeOpacity={0.55}
                 strokeWidth={0.8}
                 animatedProps={facetSolidify}
@@ -190,7 +192,7 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
           <Polygon
             points={SHIELD_OUTLINE}
             fill="none"
-            stroke="#00e5ff"
+            stroke={HUD}
             strokeOpacity={0.85}
             strokeWidth={1.6}
           />
@@ -205,13 +207,13 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
           <AnimatedPath
             d={HEARTBEAT}
             fill="none"
-            stroke="#00e5ff"
+            stroke={HUD}
             strokeWidth={1.8}
             strokeLinecap="round"
             strokeDasharray="120 340"
             animatedProps={trail}
           />
-          <Path d={HEARTBEAT} fill="none" stroke="#00e5ff" strokeOpacity={0.16} strokeWidth={1.2} />
+          <Path d={HEARTBEAT} fill="none" stroke={HUD} strokeOpacity={0.16} strokeWidth={1.2} />
         </Svg>
 
         <View pointerEvents="none" className="absolute inset-0 items-center justify-center">
@@ -267,7 +269,7 @@ export function GlitchLabel({ text, color, delay = 0 }: GlitchLabelProps) {
         pointerEvents="none"
         style={[{ position: 'absolute', left: 2, top: -0.5 }, right]}
       >
-        <Text style={{ color: '#00e5ff', fontSize: 14, fontWeight: '700' }}>{text}</Text>
+        <Text style={{ color: HUD, fontSize: 14, fontWeight: '700' }}>{text}</Text>
       </Animated.View>
       <Text style={{ color: '#c3d2e2', fontSize: 14, fontWeight: '700' }}>{text}</Text>
     </View>

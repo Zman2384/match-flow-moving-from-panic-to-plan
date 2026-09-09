@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { STRESS_SCENARIOS } from '@/lib/content';
 import { PIECE_BY_KEY, pieceScores } from '@/lib/match';
+import { LINE_SOFT, STATE_FAIL, STATE_PASS, STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 export default function StressTestScreen() {
@@ -33,13 +34,13 @@ export default function StressTestScreen() {
       <ScreenShell title="Stress test complete" subtitle="How your current plan held up">
         <HudPanel label="Result" status={`${passed}/${STRESS_SCENARIOS.length} held`}>
           <Text className="text-foreground text-5xl font-bold">{pct}%</Text>
-          <Text className="text-muted mt-2 text-[13px] leading-5">
+          <BodyText className="text-muted mt-2">
             {pct >= 80
               ? 'Redundant enough that one failure does not cascade. Keep the medication layer current.'
               : pct >= 50
                 ? 'Half your scenarios hold. The gaps are all in the same place — add a second independent layer.'
                 : 'Most scenarios broke through. Arm one medication option and one tool option, then retest.'}
-          </Text>
+          </BodyText>
           {best !== null ? (
             <Text className="text-hud mt-3 text-[11px] font-semibold">Personal best: {best}%</Text>
           ) : null}
@@ -52,12 +53,12 @@ export default function StressTestScreen() {
             className="border-border bg-panel/60 mb-2 flex-row items-center rounded-2xl border p-4"
           >
             <View className="flex-1 pr-3">
-              <Text className="text-foreground text-[13px] font-semibold">{item.title}</Text>
-              <Text className="text-muted mt-0.5 text-[11px]">{item.fallback}</Text>
+              <Text className="text-foreground text-base font-semibold">{item.title}</Text>
+              <BodyText className="text-muted mt-0.5">{item.fallback}</BodyText>
             </View>
             <Text
               className="text-[10px] font-bold uppercase"
-              style={{ color: outcomes[i] ? '#4ade80' : '#f87171' }}
+              style={{ color: outcomes[i] ? STATE_PASS : STATE_FAIL }}
             >
               {outcomes[i] ? 'Held' : 'Broke'}
             </Text>
@@ -74,8 +75,6 @@ export default function StressTestScreen() {
         >
           <Text className="text-hud text-xs font-bold tracking-widest uppercase">Run again</Text>
         </Pressable>
-
-        <Disclaimer />
       </ScreenShell>
     );
   }
@@ -107,17 +106,14 @@ export default function StressTestScreen() {
               key={key}
               className="flex-row items-center gap-2 rounded-full border px-3 py-2"
               style={{
-                borderColor: on ? piece.color : '#33506b',
+                borderColor: on ? piece.color : LINE_SOFT,
                 backgroundColor: on ? `${piece.color}1f` : 'transparent',
               }}
             >
-              <Text
-                className="text-[11px] font-bold"
-                style={{ color: on ? piece.color : '#6b7f95' }}
-              >
+              <Text className="text-[11px] font-bold" style={{ color: on ? piece.color : STEEL }}>
                 {piece.key} · {piece.name}
               </Text>
-              <Text className="text-[10px]" style={{ color: on ? '#4ade80' : '#f87171' }}>
+              <Text className="text-[10px]" style={{ color: on ? STATE_PASS : STATE_FAIL }}>
                 {on ? 'armed' : 'missing'}
               </Text>
             </View>
@@ -129,17 +125,17 @@ export default function StressTestScreen() {
         <View
           className="mt-5 rounded-2xl border p-4"
           style={{
-            borderColor: holds ? '#4ade8066' : '#f8717166',
-            backgroundColor: holds ? '#4ade8014' : '#f8717114',
+            borderColor: holds ? `${STATE_PASS}66` : `${STATE_FAIL}66`,
+            backgroundColor: holds ? `${STATE_PASS}14` : `${STATE_FAIL}14`,
           }}
         >
           <Text
             className="text-[10px] font-bold tracking-widest uppercase"
-            style={{ color: holds ? '#4ade80' : '#f87171' }}
+            style={{ color: holds ? STATE_PASS : STATE_FAIL }}
           >
             {holds ? 'Shield held' : 'Shield broke'}
           </Text>
-          <Text className="text-foreground mt-1.5 text-[13px] leading-5">{scenario.fallback}</Text>
+          <BodyText className="text-foreground mt-1.5">{scenario.fallback}</BodyText>
         </View>
       ) : null}
 
@@ -165,8 +161,6 @@ export default function StressTestScreen() {
           {revealed ? 'Next scenario' : 'Run the scenario'}
         </Text>
       </Pressable>
-
-      <Disclaimer />
     </ScreenShell>
   );
 }

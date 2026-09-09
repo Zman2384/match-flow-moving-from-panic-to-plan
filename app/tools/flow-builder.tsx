@@ -2,7 +2,8 @@ import { Trash2 } from 'lucide-react-native';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { STATE_FAIL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 const STARTERS = [
@@ -105,16 +106,16 @@ export default function FlowBuilderScreen() {
             }}
             className="border-border bg-panel/60 mb-2 rounded-2xl border p-4 active:opacity-70"
           >
-            <Text className="text-foreground text-[12px] font-semibold">{starter.prompt}</Text>
-            <Text className="text-hud/70 mt-1 text-[11px]">Tap to load into the builder</Text>
+            <Text className="text-foreground text-base font-semibold">{starter.prompt}</Text>
+            <BodyText className="text-hud/70 mt-1">Tap to load into the builder</BodyText>
           </Pressable>
         ))}
 
         <SectionLabel>My flow ({flowNodes.length})</SectionLabel>
         {flowNodes.length === 0 ? (
-          <Text className="text-muted text-[12px]">
+          <BodyText className="text-muted">
             Empty for now. Two or three branches is usually enough.
-          </Text>
+          </BodyText>
         ) : (
           flowNodes.map((node, index) => (
             <View key={node.id} className="border-hud/25 bg-panel/70 mb-3 rounded-2xl border p-4">
@@ -123,27 +124,23 @@ export default function FlowBuilderScreen() {
                   Branch {index + 1}
                 </Text>
                 <Pressable onPress={() => removeFlowNode(node.id)} hitSlop={8}>
-                  <Trash2 size={14} color="#f87171" />
+                  <Trash2 size={14} color={STATE_FAIL} />
                 </Pressable>
               </View>
-              <Text className="text-foreground mt-1.5 text-[13px] font-semibold">
-                {node.prompt}
-              </Text>
+              <Text className="text-foreground mt-1.5 text-base font-semibold">{node.prompt}</Text>
               <View className="mt-3 gap-2">
-                <View className="rounded-xl border border-[#4ade8055] bg-[#4ade8014] p-3">
-                  <Text className="text-[10px] font-bold text-[#4ade80] uppercase">Yes</Text>
-                  <Text className="text-muted mt-0.5 text-[12px] leading-5">{node.ifYes}</Text>
+                <View className="border-state-pass/35 bg-state-pass/10 rounded-xl border p-3">
+                  <Text className="text-state-pass text-[10px] font-bold uppercase">Yes</Text>
+                  <BodyText className="text-muted mt-0.5">{node.ifYes}</BodyText>
                 </View>
-                <View className="rounded-xl border border-[#f8717155] bg-[#f8717114] p-3">
-                  <Text className="text-danger text-[10px] font-bold uppercase">No</Text>
-                  <Text className="text-muted mt-0.5 text-[12px] leading-5">{node.ifNo}</Text>
+                <View className="border-state-fail/45 bg-state-fail/15 rounded-xl border p-3">
+                  <Text className="text-state-fail text-[10px] font-bold uppercase">No</Text>
+                  <BodyText className="text-muted mt-0.5">{node.ifNo}</BodyText>
                 </View>
               </View>
             </View>
           ))
         )}
-
-        <Disclaimer />
       </ScreenShell>
     </KeyboardAvoidingView>
   );

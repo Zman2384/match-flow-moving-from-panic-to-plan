@@ -2,6 +2,7 @@ import type { Href } from 'expo-router';
 
 import type { PieceKey } from '@/lib/match';
 import { PIECE_BY_KEY } from '@/lib/match';
+import { GHOST_COLOR, HUD, MATCH_COLOR } from '@/lib/palette';
 
 /**
  * "Naming the Ghosts" — the Anxiety Audit as data.
@@ -29,21 +30,21 @@ export const GHOST_CATEGORIES: GhostCategory[] = [
     id: 'relational',
     label: 'Relational',
     fullLabel: 'Relational & emotional',
-    color: '#E05780',
+    color: GHOST_COLOR.relational,
     blurb: 'Fears that live between you and another person.',
   },
   {
     id: 'logistical',
     label: 'Logistical',
     fullLabel: 'Logistical & bureaucratic',
-    color: '#03C8E0',
+    color: GHOST_COLOR.logistical,
     blurb: 'Friction from phones, paperwork, money, and front desks.',
   },
   {
     id: 'clinical',
     label: 'Clinical',
     fullLabel: 'Technical & clinical',
-    color: '#A87EE0',
+    color: GHOST_COLOR.internal,
     blurb: 'Fears about bodies, results, failure, and procedures.',
   },
 ];
@@ -349,7 +350,7 @@ export const SPECTRUM: SpectrumStage[] = [
     state: 'Paralysed. The fear has no shape yet, so every option feels equally impossible.',
     guidance:
       'Name one ghost. Only one. Naming is the whole task right now — the plan can wait until the fear has edges.',
-    color: '#F87171',
+    color: MATCH_COLOR.T,
   },
   {
     id: 'cautious',
@@ -357,7 +358,7 @@ export const SPECTRUM: SpectrumStage[] = [
     state: 'Gathering data. You are looking at it, carefully, from a safe distance.',
     guidance:
       'Name two or three ghosts and read what pillar each one belongs to. You are building a task list, not a verdict.',
-    color: '#FBBF24',
+    color: MATCH_COLOR.C,
   },
   {
     id: 'prepared',
@@ -365,7 +366,7 @@ export const SPECTRUM: SpectrumStage[] = [
     state: 'Proactive readiness. The fears are named and each one has a layer behind it.',
     guidance:
       'Disarm what you have named: arm the matching MATCH piece, then check the score move in your favour.',
-    color: '#22D3EE',
+    color: HUD,
   },
   {
     id: 'fearless',
@@ -373,7 +374,7 @@ export const SPECTRUM: SpectrumStage[] = [
     state: 'Full agency. The fear still shows up — it just no longer decides anything.',
     guidance:
       'Keep the vault current. Add new ghosts as life changes them, and run the Stress Test so the muscle memory stays.',
-    color: '#4ADE80',
+    color: MATCH_COLOR.M,
   },
 ];
 

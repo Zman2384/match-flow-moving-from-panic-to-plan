@@ -3,8 +3,7 @@ import { ChevronLeft } from 'lucide-react-native';
 import { Pressable, Text } from 'react-native';
 
 import { goBackOrReplace } from '@/lib/navigation';
-
-const HUD = '#00e5ff';
+import { HUD } from '@/lib/palette';
 
 export type BackChipMode = 'history' | 'jump' | 'push';
 

@@ -2,9 +2,10 @@ import { Clock, Phone } from 'lucide-react-native';
 import { useState } from 'react';
 import { Linking, Platform, Pressable, Text, View } from 'react-native';
 
-import { Disclaimer, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { EMERGENCY_PROTOCOLS, HOTLINES } from '@/lib/content';
 import { PIECE_COLOR } from '@/lib/match';
+import { HUD, LINE_SOFT, PANEL } from '@/lib/palette';
 
 function dial(number: string) {
   const cleaned = number.replace(/[^\d+]/g, '');
@@ -27,10 +28,10 @@ export default function EmergencyScreen() {
         <Text className="text-danger text-[10px] font-bold tracking-widest uppercase">
           Time matters
         </Text>
-        <Text className="text-foreground mt-1 text-[13px] leading-5">
+        <BodyText className="text-foreground mt-1">
           PEP works best within hours of exposure and can still be started up to 72 hours after. Any
           emergency department can begin it — you do not need an appointment.
-        </Text>
+        </BodyText>
       </View>
 
       {EMERGENCY_PROTOCOLS.map((protocol) => {
@@ -40,7 +41,7 @@ export default function EmergencyScreen() {
           <View
             key={protocol.id}
             className="mb-3 overflow-hidden rounded-2xl border"
-            style={{ borderColor: `${color}44`, backgroundColor: '#0b1c3199' }}
+            style={{ borderColor: `${color}44`, backgroundColor: `${PANEL}99` }}
           >
             <Pressable
               onPress={() => setOpenId(open ? null : protocol.id)}
@@ -64,7 +65,7 @@ export default function EmergencyScreen() {
               <View className="px-4 pb-4">
                 {protocol.clock ? (
                   <View className="border-hud/25 bg-hud/[0.08] mb-3 flex-row items-center gap-2 rounded-xl border px-3 py-2">
-                    <Clock size={13} color="#00e5ff" />
+                    <Clock size={13} color={HUD} />
                     <Text className="text-hud text-[11px] font-semibold">{protocol.clock}</Text>
                   </View>
                 ) : null}
@@ -81,7 +82,7 @@ export default function EmergencyScreen() {
                       <View
                         className="mt-0.5 h-5 w-5 items-center justify-center rounded-md border"
                         style={{
-                          borderColor: checked ? color : '#33506b',
+                          borderColor: checked ? color : LINE_SOFT,
                           backgroundColor: checked ? color : 'transparent',
                         }}
                       >
@@ -89,13 +90,13 @@ export default function EmergencyScreen() {
                           {checked ? '✓' : ''}
                         </Text>
                       </View>
-                      <Text
-                        className={`flex-1 text-[13px] leading-5 ${
+                      <BodyText
+                        className={`flex-1 ${
                           checked ? 'text-muted line-through' : 'text-foreground'
                         }`}
                       >
                         {step}
-                      </Text>
+                      </BodyText>
                     </Pressable>
                   );
                 })}
@@ -105,9 +106,9 @@ export default function EmergencyScreen() {
                     Do not
                   </Text>
                   {protocol.avoid.map((item) => (
-                    <Text key={item} className="text-muted text-[12px] leading-5">
+                    <BodyText key={item} className="text-muted">
                       · {item}
-                    </Text>
+                    </BodyText>
                   ))}
                 </View>
               </View>
@@ -123,16 +124,14 @@ export default function EmergencyScreen() {
           onPress={() => dial(line.value)}
           className="border-hud/25 bg-panel/70 mb-2 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
         >
-          <Phone size={16} color="#00e5ff" />
+          <Phone size={16} color={HUD} />
           <View className="flex-1">
-            <Text className="text-foreground text-[13px] font-semibold">{line.label}</Text>
-            <Text className="text-muted mt-0.5 text-[11px]">{line.note}</Text>
+            <Text className="text-foreground text-base font-semibold">{line.label}</Text>
+            <BodyText className="text-muted mt-0.5">{line.note}</BodyText>
           </View>
-          <Text className="text-hud text-[12px] font-bold">{line.value}</Text>
+          <Text className="text-hud text-base font-bold">{line.value}</Text>
         </Pressable>
       ))}
-
-      <Disclaimer />
     </ScreenShell>
   );
 }

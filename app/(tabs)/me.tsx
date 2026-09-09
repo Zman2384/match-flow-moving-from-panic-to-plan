@@ -6,8 +6,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BackChip } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZDock } from '@/components/LilZ';
-import { Disclaimer } from '@/components/ScreenShell';
+import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
+import { STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 const LINKS = [
@@ -45,12 +46,14 @@ export default function MeScreen() {
           </Text>
           <Text className="text-foreground mt-1 text-2xl font-bold">Your progress</Text>
 
+          <Disclaimer className="mt-3" />
+
           <View className="border-hud/25 bg-panel/70 mt-4 rounded-3xl border p-4">
             <View className="flex-row items-center justify-between">
               <Text className="text-muted text-[10px] font-bold tracking-widest uppercase">
                 Current shield
               </Text>
-              <Text className="text-xs font-bold" style={{ color: tier.color }}>
+              <Text className="text-base font-bold" style={{ color: tier.color }}>
                 {tier.label}
               </Text>
             </View>
@@ -90,7 +93,7 @@ export default function MeScreen() {
               <Text className="text-hud text-[10px] font-bold tracking-widest uppercase">
                 Agreement model
               </Text>
-              <Text className="text-foreground mt-1 text-sm font-semibold capitalize">
+              <Text className="text-foreground mt-1 text-base font-semibold capitalize">
                 {relationshipStyle.replace(/-/g, ' ')}
               </Text>
             </View>
@@ -103,16 +106,16 @@ export default function MeScreen() {
             <Link key={link.href} href={link.href} asChild>
               <View className="border-border bg-panel/60 mb-2 flex-row items-center rounded-2xl border p-4">
                 <View className="flex-1">
-                  <Text className="text-foreground text-sm font-semibold">{link.label}</Text>
-                  <Text className="text-muted mt-0.5 text-[11px]">{link.detail}</Text>
+                  <Text className="text-foreground text-base font-semibold">{link.label}</Text>
+                  <BodyText className="text-muted mt-0.5">{link.detail}</BodyText>
                 </View>
-                <ChevronRight size={16} color="#5f7791" />
+                <ChevronRight size={16} color={STEEL} />
               </View>
             </Link>
           ))}
-
-          <Disclaimer />
         </View>
+
+        <BrandFooter className="px-5" />
       </ScrollView>
       <LilZDock bottomOffset={24} />
     </View>

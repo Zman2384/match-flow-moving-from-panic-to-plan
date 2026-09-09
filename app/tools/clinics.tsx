@@ -4,15 +4,17 @@ import { Linking, Platform, Pressable, ScrollView, Text, View } from 'react-nati
 
 import MapView from '@/components/MapView';
 import type { MapMarker } from '@/components/MapView';
-import { Disclaimer, ScreenShell } from '@/components/ScreenShell';
+import { BodyText, ScreenShell } from '@/components/ScreenShell';
 import { CLINICS, CLINIC_KINDS, type Clinic } from '@/lib/content';
+import { GHOST_COLOR, HUD, MATCH_COLOR, STATE_PASS, STEEL } from '@/lib/palette';
 
+/** Markers stay inside the brand palette: pillar hues plus the cyan signal. */
 const KIND_COLOR: Record<Clinic['kind'], string> = {
-  pep: '#f87171',
-  prep: '#90b14b',
-  testing: '#22d3ee',
-  clinic: '#60a5fa',
-  pharmacy: '#fb923c',
+  pep: MATCH_COLOR.T,
+  prep: MATCH_COLOR.M,
+  testing: MATCH_COLOR.A,
+  clinic: GHOST_COLOR.logistical,
+  pharmacy: MATCH_COLOR.H,
 };
 
 function dial(number: string) {
@@ -103,15 +105,13 @@ export default function ClinicsScreen() {
             Selected
           </Text>
           <Text className="text-foreground mt-1 text-base font-bold">{selected.name}</Text>
-          <Text className="text-muted mt-0.5 text-[11px]">{selected.address}</Text>
+          <BodyText className="text-muted mt-0.5">{selected.address}</BodyText>
         </View>
       ) : null}
 
       {filtered.map((clinic) => (
         <ClinicCard key={clinic.id} clinic={clinic} onSelect={() => setSelectedId(clinic.id)} />
       ))}
-
-      <Disclaimer />
     </ScreenShell>
   );
 }
@@ -144,10 +144,10 @@ function ClinicCard({ clinic, onSelect }: { clinic: Clinic; onSelect: () => void
     >
       <View className="flex-row items-start gap-3">
         <View className="flex-1">
-          <Text className="text-foreground text-[14px] font-bold">{clinic.name}</Text>
-          <Text className="text-muted mt-0.5 text-[11px]">
+          <Text className="text-foreground text-base font-bold">{clinic.name}</Text>
+          <BodyText className="text-muted mt-0.5">
             {clinic.distance} · {clinic.hours}
-          </Text>
+          </BodyText>
         </View>
         <View className="rounded-full px-2 py-1" style={{ backgroundColor: `${color}26` }}>
           <Text className="text-[9px] font-bold uppercase" style={{ color }}>
@@ -166,8 +166,8 @@ function ClinicCard({ clinic, onSelect }: { clinic: Clinic; onSelect: () => void
 
       {clinic.slidingScale ? (
         <View className="mt-2 flex-row items-center gap-1.5">
-          <Bookmark size={11} color="#4ade80" />
-          <Text className="text-[10px] font-semibold text-[#4ade80]">
+          <Bookmark size={11} color={STATE_PASS} />
+          <Text className="text-state-pass text-[10px] font-semibold">
             Sliding scale / free options
           </Text>
         </View>
@@ -178,14 +178,14 @@ function ClinicCard({ clinic, onSelect }: { clinic: Clinic; onSelect: () => void
           onPress={() => dial(clinic.phone)}
           className="border-hud/40 bg-hud/10 flex-1 flex-row items-center justify-center gap-1.5 rounded-xl border py-2.5 active:opacity-70"
         >
-          <Phone size={13} color="#00e5ff" />
+          <Phone size={13} color={HUD} />
           <Text className="text-hud text-[11px] font-bold">Call</Text>
         </Pressable>
         <Pressable
           onPress={() => openDirections(clinic)}
           className="border-border bg-panel-deep flex-1 flex-row items-center justify-center gap-1.5 rounded-xl border py-2.5 active:opacity-70"
         >
-          <Navigation size={13} color="#94a3b8" />
+          <Navigation size={13} color={STEEL} />
           <Text className="text-muted text-[11px] font-bold">Directions</Text>
         </Pressable>
       </View>

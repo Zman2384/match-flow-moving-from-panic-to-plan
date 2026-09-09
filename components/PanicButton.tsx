@@ -2,7 +2,9 @@ import { Phone, X } from 'lucide-react-native';
 import { useState } from 'react';
 import { Linking, Modal, Platform, Pressable, Text, View } from 'react-native';
 
+import { BodyText } from '@/components/ScreenShell';
 import { HOTLINES } from '@/lib/content';
+import { STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 function dial(number: string) {
@@ -36,7 +38,7 @@ export function PanicButton({ bottomOffset = 88 }: { bottomOffset?: number }) {
           <View className="mb-4 flex-row items-center justify-between">
             <Text className="text-foreground text-lg font-bold">Get help now</Text>
             <Pressable onPress={() => setOpen(false)} hitSlop={10} className="active:opacity-60">
-              <X size={20} color="#94a3b8" />
+              <X size={20} color={STEEL} />
             </Pressable>
           </View>
 
@@ -49,13 +51,13 @@ export function PanicButton({ bottomOffset = 88 }: { bottomOffset?: number }) {
                 Your support contact
               </Text>
               <Text className="text-foreground mt-1 text-base font-bold">{name || 'Contact'}</Text>
-              <Text className="text-muted text-xs">{phone}</Text>
+              <BodyText className="text-muted">{phone}</BodyText>
             </Pressable>
           ) : (
             <View className="border-border mb-3 rounded-2xl border border-dashed p-4">
-              <Text className="text-muted text-xs">
+              <BodyText className="text-muted">
                 No personal support contact saved yet. Add one in Settings.
-              </Text>
+              </BodyText>
             </View>
           )}
 
@@ -66,10 +68,10 @@ export function PanicButton({ bottomOffset = 88 }: { bottomOffset?: number }) {
               className="border-border bg-panel-deep mb-2 flex-row items-center justify-between rounded-2xl border p-4 active:opacity-80"
             >
               <View className="flex-1 pr-3">
-                <Text className="text-foreground text-sm font-semibold">{line.label}</Text>
-                <Text className="text-muted mt-0.5 text-[11px]">{line.note}</Text>
+                <Text className="text-foreground text-base font-semibold">{line.label}</Text>
+                <BodyText className="text-muted mt-0.5">{line.note}</BodyText>
               </View>
-              <Text className="text-hud text-sm font-bold">{line.value}</Text>
+              <Text className="text-hud text-base font-bold">{line.value}</Text>
             </Pressable>
           ))}
         </View>

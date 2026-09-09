@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BackChip } from '@/components/BackChip';
 import { MatchFlowHero, MatchWordmark } from '@/components/BrandArt';
 import { HudBackdrop } from '@/components/HudBackdrop';
+import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
 import { useMatchStore } from '@/lib/store';
 
 const CHECKS = [
@@ -53,13 +54,15 @@ export default function GateScreen() {
           <Text className="text-hud mt-5 text-[11px] font-bold tracking-[3px] uppercase">
             Layered protection system
           </Text>
-          <Text className="text-muted mt-3 text-center text-sm leading-5">
+          <BodyText className="text-muted mt-3 text-center">
             Five puzzle pieces — Medications, Awareness, Tools, Communication, Habits — stacked into
             one shield. No single layer has to be perfect.
-          </Text>
+          </BodyText>
         </View>
 
         <MatchWordmark className="mt-6" />
+
+        <Disclaimer className="mt-6" />
 
         <View className="mt-8 gap-3">
           {CHECKS.map((check) => {
@@ -80,8 +83,8 @@ export default function GateScreen() {
                   {on ? <Text className="text-abyss text-[11px] font-bold">✓</Text> : null}
                 </View>
                 <View className="flex-1">
-                  <Text className="text-foreground text-sm font-semibold">{check.label}</Text>
-                  <Text className="text-muted mt-1 text-[11px] leading-4">{check.detail}</Text>
+                  <Text className="text-foreground text-base font-semibold">{check.label}</Text>
+                  <BodyText className="text-muted mt-1">{check.detail}</BodyText>
                 </View>
               </Pressable>
             );
@@ -89,10 +92,10 @@ export default function GateScreen() {
         </View>
 
         <View className="border-border bg-panel/40 mt-4 rounded-2xl border p-4">
-          <Text className="text-muted text-[11px] leading-4">
+          <BodyText className="text-muted">
             By continuing you agree to the Terms of Service and confirm you have read the Privacy
             Policy and Medical Disclaimer.
-          </Text>
+          </BodyText>
           <View className="mt-3 flex-row flex-wrap gap-2">
             <GateLegalLink label="Terms of Service" docId="terms" />
             <GateLegalLink label="Privacy Policy" docId="privacy" />
@@ -104,7 +107,7 @@ export default function GateScreen() {
             accessibilityRole="link"
             className="mt-3 self-start active:opacity-70"
           >
-            <Text className="text-hud text-[11px] font-semibold">
+            <Text className="text-hud text-[13px] font-semibold">
               All legal & compliance documents →
             </Text>
           </Pressable>
@@ -129,10 +132,12 @@ export default function GateScreen() {
           </Text>
         </Pressable>
 
-        <Text className="text-muted mt-6 text-center text-[10px] leading-4">
+        <BodyText className="text-muted mt-6 text-center">
           In an emergency, call your local emergency number. For exposure within 72 hours, go to the
           nearest emergency department and ask about PEP.
-        </Text>
+        </BodyText>
+
+        <BrandFooter />
       </ScrollView>
     </View>
   );

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 
-import { Disclaimer, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { MATCH_PIECES, type PieceKey } from '@/lib/match';
+import { HUD, LINE_SOFT } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
 const ITEMS: { id: string; piece: PieceKey; label: string; detail: string }[] = [
@@ -68,7 +69,7 @@ export default function CheckInScreen() {
         <SectionLabel>Sweep</SectionLabel>
         {ITEMS.map((item) => {
           const on = checks[item.id];
-          const color = MATCH_PIECES.find((p) => p.key === item.piece)?.color ?? '#00e5ff';
+          const color = MATCH_PIECES.find((p) => p.key === item.piece)?.color ?? HUD;
           return (
             <Pressable
               key={item.id}
@@ -81,7 +82,7 @@ export default function CheckInScreen() {
               <View
                 className="mt-0.5 h-5 w-5 items-center justify-center rounded-md border"
                 style={{
-                  borderColor: on ? color : '#33506b',
+                  borderColor: on ? color : LINE_SOFT,
                   backgroundColor: on ? color : 'transparent',
                 }}
               >
@@ -92,13 +93,13 @@ export default function CheckInScreen() {
                   {item.piece}
                 </Text>
                 <Text
-                  className={`mt-0.5 text-[13px] font-semibold ${
+                  className={`mt-0.5 text-base font-semibold ${
                     on ? 'text-foreground' : 'text-muted'
                   }`}
                 >
                   {item.label}
                 </Text>
-                <Text className="text-muted mt-0.5 text-[11px]">{item.detail}</Text>
+                <BodyText className="text-muted mt-0.5">{item.detail}</BodyText>
               </View>
             </Pressable>
           );
@@ -111,7 +112,7 @@ export default function CheckInScreen() {
           placeholder="What almost slipped this week?"
           placeholderTextColorClassName="accent-muted"
           multiline
-          className="border-border bg-panel-deep text-foreground min-h-[88px] rounded-2xl border px-3 py-3 text-sm"
+          className="border-border bg-panel-deep text-foreground font-body min-h-[88px] rounded-2xl border px-3 py-3 text-base"
           style={{ textAlignVertical: 'top' }}
         />
 
@@ -140,19 +141,17 @@ export default function CheckInScreen() {
                   <Text className="text-muted text-[11px]">
                     {new Date(entry.date).toLocaleDateString()}
                   </Text>
-                  <Text className="text-hud text-[12px] font-bold">
+                  <Text className="text-hud text-base font-bold">
                     {entry.completed}/{entry.total}
                   </Text>
                 </View>
                 {entry.note ? (
-                  <Text className="text-foreground mt-1.5 text-[12px] leading-5">{entry.note}</Text>
+                  <BodyText className="text-foreground mt-1.5">{entry.note}</BodyText>
                 ) : null}
               </View>
             ))}
           </>
         ) : null}
-
-        <Disclaimer />
       </ScreenShell>
     </KeyboardAvoidingView>
   );

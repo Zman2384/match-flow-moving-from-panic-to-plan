@@ -1,4 +1,5 @@
 import type { PieceKey } from '@/lib/match';
+import { GHOST_COLOR, HUD, MATCH_COLOR } from '@/lib/palette';
 
 export interface ScriptLine {
   id: string;
@@ -999,7 +1000,7 @@ export const RELATIONSHIP_FRAMEWORKS: RelationshipFramework[] = [
         detail: 'Agree in advance what happens if the agreement breaks, before it does.',
       },
     ],
-    accent: '#38bdf8',
+    accent: MATCH_COLOR.A,
   },
   {
     id: 'casual',
@@ -1024,7 +1025,7 @@ export const RELATIONSHIP_FRAMEWORKS: RelationshipFramework[] = [
         detail: 'Water, testing date, and a note on how it actually felt.',
       },
     ],
-    accent: '#facc15',
+    accent: MATCH_COLOR.C,
   },
   {
     id: 'open',
@@ -1052,7 +1053,7 @@ export const RELATIONSHIP_FRAMEWORKS: RelationshipFramework[] = [
         detail: 'Capacity limits named as clearly as physical ones.',
       },
     ],
-    accent: '#f87171',
+    accent: MATCH_COLOR.T,
   },
   {
     id: 'solo',
@@ -1080,7 +1081,7 @@ export const RELATIONSHIP_FRAMEWORKS: RelationshipFramework[] = [
         detail: 'A short reflection after encounters to catch drift early.',
       },
     ],
-    accent: '#c084fc',
+    accent: GHOST_COLOR.internal,
   },
 ];
 
@@ -1127,7 +1128,7 @@ export const RITUAL_CARDS: RitualCard[] = [
     title: 'Mirror Card',
     category: 'Energy & Readiness',
     window: '🌅 Morning ritual',
-    accent: '#facc15',
+    accent: MATCH_COLOR.C,
     prompt: 'What kind of yes am I actually available for today?',
     practice: [
       'Name your energy level out of ten.',
@@ -1140,7 +1141,7 @@ export const RITUAL_CARDS: RitualCard[] = [
     title: 'Boundary Garden',
     category: 'Consent & Boundaries',
     window: '☀️ Midday ritual',
-    accent: '#2dd4bf',
+    accent: HUD,
     prompt: 'Which boundary needs tending rather than defending?',
     practice: [
       'Pick one limit you softened recently.',
@@ -1153,7 +1154,7 @@ export const RITUAL_CARDS: RitualCard[] = [
     title: 'Trust Tree',
     category: 'Trust & Connection',
     window: '🌙 Evening ritual',
-    accent: '#f472b6',
+    accent: GHOST_COLOR.relational,
     prompt: 'Who in my life would I actually call at 3am?',
     practice: [
       'Name one person on your safety network.',

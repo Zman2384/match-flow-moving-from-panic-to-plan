@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BackChip } from '@/components/BackChip';
@@ -31,6 +31,8 @@ const CHECKS = [
 
 export default function GateScreen() {
   const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
+  const shieldWidth = Math.min(Math.max(width - 48, 0), 520);
   const confirmAge = useMatchStore((s) => s.confirmAge);
   const ageConfirmed = useMatchStore((s) => s.ageConfirmed);
   const [checked, setChecked] = useState<Record<string, boolean>>(() =>
@@ -69,6 +71,13 @@ export default function GateScreen() {
         </View>
 
         <MatchFrameworkTitle className="mt-6" />
+        <Image
+          source={require('../assets/match-framework-shield-pieces.png')}
+          className="mt-3 self-center"
+          style={{ width: shieldWidth, height: shieldWidth * (1030 / 1830) }}
+          resizeMode="contain"
+          accessibilityLabel="Metallic MATCH shield with five colored interlocking protection pieces"
+        />
 
         <Disclaimer className="mt-6" />
 

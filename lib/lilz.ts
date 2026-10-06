@@ -7,9 +7,10 @@
  * context that gets attached to a turn, crisis interception, and the offline briefing
  * engine that answers the core clinical questions with no network at all.
  *
- * Zero Stigma Tax: chat transcript and memories are persisted on the device only. What
- * leaves the device for a live reply is message text plus a structured plan summary —
- * never a private note, never a name, never a location.
+ * Zero Stigma Tax: transcript and memories are saved locally. Live replies require
+ * explicit permission for each visit and send recent chat, saved facts and a structured
+ * plan summary. Private notes from other screens are never attached automatically;
+ * chat itself may contain personal details the user types.
  */
 
 import type { Href } from 'expo-router';
@@ -87,7 +88,7 @@ export function targetFor(action: LilZAction): { label: string; href: Href } | n
 
 /** Opening line, written in Lil Z's voice. Never stored until the user speaks. */
 export const LILZ_GREETING =
-  "Hey — I'm Lil Z, Christopher Zacharie's digital avatar and your guide in here. 👋\n\nAsk me anything about PrEP, PEP, Doxy-PEP, testing, barriers, or the words to use in a hard conversation. If something just went wrong, say so plainly and we'll work the next 72 hours together.\n\nNo accounts, no names, nothing about you leaves your device except what you type here. Where do you want to start?";
+  "Hey — I'm Lil Z, Christopher Zacharie's digital avatar and your guide in here.\n\nAsk me about PrEP, PEP, Doxy-PEP, testing, barriers, or the words to use in a hard conversation. If something just went wrong, say so plainly and we'll find a next step.\n\nI start with on-device briefings. Live AI is optional and sends chat context off-device only after you turn it on. Where do you want to start?";
 
 export interface QuickPrompt {
   label: string;
@@ -312,7 +313,7 @@ const BRIEFINGS: Briefing[] = [
 ];
 
 const OFFLINE_DEFAULT =
-  "I'm running on the on-device briefing right now, so I can only work from what's stored in the app — I can't reason freely about your exact question until I'm back online.\n\nWhat I can hand you straight away:\n- The 72-hour window after a possible exposure, step by step\n- The 2026 PrEP options and how they differ\n- Doxy-PEP, testing cadence and window periods\n- Barriers, lube compatibility and fit\n- U=U and what undetectable means\n- Word-for-word scripts for disclosure and boundaries\n- A grounding exercise if you're spiralling\n\nName one of those, or open the Knowledge Base for the full briefings.";
+  "I'm using the on-device briefing, so I can work from the app's built-in guidance rather than reason freely about your exact situation. Optional live AI replies are a separate choice.\n\nWhat I can hand you straight away:\n- The 72-hour window after a possible exposure, step by step\n- The 2026 PrEP options and how they differ\n- Doxy-PEP, testing cadence and window periods\n- Barriers, lube compatibility and fit\n- U=U and what undetectable means\n- Word-for-word scripts for disclosure and boundaries\n- A grounding exercise if you're spiralling\n\nName one of those, or open the Knowledge Base for the full briefings.";
 
 /** Keyword-routed answer from the built-in curriculum. Used when the model is unreachable. */
 export function offlineBriefing(question: string): { reply: string; actions: LilZAction[] } {
@@ -380,7 +381,8 @@ function fallback(question: string, code: string): LilZReply {
 }
 
 export interface AskLilZInput {
-  /** Full local transcript; the function keeps only the recent turns. */
+  liveAllowed: boolean;
+  /** Full local transcript; only recent non-crisis turns may be sent. */
   messages: LilZMessage[];
   planContext: string;
   memories: string[];
@@ -388,12 +390,16 @@ export interface AskLilZInput {
 
 /** Sends a turn to the guide. Falls back to the on-device briefing on any failure. */
 export async function askLilZ({
+  liveAllowed,
   messages,
   planContext,
   memories,
 }: AskLilZInput): Promise<LilZReply> {
   const lastUser = [...messages].toReversed().find((message) => message.role === 'user');
   const question = lastUser?.text ?? '';
+  const crisis = crisisCard(question);
+  if (crisis) return { reply: crisis, actions: [], remember: [], offline: true };
+  if (!liveAllowed) return { ...offlineBriefing(question), remember: [], offline: true };
 
   if (!FUNCTION_URL) return fallback(question, 'network');
 
@@ -407,7 +413,9 @@ export async function askLilZ({
       },
       body: JSON.stringify({
         messages: messages
-          .filter((message) => !message.crisis)
+          .filter(
+            (message) => !message.crisis && !(message.role === 'user' && crisisCard(message.text)),
+          )
           .slice(-14)
           .map((message) => ({ role: message.role, text: message.text })),
         planContext,

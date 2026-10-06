@@ -44,6 +44,7 @@ export function HudBackdrop() {
     const angle = Math.atan2(floorHeight, dx);
     const length = Math.hypot(dx, floorHeight);
     return {
+      position: t,
       length,
       rotate: `${90 - (angle * 180) / Math.PI}deg`,
       opacity: 0.05 + (1 - Math.abs(t)) * 0.1,
@@ -51,8 +52,10 @@ export function HudBackdrop() {
   });
 
   const stars = Array.from({ length: STAR_COUNT }, (_, i) => {
-    const depth = hash(i * 3.3);
+    const seed = i * 3.3;
+    const depth = hash(seed);
     return {
+      seed,
       left: hash(i * 1.7) * width,
       top: hash(i * 2.1) * horizon,
       size: depth < 0.75 ? 1 : 2,
@@ -70,9 +73,9 @@ export function HudBackdrop() {
       />
 
       {/* Starfield above the horizon. */}
-      {stars.map((star, i) => (
+      {stars.map((star) => (
         <View
-          key={`star-${i}`}
+          key={`star-${star.seed}`}
           className="absolute rounded-full bg-white"
           style={{
             left: star.left,
@@ -92,9 +95,9 @@ export function HudBackdrop() {
           style={{ top: rail.top, opacity: rail.opacity }}
         />
       ))}
-      {lanes.map((lane, i) => (
+      {lanes.map((lane) => (
         <View
-          key={`lane-${i}`}
+          key={`lane-${lane.position}`}
           className="bg-hud absolute w-px"
           style={{
             left: vanishX,

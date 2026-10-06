@@ -148,22 +148,22 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
     summary: 'Zero Stigma Tax model, CCPA, GDPR, COPPA',
     icon: 'lock',
     accent: MATCH_COLOR.H,
-    intro: `${LEGAL_ENTITY} is built local-first. There is no account, no login, no profile, and no server that stores what you write. This policy explains what that means in practice and what rights you have under GDPR, CCPA/CPRA, and other privacy laws.`,
+    intro: `${LEGAL_ENTITY} is built local-first. There is no account or login. Plans, Ghost Audits and chat history are saved on your device. Optional live Lil Z replies send the context described below for AI processing.`,
     sections: [
       {
         heading: 'The Zero Stigma Tax model',
-        body: 'Sexual-health apps usually charge a hidden price: you hand over the most stigmatising data you have in exchange for a feature. We refuse that trade. Our design rule is that no sensitive detail you enter may leave your device. That is what we call the Zero Stigma Tax model, and it is enforced by architecture rather than by promise — there is no sync endpoint for your health data to travel to.',
+        body: 'You can use the planning tools and Lil Z’s built-in briefings without an account or sending chat content. Live AI is a separate, optional choice that starts off on each visit. It does not sync your local records, but it does process the chat context you agree to send.',
         bullets: [
           'No account creation, email address, phone number, or password.',
           'No advertising identifiers, ad SDKs, or data brokers.',
-          'No sale, rental, or sharing of personal information — ever, to anyone.',
+          'No sale or rental of personal information. Optional live AI shares context for response processing.',
           'No behavioural profiling, cross-app tracking, or lookalike audiences.',
           'No requirement that you identify yourself to use any feature.',
         ],
       },
       {
         heading: 'What stays on your device',
-        body: 'The following is written to your device’s local app storage and nowhere else:',
+        body: 'The following records are saved in local app storage. Optional live AI can receive a summary of plan selections and activity counts, not the private notes in these records:',
         bullets: [
           'Your consent-gate confirmations and MATCH plan selections.',
           'SafER Score answers, results, and history.',
@@ -174,8 +174,18 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         ],
       },
       {
+        heading: 'Optional live Lil Z replies',
+        body: 'Lil Z starts with on-device briefings. If you turn on Live AI replies, the app sends up to 14 recent non-crisis chat turns, a structured MATCH plan summary, activity counts, and saved memories (when memory is enabled) through our AI service to OpenAI. Your chat can contain sensitive information if you type it. Do not include names, partner identifiers or other details you do not want processed outside your device.',
+        bullets: [
+          'Live AI permission is not saved between visits. Turning it off stops future requests, not processing of an earlier request.',
+          'Detected immediate-danger and self-harm messages receive an on-device crisis card and are excluded from live requests. Detection cannot identify every possible crisis phrase.',
+          'Clear conversation deletes local chat history. Turn memory off or remove individual memories to delete saved facts. These controls cannot delete information already sent to an AI provider.',
+          'OpenAI’s privacy and retention policies apply to live processing. We do not promise zero retention or that every provider copy can be erased through this app.',
+        ],
+      },
+      {
         heading: 'What we never collect',
-        body: 'We do not collect your name, email, address, precise location, contacts list, photos, device identifiers tied to you, HIV or STI status, test results, medication use, partner information, or any other special-category health data. We have no database of users because we have no users to put in one.',
+        body: 'No name, email, address, account or identifying profile is required. We do not read your contacts list or photos. Names and phone numbers entered in your safety network stay in local records. Information you type in Lil Z may be sent for processing only when you enable live replies.',
       },
       {
         heading: 'Device permissions',
@@ -188,7 +198,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: 'Third parties',
-        body: 'The App has very few outside dependencies, and none of them receive your health data.',
+        body: 'Outside services receive only the requests needed for features you choose. Optional live AI is the exception to on-device chat processing described above.',
         bullets: [
           'Platform stores (Apple, Google) handle distribution, crash reporting you opt into at the OS level, and any purchase. Their own privacy policies apply to those interactions.',
           'Map tiles on the clinic screen are requested from a map provider, which necessarily sees the map area being viewed. No clinic you save and no note you write is included in that request.',
@@ -198,14 +208,14 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: 'Legal bases (GDPR / UK GDPR)',
-        body: 'Because we do not process your personal data on our systems, we are not a controller of the content you keep locally — you are. Where we do process limited technical data (for example, an outbound map tile request), we rely on legitimate interests in delivering the feature you asked for, and on your consent where consent is required. If you are in the EEA, UK, or Switzerland and believe we hold data about you, write to us and we will respond within one month.',
+        body: 'Local planning does not send your records to our systems. Optional live AI processing starts only after you enable it and can be stopped for future messages. External map and font requests also involve technical data. Privacy questions and requests about live processing can be sent to our privacy contact; provider handling is subject to the applicable provider policy.',
       },
       {
         heading: 'Your rights under GDPR',
         body: 'You have the rights of access, rectification, erasure, restriction, portability, objection, and the right not to be subject to solely automated decision-making. In this App those rights are exercised directly and instantly:',
         bullets: [
           'Access and rectification — every stored value is visible and editable in the screen that created it.',
-          'Erasure — Settings → "Wipe all local data" destroys everything immediately. Deleting the App does the same.',
+          'Erasure — Settings → "Wipe all local data" clears the app’s local records. Uninstalling removes native app storage, but separate backups and previously sent live AI requests are outside that control. On the web, clear the site’s storage; removing a shortcut alone does not clear it.',
           'Restriction and objection — stop using a feature, or revoke its permission in your OS settings.',
           'Portability — data is held in a standard local store on your device; we do not withhold it behind an export gate.',
           'Complaint — you may lodge a complaint with your national supervisory authority at any time.',
@@ -217,7 +227,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         bullets: [
           'We do not sell personal information and have not in the preceding 12 months.',
           'We do not share personal information for cross-context behavioural advertising.',
-          'We do not use or disclose sensitive personal information beyond the purposes permitted by CPRA — in fact we do not receive it at all.',
+          'Live AI may process sensitive information you choose to send. Turn it off to keep future chat messages on-device, and contact us about processing-related privacy requests.',
           'Your rights to know, correct, delete, and limit use of sensitive information are satisfied by the on-device controls described above, and you may also contact us to make a formal request.',
           'We will never discriminate against you for exercising a privacy right.',
         ],
@@ -232,7 +242,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: 'Retention and international transfers',
-        body: 'We retain nothing, so there is nothing to expire and no personal data to transfer across borders. Data you keep locally is retained until you delete it.',
+        body: 'Local records remain until you clear them or remove native app storage. Live AI requests may be processed outside your country, and the AI provider’s retention policy applies. Turning off live AI or clearing local data does not recall earlier requests.',
       },
       {
         heading: 'Changes and contact',

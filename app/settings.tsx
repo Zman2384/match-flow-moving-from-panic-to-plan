@@ -195,8 +195,8 @@ export default function SettingsScreen() {
               {lilzMemoryEnabled
                 ? `Lil Z is carrying ${lilzMemories.length} ${
                     lilzMemories.length === 1 ? 'fact' : 'facts'
-                  } between chats, stored on this device only.`
-                : 'Off — every chat starts from scratch and nothing is saved.'}
+                  } between chats. Facts are saved here and sent only when you enable live AI.`
+                : 'Off — no durable facts are kept. Conversation history stays until you clear it.'}
             </BodyText>
           </View>
           <Switch

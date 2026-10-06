@@ -1,4 +1,7 @@
 import type { Href } from 'expo-router';
+import type { LucideIcon } from 'lucide-react-native';
+
+import { ChapterHero } from '@/components/ChapterHero';
 import type { ReactNode } from 'react';
 import type { StyleProp, TextStyle } from 'react-native';
 import { ScrollView, Text, View } from 'react-native';
@@ -11,6 +14,7 @@ import { LilZDock } from '@/components/LilZ';
 interface ScreenShellProps {
   title: string;
   subtitle?: string;
+  chapterIcon?: LucideIcon;
   hint?: string;
   children: ReactNode;
   /** Render children without a ScrollView (for FlatList screens). */
@@ -27,6 +31,7 @@ interface ScreenShellProps {
 export function ScreenShell({
   title,
   subtitle,
+  chapterIcon,
   hint,
   children,
   plain = false,
@@ -47,8 +52,14 @@ export function ScreenShell({
           )}
         </View>
       ) : null}
-      <Text className="text-foreground text-2xl font-bold">{title}</Text>
-      {subtitle ? <BodyText className="text-muted mt-1">{subtitle}</BodyText> : null}
+      {chapterIcon ? (
+        <ChapterHero title={title} subtitle={subtitle} icon={chapterIcon} />
+      ) : (
+        <>
+          <Text className="text-foreground text-2xl font-bold">{title}</Text>
+          {subtitle ? <BodyText className="text-muted mt-1">{subtitle}</BodyText> : null}
+        </>
+      )}
       {hint ? (
         <View className="border-hud/25 bg-hud/[0.07] mt-3 flex-row items-center gap-2 rounded-xl border px-3 py-2">
           <Text className="text-hud text-[13px] font-semibold">💡 {hint}</Text>
@@ -166,7 +177,7 @@ export function Disclaimer({
         <BodyText className="text-caution-soft mt-1">
           {compact
             ? 'Consult a qualified healthcare provider for prescriptions, diagnoses and any medical decision.'
-            : 'Consult a qualified healthcare provider for prescriptions, diagnoses and any medical decision. In an emergency call your local emergency number or go to the nearest emergency department. Everything you enter stays on this device.'}
+            : 'Consult a qualified healthcare provider for prescriptions, diagnoses and any medical decision. In an emergency call your local emergency number or go to the nearest emergency department.'}
         </BodyText>
       </View>
     </View>

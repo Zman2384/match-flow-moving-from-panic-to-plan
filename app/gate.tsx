@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BackChip } from '@/components/BackChip';
 import { MatchFlowHero, MatchWordmark } from '@/components/BrandArt';
+import { MatchFlowWordmark } from '@/components/MatchFlowWordmark';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
 import { useMatchStore } from '@/lib/store';
@@ -22,8 +23,9 @@ const CHECKS = [
   },
   {
     id: 'local',
-    label: 'I know my data stays on this device',
-    detail: 'Nothing you enter is uploaded. Wiping the app wipes the data.',
+    label: 'I understand my privacy choices',
+    detail:
+      'Plans and Ghost Audits are saved here. Lil Z starts on-device; optional live AI sends chat context off-device. Device backups may keep a separate copy.',
   },
 ];
 
@@ -50,6 +52,7 @@ export default function GateScreen() {
         {ageConfirmed ? <BackChip className="mb-5" /> : null}
 
         <View className="items-center">
+          <MatchFlowWordmark className="mb-3" />
           <MatchFlowHero />
           <Text className="text-hud mt-5 text-[11px] font-bold tracking-[3px] uppercase">
             Layered protection system

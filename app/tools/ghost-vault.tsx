@@ -72,6 +72,7 @@ export default function GhostVaultScreen() {
     >
       <ScreenShell
         title="Digital Ghost Vault"
+        chapterIcon={Ghost}
         subtitle="Name the fear, map it to a piece, watch the glitch solidify"
         hint="A fear you can name is a task. A fear you cannot name runs the whole night."
       >

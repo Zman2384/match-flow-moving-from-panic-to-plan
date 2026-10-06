@@ -12,6 +12,7 @@ const BAR_BORDER = LINE;
 export default function TabsLayout() {
   return (
     <>
+      {/* eslint-disable-next-line react/style-prop-object -- Expo StatusBar style is a string enum, not a view style object. */}
       <StatusBar style="light" />
       <Tabs
         screenOptions={{

@@ -38,6 +38,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       bundleIdentifier: process.env.BILT_IOS_BUNDLE_ID ?? 'com.yourcompany.yourapp',
     },
     android: {
+      allowBackup: false,
       package: process.env.BILT_ANDROID_PACKAGE ?? 'com.yourcompany.yourapp',
     },
     web: {

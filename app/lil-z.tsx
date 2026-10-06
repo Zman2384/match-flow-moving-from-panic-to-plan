@@ -1,4 +1,5 @@
-import { router } from 'expo-router';
+import * as Haptics from 'expo-haptics';
+import { router, useFocusEffect } from 'expo-router';
 import { Brain, Send, Trash2, X } from 'lucide-react-native';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import {
@@ -43,8 +44,16 @@ export default function LilZScreen() {
   const [draft, setDraft] = useState('');
   const [pending, setPending] = useState(false);
   const [memoryOpen, setMemoryOpen] = useState(false);
+  // A fresh visit starts private; live processing is never silently remembered.
+  const [liveEnabled, setLiveEnabled] = useState(false);
 
   const messages = useMatchStore((s) => s.lilzMessages);
+  const previousMessageCount = useRef(messages.length);
+  useFocusEffect(
+    useCallback(() => {
+      setLiveEnabled(false);
+    }, []),
+  );
   const memories = useMatchStore((s) => s.lilzMemories);
   const memoryEnabled = useMatchStore((s) => s.lilzMemoryEnabled);
   const addLilzMessage = useMatchStore((s) => s.addLilzMessage);
@@ -65,14 +74,19 @@ export default function LilZScreen() {
 
       setDraft('');
       setPending(true);
-      addLilzMessage({ role: 'user', text });
-
       const crisis = crisisCard(text);
-      if (crisis) addLilzMessage({ role: 'guide', text: crisis, crisis: true });
+      addLilzMessage({ role: 'user', text, crisis: Boolean(crisis) });
+
+      if (crisis) {
+        addLilzMessage({ role: 'guide', text: crisis, crisis: true });
+        setPending(false);
+        return;
+      }
 
       const state = useMatchStore.getState();
       const ghosts = Object.values(state.ghostRecords);
       const reply = await askLilZ({
+        liveAllowed: liveEnabled,
         messages: state.lilzMessages,
         planContext: buildPlanContext({
           armed: state.armed,
@@ -96,8 +110,9 @@ export default function LilZScreen() {
       });
       for (const fact of reply.remember) rememberLilz(fact);
       setPending(false);
+      if (reply.notice) void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     },
-    [addLilzMessage, pending, rememberLilz],
+    [addLilzMessage, liveEnabled, pending, rememberLilz],
   );
 
   const transcript = messages.length > 0 ? messages : [greeting];
@@ -153,8 +168,8 @@ export default function LilZScreen() {
                   Agent memory
                 </Text>
                 <BodyText className="text-muted mt-1">
-                  Lets Lil Z carry a few facts between chats. Stored on this device only, and wiped
-                  with everything else.
+                  Saved on this device. If you enable live AI, saved facts are sent with your chat.
+                  Turn memory off to erase them.
                 </BodyText>
               </View>
               <Switch
@@ -199,10 +214,38 @@ export default function LilZScreen() {
           ref={scrollRef}
           className="flex-1"
           contentContainerStyle={{ padding: 20, gap: 14 }}
-          onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
+          onContentSizeChange={() => {
+            if (previousMessageCount.current !== messages.length) {
+              previousMessageCount.current = messages.length;
+              scrollRef.current?.scrollToEnd({ animated: true });
+            }
+          }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
+          <View className="border-hud/25 bg-panel-deep/80 rounded-2xl border p-4">
+            <View className="flex-row items-center gap-3">
+              <Text className="text-foreground flex-1 text-base font-semibold">
+                Live AI replies
+              </Text>
+              <Switch
+                accessibilityLabel="Allow live AI processing for this visit"
+                value={liveEnabled}
+                disabled={pending}
+                onValueChange={(enabled) => {
+                  setLiveEnabled(enabled);
+                  void Haptics.selectionAsync();
+                }}
+                thumbColor={liveEnabled ? CYAN : STEEL}
+                trackColor={{ false: TRACK_OFF, true: HUD_DIM }}
+              />
+            </View>
+            <BodyText className="text-foreground/80 mt-2">
+              Off by default. Turning this on sends recent chat messages, a MATCH plan summary and
+              saved memories through our AI service to OpenAI. Avoid names or identifying details.
+              Turning it off stops future sends; it cannot recall anything already sent.
+            </BodyText>
+          </View>
           {transcript.map((message) => (
             <Bubble key={message.id} message={message} />
           ))}
@@ -267,7 +310,9 @@ export default function LilZScreen() {
           </View>
 
           <Text className="font-body text-muted/70 mt-2 text-center text-[13px]">
-            No accounts, no names. This conversation lives on your device.
+            {liveEnabled
+              ? 'Live AI on — chat context is sent for replies.'
+              : 'On-device briefing — no chat is sent.'}
           </Text>
         </View>
       </KeyboardAvoidingView>

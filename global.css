@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bree+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bree+Serif&family=Allerta+Stencil&family=Yellowtail&display=swap');
 
 @import 'tailwindcss';
 @import 'uniwind';
@@ -118,6 +118,8 @@
   /* Active signal — Neon Cyan telemetry / heartbeat. */
   --color-hud: #00bdbd;
   --color-hud-dim: #0a4f63;
+  --color-silver: #b8c6d5;
+  --color-silver-light: #edf4fa;
 
   /* Atmosphere — dark navy starfield falling to black. */
   --color-navy: #0d1a2e;

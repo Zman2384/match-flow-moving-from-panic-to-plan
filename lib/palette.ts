@@ -45,6 +45,8 @@ export const STATE_PASS = MATCH_COLOR.M;
 export const STATE_FAIL = MATCH_COLOR.T;
 
 /** Navy-tinted HUD chrome: text, hairlines and inactive states. */
+export const SILVER = '#b8c6d5';
+export const SILVER_LIGHT = '#edf4fa';
 export const STEEL = '#5f7791';
 export const STEEL_SOFT = '#7f8ea3';
 export const LINE = '#1c3a55';

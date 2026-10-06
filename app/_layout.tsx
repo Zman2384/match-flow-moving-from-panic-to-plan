@@ -3,6 +3,8 @@ import '../global.css';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BreeSerif_400Regular } from '@expo-google-fonts/bree-serif';
+import { AllertaStencil_400Regular } from '@expo-google-fonts/allerta-stencil';
+import { Yellowtail_400Regular } from '@expo-google-fonts/yellowtail';
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -60,6 +62,8 @@ export default function RootLayout() {
     Inter_600SemiBold,
     Inter_700Bold,
     BreeSerif_400Regular,
+    AllertaStencil_400Regular,
+    Yellowtail_400Regular,
   });
 
   // Report uncaught JS errors and unhandled promise rejections to parent (Bilt preview iframe)
@@ -99,7 +103,7 @@ export default function RootLayout() {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href =
-          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bree+Serif&display=swap';
+          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bree+Serif&family=Allerta+Stencil&family=Yellowtail&display=swap';
         link.crossOrigin = 'anonymous';
         document.head.appendChild(link);
       }

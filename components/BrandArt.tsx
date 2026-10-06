@@ -73,9 +73,16 @@ export function MatchFlowHero({ className }: { className?: string }) {
   );
 }
 
-/** Supplied MATCH Flow icon, displayed without a panel beside the live telemetry. */
-export function MatchFlowIcon({ className }: { className?: string }) {
-  const width = useArtWidth(48, 420);
+/** Supplied MATCH Flow icon, displayed without a panel alongside the title. */
+export function MatchFlowIcon({
+  className,
+  width: requestedWidth,
+}: {
+  className?: string;
+  width?: number;
+}) {
+  const responsiveWidth = useArtWidth(48, 420);
+  const width = requestedWidth ?? responsiveWidth;
   const source = require('../assets/match-flow-icon.png');
   const height = width / BANNER_ASPECT;
 

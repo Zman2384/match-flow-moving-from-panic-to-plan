@@ -4,7 +4,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BackChip } from '@/components/BackChip';
-import { MatchFlowIcon, MatchFrameworkTitle } from '@/components/BrandArt';
+import { MatchFlowHero, MatchFlowIcon, MatchFrameworkTitle } from '@/components/BrandArt';
 import { MatchFlowWordmark } from '@/components/MatchFlowWordmark';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
@@ -52,8 +52,13 @@ export default function GateScreen() {
         {ageConfirmed ? <BackChip className="mb-5" /> : null}
 
         <View className="items-center">
-          <MatchFlowWordmark className="mb-3" />
-          <MatchFlowIcon />
+          <View className="mb-4 w-full max-w-[520px] flex-row items-center gap-3 self-center">
+            <MatchFlowIcon width={76} />
+            <View className="flex-1">
+              <MatchFlowWordmark />
+            </View>
+          </View>
+          <MatchFlowHero />
           <Text className="text-hud mt-5 text-[11px] font-bold tracking-[3px] uppercase">
             Layered protection system
           </Text>

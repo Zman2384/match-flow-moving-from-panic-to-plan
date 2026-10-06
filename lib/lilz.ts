@@ -209,11 +209,8 @@ const BRIEFINGS: Briefing[] = [
     match:
       /\b(pep|broke|broken|slipped|slipped off|exposure|exposed|unprotected|condomless|bareback|72|assault)\b/i,
     reply:
-      "Let's take this in order. Breathe out slowly once — the clock is generous enough for you to think.\n\n- PEP has to start within 72 hours of the exposure. Inside 24 hours is the goal, 72 is the hard limit.\n- Any emergency department can start it, and so can most urgent care and sexual health clinics. You do not need a referral.\n- The course runs 28 days. Finishing it is what makes it work.\n- Ask about Doxy-PEP in the same visit: 200 mg doxycycline within 72 hours cuts chlamydia and syphilis risk by up to about 80%.\n- On injectable PrEP and something feels off? Contact your provider today — timing matters more than with pills.\n- 24/7 National PrEP/PEP hotline: 1-888-448-4911.\n\nYou're taking care of yourself right now — that matters.",
-    actions: [
-      { id: 'emergency', label: '72-hour protocol' },
-      { id: 'clinics', label: 'Find a clinic' },
-    ],
+      "Let's take this in order. Breathe out slowly once — the clock is generous enough for you to think.\n\n- PEP has to start within 72 hours of the exposure. Inside 24 hours is the goal, 72 is the hard limit.\n- Go to the nearest emergency department now for urgent PEP evaluation. Do not wait for a phone consultation or an appointment.\n- The course runs 28 days. Finishing it is what makes it work.\n- Ask about Doxy-PEP in the same visit: 200 mg doxycycline within 72 hours cuts chlamydia and syphilis risk by up to about 80%.\n- On injectable PrEP and something feels off? Contact your provider today — timing matters more than with pills.\n\nYou're taking care of yourself right now — that matters.",
+    actions: [{ id: 'emergency', label: 'Emergency department plan' }],
   },
   {
     match:

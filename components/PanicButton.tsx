@@ -61,6 +61,11 @@ export function PanicButton({ bottomOffset = 88 }: { bottomOffset?: number }) {
             </View>
           )}
 
+          <BodyText className="text-foreground mb-4">
+            Possible HIV exposure? Go to the nearest emergency department now for urgent PEP
+            evaluation. PEP must start within 72 hours — do not wait for a phone consultation.
+          </BodyText>
+
           {HOTLINES.map((line) => (
             <Pressable
               key={line.label}

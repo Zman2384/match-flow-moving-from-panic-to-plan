@@ -29,8 +29,9 @@ export default function EmergencyScreen() {
           Time matters
         </Text>
         <BodyText className="text-foreground mt-1">
-          PEP works best within hours of exposure and can still be started up to 72 hours after. Any
-          emergency department can begin it — you do not need an appointment.
+          After a possible HIV exposure, go to the nearest emergency department now for urgent PEP
+          evaluation. PEP must be started as soon as possible, within 72 hours. Do not wait for a
+          phone consultation or an appointment.
         </BodyText>
       </View>
 

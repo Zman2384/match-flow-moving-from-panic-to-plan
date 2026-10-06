@@ -230,7 +230,7 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
       {
         id: 'pb-3',
         goal: 'Start the PEP clock',
-        text: 'I am going to a clinic for PEP. The window is 72 hours and sooner is better.',
+        text: 'I am going to the nearest emergency department for urgent PEP evaluation. PEP must start within 72 hours and sooner is better.',
       },
       {
         id: 'pb-4',
@@ -416,7 +416,7 @@ export const EMERGENCY_PROTOCOLS: EmergencyProtocol[] = [
       'Stop and separate. Do not keep going with a failed barrier.',
       'Do not douche or scrub internally — it can increase irritation and risk.',
       'Ask the partner directly for status and last test date.',
-      'If HIV exposure is possible and you are not on PrEP, get to an ER or clinic for PEP now.',
+      'If HIV exposure is possible, go to the nearest emergency department now for urgent PEP evaluation.',
       'If you have Doxy-PEP, take it inside the recommended window.',
       'Book testing at two weeks and again at six weeks.',
     ],
@@ -493,16 +493,6 @@ export interface HotlineEntry {
 }
 
 export const HOTLINES: HotlineEntry[] = [
-  {
-    label: 'National PEP / PrEP line',
-    value: '1-888-448-4911',
-    note: '24/7 exposure guidance for the public',
-  },
-  {
-    label: 'Clinician consultation (PEPline)',
-    value: '1-844-275-6222',
-    note: 'For providers deciding on PEP',
-  },
   { label: 'Crisis Text Line', value: '741741', note: 'Text HOME to reach a crisis counsellor' },
   { label: 'Emergency services', value: '911', note: 'Immediate danger or medical emergency' },
 ];
@@ -528,7 +518,7 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
       },
       {
         title: 'PEP is an emergency, not an appointment',
-        body: 'The window is 72 hours and effectiveness drops with every hour. Any emergency department can start it.',
+        body: 'Go to the nearest emergency department now for urgent PEP evaluation. PEP must start as soon as possible, within 72 hours. Do not wait for a phone consultation or an appointment.',
       },
       {
         title: 'Undetectable means untransmittable',

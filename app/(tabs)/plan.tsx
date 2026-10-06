@@ -3,7 +3,7 @@ import { ChevronRight, RotateCcw } from 'lucide-react-native';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { MatchPiece } from '@/components/BrandArt';
+import { MatchFrameworkTitle, MatchPiece } from '@/components/BrandArt';
 import { BackChip } from '@/components/BackChip';
 import { HexScore } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
@@ -34,6 +34,8 @@ export default function PlanScreen() {
         <View className="px-5 pb-3">
           <BackChip mode="jump" />
         </View>
+
+        <MatchFrameworkTitle className="mb-4" />
 
         <View className="flex-row items-start justify-between px-5">
           <View className="flex-1">

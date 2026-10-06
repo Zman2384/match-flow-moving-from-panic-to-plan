@@ -73,6 +73,48 @@ export function MatchFlowHero({ className }: { className?: string }) {
   );
 }
 
+/** Supplied MATCH Flow icon, displayed without a panel beside the live telemetry. */
+export function MatchFlowIcon({ className }: { className?: string }) {
+  const width = useArtWidth(48, 420);
+  const source = require('../assets/match-flow-icon.png');
+  const height = width / BANNER_ASPECT;
+
+  return (
+    <View className={cn('self-center', className)} style={{ width, height }}>
+      <Image
+        source={source}
+        style={{ width, height }}
+        resizeMode="contain"
+        accessibilityLabel="MATCH Flow icon — gold flame with cyan heartbeat and magenta arrow"
+      />
+    </View>
+  );
+}
+
+/** Framework title lockup with unused vertical artboard padding clipped away. */
+export function MatchFrameworkTitle({ className }: { className?: string }) {
+  const width = useArtWidth(48, 520);
+  const source = require('../assets/match-framework-title.png');
+  const fullHeight = width * (666 / 2000);
+  const height = fullHeight * 0.54;
+
+  return (
+    <View className={cn('self-center overflow-hidden', className)} style={{ width, height }}>
+      <Image
+        source={source}
+        style={{
+          position: 'absolute',
+          top: -fullHeight * 0.24,
+          width,
+          height: fullHeight,
+        }}
+        resizeMode="contain"
+        accessibilityLabel="MATCH Framework — Medications, Awareness, Tools, Communication, Habits"
+      />
+    </View>
+  );
+}
+
 /**
  * Single-piece slices of the wordmark artboard (1536 x 1024). Each piece is
  * cropped straight out of the shared PNG, so the five tiles stay pixel-identical

@@ -325,8 +325,8 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
     lines: [
       {
         id: 'ce-1',
-        goal: 'Lead with the clock',
-        text: 'I had a possible HIV exposure within the last 72 hours and I need PEP started today.',
+        goal: 'Say it out loud',
+        text: 'I need to be evaluated for PEP.',
       },
       {
         id: 'ce-2',
@@ -863,11 +863,12 @@ export const RISK_QUESTIONS: RiskQuestion[] = [
   {
     id: 'q2',
     piece: 'M',
-    prompt: 'Do you know how to get PEP within 72 hours where you live?',
+    prompt:
+      'PEP readiness drill: Save a 24-hour access point from locator.hiv.gov. Verify that it is open 24 hours and can evaluate you for PEP. Say “I need to be evaluated for PEP” out loud. Have you done both?',
     options: [
-      { label: 'Yes, I have a specific place', points: 0 },
-      { label: 'Vaguely', points: 5 },
-      { label: 'No idea', points: 10 },
+      { label: 'Yes, saved and rehearsed', points: 0 },
+      { label: 'Only one step done', points: 5 },
+      { label: 'Not yet', points: 10 },
     ],
   },
   {

@@ -253,7 +253,7 @@ export const GHOSTS: GhostArchetype[] = [
     category: 'clinical',
     fear: 'The condom breaks and I have no idea what to do next.',
     disarm:
-      'This is the one with a clock on it: PEP works best within hours and is still an option out to 72 hours. Know the window and the door before the night you need them.',
+      'Practice while calm: Save a 24-hour access point from locator.hiv.gov. Verify that it is open 24 hours and can evaluate you for PEP. Say “I need to be evaluated for PEP” out loud. After a possible HIV exposure, go to the nearest emergency department now — do not delay care to complete the drill. PEP must start as soon as possible, within 72 hours.',
     pieces: ['T', 'M'],
     href: '/tools/emergency',
     hrefLabel: 'Open the 72-hour protocol',

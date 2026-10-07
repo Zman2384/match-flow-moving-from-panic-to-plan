@@ -189,11 +189,11 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: 'Device permissions',
-        body: 'Where the App asks for a permission, it is used for that single purpose in the moment and nothing is transmitted to us:',
+        body: 'Where the App asks for a permission, it is used for the feature you choose. Clinic searches send the location described below; local reminders do not.',
         bullets: [
           'Phone dialler — to place a call you tap in the emergency sheet. We do not read your call log.',
           'Notifications — to show local reminders scheduled on your device. Reminder content never leaves the device.',
-          'Location, if you enable it on the clinic map — used in-session to centre the map. It is not stored or sent to us.',
+          'Location — accessed only when you tap Use current location in Clinic Finder. Coordinates are sent through our search service to Google Maps to find nearby care. Alternatively, a ZIP code or address you enter is sent for that search. The app does not save your location or search history, and the search function does not log request content. Service infrastructure and Google may process technical request data under their own policies.',
         ],
       },
       {
@@ -201,14 +201,14 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         body: 'Outside services receive only the requests needed for features you choose. Optional live AI is the exception to on-device chat processing described above.',
         bullets: [
           'Platform stores (Apple, Google) handle distribution, crash reporting you opt into at the OS level, and any purchase. Their own privacy policies apply to those interactions.',
-          'Map tiles on the clinic screen are requested from a map provider, which necessarily sees the map area being viewed. No clinic you save and no note you write is included in that request.',
+          'Google Maps provides live Clinic Finder results. Your chosen location and care type are sent for the search; your plans, Ghost Audits and notes are not. Google’s Terms of Service (https://policies.google.com/terms) and Privacy Policy (https://policies.google.com/privacy) apply. Directions open an external maps service only when you tap them.',
           'Fonts are loaded from a public font CDN on the web build, which sees a standard web request.',
           'Product analytics are not enabled in released builds. Anonymous, non-identifying usage counters may run only inside our internal development preview and are never linked to a person or to any content you enter.',
         ],
       },
       {
         heading: 'Legal bases (GDPR / UK GDPR)',
-        body: 'Local planning does not send your records to our systems. Optional live AI processing starts only after you enable it and can be stopped for future messages. External map and font requests also involve technical data. Privacy questions and requests about live processing can be sent to our privacy contact; provider handling is subject to the applicable provider policy.',
+        body: 'Local planning does not send your records to our systems. Optional live AI processing starts only after you enable it and can be stopped for future messages. Clinic searches start only when you submit a location or choose current location. Search and font requests also involve technical data. Privacy questions and requests about live processing can be sent to our privacy contact; provider handling is subject to the applicable provider policy.',
       },
       {
         heading: 'Your rights under GDPR',

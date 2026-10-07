@@ -1,194 +1,342 @@
-import { Bookmark, Navigation, Phone } from 'lucide-react-native';
-import { useMemo, useState } from 'react';
-import { Linking, Platform, Pressable, ScrollView, Text, View } from 'react-native';
+import * as Haptics from 'expo-haptics';
+import * as Location from 'expo-location';
+import { Button, Input, Label, Skeleton, Spinner } from 'heroui-native';
+import { LocateFixed, MapPin, Navigation, Phone, Search } from 'lucide-react-native';
+import { useRef, useState } from 'react';
+import {
+  FlatList,
+  Keyboard,
+  KeyboardAvoidingView,
+  Linking,
+  Platform,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 
-import MapView from '@/components/MapView';
-import type { MapMarker } from '@/components/MapView';
 import { BodyText, ScreenShell } from '@/components/ScreenShell';
-import { CLINICS, CLINIC_KINDS, type Clinic } from '@/lib/content';
-import { GHOST_COLOR, HUD, MATCH_COLOR, STATE_PASS, STEEL } from '@/lib/palette';
-
-/** Markers stay inside the brand palette: pillar hues plus the cyan signal. */
-const KIND_COLOR: Record<Clinic['kind'], string> = {
-  pep: MATCH_COLOR.T,
-  prep: MATCH_COLOR.M,
-  testing: MATCH_COLOR.A,
-  clinic: GHOST_COLOR.logistical,
-  pharmacy: MATCH_COLOR.H,
-};
-
-function dial(number: string) {
-  const cleaned = number.replace(/[^\d+]/g, '');
-  void Linking.openURL(Platform.OS === 'ios' ? `telprompt:${cleaned}` : `tel:${cleaned}`).catch(
-    () => undefined,
-  );
-}
-
-function openDirections(clinic: Clinic) {
-  const query = encodeURIComponent(`${clinic.name} ${clinic.address}`);
-  const url =
-    Platform.OS === 'ios'
-      ? `https://maps.apple.com/?q=${query}`
-      : `https://www.google.com/maps/search/?api=1&query=${query}`;
-  void Linking.openURL(url).catch(() => undefined);
-}
+import {
+  checkClinicSearch,
+  CLINIC_SEARCH_KINDS,
+  searchClinics,
+  type ClinicSearchKind,
+  type ClinicSearchOrigin,
+  type ClinicSearchResults,
+  type NearbyClinic,
+} from '@/lib/clinics';
+import { HUD, INK_ON_SIGNAL, SILVER } from '@/lib/palette';
 
 export default function ClinicsScreen() {
-  const [kind, setKind] = useState<Clinic['kind'] | 'all'>('all');
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [address, setAddress] = useState('');
+  const [kind, setKind] = useState<ClinicSearchKind>('clinic');
+  const [results, setResults] = useState<ClinicSearchResults | null>(null);
+  const [pending, setPending] = useState<'address' | 'location' | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const originRef = useRef<ClinicSearchOrigin | null>(null);
+  const retryRef = useRef<'address' | 'location'>('address');
 
-  const filtered = useMemo(
-    () => (kind === 'all' ? CLINICS : CLINICS.filter((c) => c.kind === kind)),
-    [kind],
-  );
+  function showError(message: string) {
+    setError(message);
+    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+  }
 
-  const markers = filtered.map((clinic) => ({
-    id: clinic.id,
-    coordinate: { latitude: clinic.latitude, longitude: clinic.longitude },
-    title: clinic.name,
-    description: clinic.hours,
-    color: KIND_COLOR[clinic.kind],
-    onPress: () => setSelectedId(clinic.id),
-  }));
+  async function find(
+    mode: 'address' | 'location',
+    nextKind = kind,
+    existingOrigin?: ClinicSearchOrigin,
+  ) {
+    if (pending) return;
+    retryRef.current = mode;
+    if (!existingOrigin && mode === 'address' && !address.trim()) {
+      showError('Enter a ZIP code or address to find nearby clinics.');
+      return;
+    }
+    Keyboard.dismiss();
+    setPending(mode);
+    setError(null);
+    setResults(null);
+    try {
+      let origin = existingOrigin;
+      if (!origin && mode === 'location') {
+        // Check availability before requesting permission or accessing location.
+        await checkClinicSearch();
+        const permission = await Location.requestForegroundPermissionsAsync();
+        if (permission.status !== Location.PermissionStatus.GRANTED) {
+          throw new Error('Location access is off. Enter a ZIP code or address instead.');
+        }
+        const position = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
+        });
+        origin = {
+          coordinate: { latitude: position.coords.latitude, longitude: position.coords.longitude },
+        };
+      }
+      origin ??= { address: address.trim() };
+      const data = await searchClinics(origin, nextKind);
+      originRef.current = origin;
+      setResults(data);
+      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    } catch (cause) {
+      const message =
+        cause instanceof Error ? cause.message : 'Could not find nearby clinics. Please try again.';
+      showError(
+        mode === 'location' && /location.*(unavailable|timeout)|position/i.test(message)
+          ? 'Could not get your location. Enter a ZIP code or address, or try again.'
+          : message,
+      );
+    } finally {
+      setPending(null);
+    }
+  }
 
-  const selected = filtered.find((c) => c.id === selectedId);
+  function selectKind(next: ClinicSearchKind) {
+    if (next === kind || pending) return;
+    setKind(next);
+    setError(null);
+    void Haptics.selectionAsync();
+    if (originRef.current) void find(retryRef.current, next, originRef.current);
+  }
 
-  return (
-    <ScreenShell
-      title="Clinic Finder"
-      subtitle="Sample access points — verify hours before you travel"
-      hint="For exposure inside 72 hours, an emergency department is always an option."
-      showGuide={false}
-    >
-      <View className="border-hud/25 h-56 overflow-hidden rounded-3xl border">
-        <MapView
-          style={{ flex: 1 }}
-          initialRegion={{
-            latitude: 37.7749,
-            longitude: -122.4194,
-            latitudeDelta: 0.09,
-            longitudeDelta: 0.09,
+  async function openLink(url: string) {
+    try {
+      await Linking.openURL(url);
+    } catch {
+      showError('Could not open that link. Please try again.');
+    }
+  }
+
+  const header = (
+    <View className="gap-4 pb-4">
+      <View className="border-hud/30 bg-panel/80 gap-3 rounded-3xl border p-4">
+        <View className="flex-row items-center gap-2">
+          <MapPin size={22} color={HUD} />
+          <Text className="text-foreground flex-1 text-xl font-bold">Find care near you</Text>
+        </View>
+        <Label>
+          <Label.Text className="font-body text-foreground text-base">
+            ZIP code or address
+          </Label.Text>
+        </Label>
+        <Input
+          accessibilityLabel="ZIP code or address"
+          className="font-body border-border bg-panel-deep text-foreground min-h-12 rounded-xl border text-base"
+          placeholder="ZIP code or street, city, state"
+          value={address}
+          editable={!pending}
+          autoComplete="off"
+          autoCorrect={false}
+          returnKeyType="search"
+          onSubmitEditing={() => void find('address')}
+          onChangeText={(value) => {
+            setAddress(value);
+            setResults(null);
+            setError(null);
+            originRef.current = null;
           }}
-          markers={markers}
-          onMarkerPress={(marker: MapMarker) => setSelectedId(marker.id ?? null)}
         />
+        <Button
+          className="bg-hud rounded-xl"
+          isDisabled={!!pending}
+          onPress={() => void find('address')}
+        >
+          {pending === 'address' ? (
+            <Spinner size="sm" />
+          ) : (
+            <Search size={18} color={INK_ON_SIGNAL} />
+          )}
+          <Button.Label className="font-body text-background text-base">
+            {pending === 'address' ? 'Finding care…' : 'Find nearby clinics'}
+          </Button.Label>
+        </Button>
+        <Text className="font-body text-muted text-center text-base">or</Text>
+        <Button
+          variant="tertiary"
+          feedbackVariant="scale"
+          className="bg-panel-deep border-hud/40 rounded-xl border"
+          isDisabled={!!pending}
+          onPress={() => void find('location')}
+        >
+          {pending === 'location' ? <Spinner size="sm" /> : <LocateFixed size={18} color={HUD} />}
+          <Button.Label className="font-body text-hud text-base">
+            {pending === 'location' ? 'Finding your location…' : 'Use current location'}
+          </Button.Label>
+        </Button>
+        <BodyText className="text-muted">
+          Searching sends your location to Google Maps through our search service. MATCH Flow does
+          not save it. No account needed.
+        </BodyText>
       </View>
-
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 8, paddingVertical: 14 }}
+        contentContainerStyle={{ gap: 8 }}
       >
-        <Chip label="All" active={kind === 'all'} onPress={() => setKind('all')} />
-        {CLINIC_KINDS.map((item) => (
-          <Chip
+        {CLINIC_SEARCH_KINDS.map((item) => (
+          <Button
             key={item.id}
-            label={`${item.emoji} ${item.label}`}
-            active={kind === item.id}
-            onPress={() => setKind(item.id)}
-          />
+            variant="tertiary"
+            feedbackVariant="scale"
+            size="sm"
+            isDisabled={!!pending}
+            onPress={() => selectKind(item.id)}
+            accessibilityState={{ selected: kind === item.id }}
+            className={`rounded-full border ${kind === item.id ? 'border-hud bg-hud/15' : 'border-border bg-panel/60'}`}
+          >
+            <Button.Label
+              numberOfLines={1}
+              className={`font-body text-base ${kind === item.id ? 'text-hud' : 'text-foreground'}`}
+            >
+              {item.label}
+            </Button.Label>
+          </Button>
         ))}
       </ScrollView>
-
-      {selected ? (
-        <View
-          className="mb-3 rounded-2xl border p-4"
-          style={{
-            borderColor: `${KIND_COLOR[selected.kind]}66`,
-            backgroundColor: `${KIND_COLOR[selected.kind]}14`,
-          }}
-        >
-          <Text
-            className="text-[10px] font-bold tracking-widest uppercase"
-            style={{ color: KIND_COLOR[selected.kind] }}
-          >
-            Selected
-          </Text>
-          <Text className="text-foreground mt-1 text-base font-bold">{selected.name}</Text>
-          <BodyText className="text-muted mt-0.5">{selected.address}</BodyText>
-        </View>
-      ) : null}
-
-      {filtered.map((clinic) => (
-        <ClinicCard key={clinic.id} clinic={clinic} onSelect={() => setSelectedId(clinic.id)} />
-      ))}
-    </ScreenShell>
-  );
-}
-
-function Chip({ label, active, onPress }: { label: string; active: boolean; onPress: () => void }) {
-  return (
-    <Pressable
-      onPress={onPress}
-      className={`rounded-full border px-3.5 py-2 active:opacity-70 ${
-        active ? 'border-hud bg-hud/15' : 'border-border bg-panel/60'
-      }`}
-    >
-      <Text
-        className={`text-[11px] font-bold tracking-wider uppercase ${
-          active ? 'text-hud' : 'text-muted'
-        }`}
-      >
-        {label}
-      </Text>
-    </Pressable>
-  );
-}
-
-function ClinicCard({ clinic, onSelect }: { clinic: Clinic; onSelect: () => void }) {
-  const color = KIND_COLOR[clinic.kind];
-  return (
-    <Pressable
-      onPress={onSelect}
-      className="border-border bg-panel/60 mb-3 rounded-2xl border p-4 active:opacity-70"
-    >
-      <View className="flex-row items-start gap-3">
-        <View className="flex-1">
-          <Text className="text-foreground text-base font-bold">{clinic.name}</Text>
-          <BodyText className="text-muted mt-0.5">
-            {clinic.distance} · {clinic.hours}
+      {kind === 'pep' ? (
+        <View className="border-caution-edge/50 bg-caution-edge/10 rounded-2xl border p-4">
+          <BodyText className="text-caution-soft">
+            For possible HIV exposure, go to the nearest emergency department now for urgent PEP
+            evaluation. Start as soon as possible, within 72 hours. Do not delay care to complete a
+            search.
           </BodyText>
         </View>
-        <View className="rounded-full px-2 py-1" style={{ backgroundColor: `${color}26` }}>
-          <Text className="text-[9px] font-bold uppercase" style={{ color }}>
-            {clinic.kind}
-          </Text>
-        </View>
-      </View>
-
-      <View className="mt-2 flex-row flex-wrap gap-1.5">
-        {clinic.services.map((service) => (
-          <View key={service} className="bg-panel-deep rounded-md px-2 py-1">
-            <Text className="text-muted text-[10px]">{service}</Text>
-          </View>
-        ))}
-      </View>
-
-      {clinic.slidingScale ? (
-        <View className="mt-2 flex-row items-center gap-1.5">
-          <Bookmark size={11} color={STATE_PASS} />
-          <Text className="text-state-pass text-[10px] font-semibold">
-            Sliding scale / free options
-          </Text>
+      ) : null}
+      {error ? (
+        <View
+          accessibilityRole="alert"
+          className="border-caution-edge/50 bg-panel rounded-2xl border p-4"
+        >
+          <BodyText className="text-caution-soft">{error}</BodyText>
+          <Button
+            variant="tertiary"
+            feedbackVariant="scale"
+            className="bg-panel-deep border-hud/40 mt-3 border"
+            onPress={() => void find(retryRef.current)}
+          >
+            <Button.Label className="font-body text-hud text-base">Try again</Button.Label>
+          </Button>
         </View>
       ) : null}
+      {pending ? (
+        <View className="gap-3">
+          <Skeleton className="h-36 rounded-2xl" />
+          <Skeleton className="h-36 rounded-2xl" />
+        </View>
+      ) : null}
+      {results ? (
+        <View className="gap-2">
+          <Text className="text-foreground text-lg font-bold">Nearest results</Text>
+          <BodyText className="text-hud">{results.originLabel}</BodyText>
+          <BodyText className="text-muted">
+            Up to 20 matches within 31 miles, sorted by straight-line distance. Confirm hours and
+            services before you travel.
+          </BodyText>
+          <Text className="text-foreground text-base font-medium">Google Maps</Text>
+        </View>
+      ) : null}
+    </View>
+  );
 
-      <View className="mt-3 flex-row gap-2">
-        <Pressable
-          onPress={() => dial(clinic.phone)}
-          className="border-hud/40 bg-hud/10 flex-1 flex-row items-center justify-center gap-1.5 rounded-xl border py-2.5 active:opacity-70"
+  return (
+    <KeyboardAvoidingView
+      className="flex-1"
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <ScreenShell title="Clinic Finder" showGuide={false} plain>
+        <FlatList
+          data={results?.clinics ?? []}
+          keyExtractor={(clinic) => clinic.id}
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 24 }}
+          ListHeaderComponent={header}
+          renderItem={({ item }) => <ClinicCard clinic={item} openLink={openLink} />}
+          ListEmptyComponent={
+            results && !pending ? (
+              <View className="border-border bg-panel/60 items-center gap-3 rounded-2xl border p-5">
+                <MapPin size={30} color={HUD} />
+                <BodyText className="text-foreground text-center">
+                  No nearby matches. Try another location or care type.
+                </BodyText>
+                <Button
+                  variant="tertiary"
+                  feedbackVariant="scale"
+                  onPress={() => {
+                    setResults(null);
+                    setAddress('');
+                    originRef.current = null;
+                  }}
+                >
+                  <Button.Label className="font-body text-hud text-base">
+                    Change location
+                  </Button.Label>
+                </Button>
+              </View>
+            ) : null
+          }
+        />
+      </ScreenShell>
+    </KeyboardAvoidingView>
+  );
+}
+
+function ClinicCard({
+  clinic,
+  openLink,
+}: {
+  clinic: NearbyClinic;
+  openLink: (url: string) => Promise<void>;
+}) {
+  return (
+    <View className="border-border bg-panel/80 mb-3 gap-2 rounded-2xl border p-4">
+      <Text className="text-foreground text-lg font-bold">{clinic.name}</Text>
+      <BodyText className="text-hud">
+        {clinic.distanceMiles.toFixed(1)} mi away
+        {clinic.openNow === null ? '' : clinic.openNow ? ' · Open now' : ' · Closed now'}
+      </BodyText>
+      <BodyText className="text-muted">{clinic.address}</BodyText>
+      <View className="mt-2 flex-row gap-2">
+        {clinic.phone ? (
+          <Button
+            variant="tertiary"
+            feedbackVariant="scale"
+            className="bg-panel-deep border-hud/40 flex-1 rounded-xl border"
+            onPress={() => void openLink(`tel:${clinic.phone!.replace(/[^\d+]/g, '')}`)}
+          >
+            <Phone size={16} color={HUD} />
+            <Button.Label className="font-body text-hud text-base">Call</Button.Label>
+          </Button>
+        ) : null}
+        <Button
+          variant="tertiary"
+          feedbackVariant="scale"
+          className="bg-panel-deep border-border flex-1 rounded-xl border"
+          onPress={() => void openLink(clinic.mapsUrl)}
         >
-          <Phone size={13} color={HUD} />
-          <Text className="text-hud text-[11px] font-bold">Call</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => openDirections(clinic)}
-          className="border-border bg-panel-deep flex-1 flex-row items-center justify-center gap-1.5 rounded-xl border py-2.5 active:opacity-70"
-        >
-          <Navigation size={13} color={STEEL} />
-          <Text className="text-muted text-[11px] font-bold">Directions</Text>
-        </Pressable>
+          <Navigation size={16} color={SILVER} />
+          <Button.Label className="font-body text-foreground text-base">Directions</Button.Label>
+        </Button>
       </View>
-    </Pressable>
+      {clinic.attributions.map((attribution) =>
+        attribution.uri ? (
+          <Button
+            key={JSON.stringify([attribution.provider, attribution.uri])}
+            variant="tertiary"
+            feedbackVariant="scale"
+            className="bg-transparent"
+            onPress={() => void openLink(attribution.uri!)}
+          >
+            <Button.Label numberOfLines={1} className="text-muted">
+              {attribution.provider}
+            </Button.Label>
+          </Button>
+        ) : (
+          <BodyText
+            key={JSON.stringify([attribution.provider, attribution.uri])}
+            className="text-muted"
+          >
+            {attribution.provider}
+          </BodyText>
+        ),
+      )}
+    </View>
   );
 }

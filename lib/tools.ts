@@ -126,7 +126,7 @@ export const TOOLS: ToolEntry[] = [
   {
     id: 'clinics',
     title: 'Clinic Finder',
-    blurb: 'PEP, PrEP, testing and pharmacy access points on a map.',
+    blurb: 'Find nearby clinics from a ZIP code, address or current location.',
     href: '/tools/clinics',
     icon: 'map',
     accent: MATCH_COLOR.M,

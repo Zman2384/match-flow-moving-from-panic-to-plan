@@ -56,6 +56,13 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       'expo-font',
       'expo-splash-screen',
       'expo-status-bar',
+      [
+        'expo-location',
+        {
+          locationWhenInUsePermission:
+            'Allow MATCH Flow to find clinics near you when you choose current location.',
+        },
+      ],
       ...nativePlugins,
     ],
     experiments: {

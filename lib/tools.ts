@@ -34,9 +34,19 @@ export interface ToolEntry {
 
 export const TOOLS: ToolEntry[] = [
   {
+    id: 'curriculum',
+    title: 'HARNESS Curriculum',
+    blurb: 'Adult track: six modules and 19 canonical chapters.',
+    href: '/tools/curriculum',
+    icon: 'book',
+    accent: HUD,
+    pieces: ['M', 'A', 'T', 'C', 'H'],
+    category: 'Sustain',
+  },
+  {
     id: 'safer-score',
     title: 'SafER Score',
-    blurb: 'Nine questions that expose which layer is carrying too much weight.',
+    blurb: 'Ten questions that expose which layer is carrying too much weight.',
     href: '/tools/safer-score',
     icon: 'gauge',
     accent: HUD,
@@ -56,7 +66,7 @@ export const TOOLS: ToolEntry[] = [
   {
     id: 'stress-test',
     title: 'Stress Test Lab',
-    blurb: 'Run your plan through six failure scenarios and see what holds.',
+    blurb: 'Run your plan through eight practice scenarios and see what holds.',
     href: '/tools/stress-test',
     icon: 'flask',
     accent: MATCH_COLOR.T,

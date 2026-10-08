@@ -15,6 +15,7 @@
 
 import type { Href } from 'expo-router';
 
+import { CLINICAL_BRIEFINGS } from '@/lib/curriculum';
 import { SPECTRUM_BY_ID, type SpectrumId } from '@/lib/ghosts';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
 
@@ -74,6 +75,7 @@ export const LILZ_TARGETS: Record<string, { label: string; href: Href }> = {
   analytics: { label: 'Shield Analytics', href: '/tools/analytics' },
   rituals: { label: 'Ritual Cards', href: '/tools/rituals' },
   reminders: { label: 'Reminders', href: '/tools/reminders' },
+  curriculum: { label: 'HARNESS curriculum', href: '/tools/curriculum' },
   resources: { label: 'Knowledge Base', href: '/tools/resources' },
   frameworks: { label: 'Frameworks', href: '/tools/frameworks' },
   'flow-builder': { label: 'Decision Flow', href: '/tools/flow-builder' },
@@ -202,21 +204,49 @@ interface Briefing {
   match: RegExp;
   reply: string;
   actions: LilZAction[];
+  doseQuestion?: boolean;
+  urgent?: boolean;
 }
 
 const BRIEFINGS: Briefing[] = [
   {
-    match:
-      /\b(pep|broke|broken|slipped|slipped off|exposure|exposed|unprotected|condomless|bareback|72|assault)\b/i,
+    match: /\b(curriculum|harness|chapter|module|field kit|fearless challenge)\b/i,
     reply:
-      "Let's take this in order. Breathe out slowly once — the clock is generous enough for you to think.\n\n- PEP has to start within 72 hours of the exposure. Inside 24 hours is the goal, 72 is the hard limit.\n- Go to the nearest emergency department now for urgent PEP evaluation. Do not wait for a phone consultation or an appointment.\n- The course runs 28 days. Finishing it is what makes it work.\n- Ask about Doxy-PEP in the same visit: 200 mg doxycycline within 72 hours cuts chlamydia and syphilis risk by up to about 80%.\n- On injectable PrEP and something feels off? Contact your provider today — timing matters more than with pills.\n\nYou're taking care of yourself right now — that matters.",
+      'The HARNESS adult track is six modules and 19 chapters: Mindset of Protection (1–3), Sexual Barriers (4–6), Medical Shields (7–11), Real Talk (12), Your Perfect MATCH (13–15), and The Field Kit (16–19). Appendices A–E are part of the curriculum. The app currently has the chapter map and safety briefings drawn from supplied pages 1–5, not all 98 pages. Missing manuscript lessons, catalogue entries, dossiers and challenge actions are not invented.',
+    actions: [{ id: 'curriculum', label: 'Open the curriculum' }],
+  },
+  {
+    match: /\b(hepatitis c|hcv|hepatitis|vaccine|vaccines|gardasil|jynneos|mpox)\b/i,
+    reply: `${CLINICAL_BRIEFINGS.vaccines}\n\n${CLINICAL_BRIEFINGS.hepatitisC}`,
+    actions: [{ id: 'resources', label: 'Read the briefing' }],
+  },
+  {
+    match: /\b(pregnancy|pregnant|contraception|plan b)\b/i,
+    reply: CLINICAL_BRIEFINGS.pregnancy,
+    actions: [{ id: 'clinics', label: 'Find care' }],
+  },
+  {
+    match: /\b(needle play|blood play|blood.borne|cutting|shared needles)\b/i,
+    reply: CLINICAL_BRIEFINGS.blood,
+    actions: [{ id: 'emergency', label: 'Emergency steps' }],
+  },
+  {
+    match: /\b(safer score|readiness|risk percentage)\b/i,
+    reply: CLINICAL_BRIEFINGS.score,
+    actions: [{ id: 'plan', label: 'Review your layers' }],
+  },
+  {
+    urgent: true,
+    match:
+      /\b(pep|broke|broken|slipped|slipped off|exposure|exposed|unprotected|condomless|bareback|assault)\b/i,
+    reply:
+      "Let's take this in order. Take one slow breath while arranging care — do not delay.\n\n- Go to the nearest emergency department now for urgent PEP evaluation after a possible HIV exposure. PEP must start as soon as possible, ideally within 24 hours and no later than 72 hours. Do not wait for a call, an appointment or test results.\n- If prescribed, PEP is a 28-day course. Ask the clinician about follow-up testing and prevention.\n- Use locator.hiv.gov to prepare an access plan while calm, not to postpone urgent care.\n- If pregnancy is possible, ask about emergency contraception now; method-specific windows differ.\n- Doxy-PEP is a separate prescription and eligibility conversation. It does not replace PEP.\n\nYou're taking care of yourself right now — that matters.",
     actions: [{ id: 'emergency', label: 'Emergency department plan' }],
   },
   {
     match:
       /\b(prep|descovy|truvada|f\/taf|f\/tdf|apretude|cabotegravir|lenacapavir|yeztugo|2-1-1)\b/i,
-    reply:
-      'PrEP is five different shapes of the same protection — about 99% risk reduction when you actually take it.\n\n- Daily F/TAF (Descovy): protective around day 7. Recommended for men who have sex with men and transgender women.\n- Daily F/TDF (Truvada or generic): 7 days for receptive anal, up to 21 days for vaginal or front-hole sex. Broadest coverage, including injection drug use.\n- Event-driven 2-1-1: two pills 2–24 hours before, one at 24 hours, one at 48. F/TDF only.\n- Cabotegravir (Apretude): an injection every 2 months after the loading doses.\n- Lenacapavir (Yeztugo): twice a year. Longest interval available, and the cleanest answer to missed-dose anxiety.\n\nThe honest question is not which is strongest, it is which one you will still be doing in six months. Bring that sentence to your provider — and confirm you are HIV-negative before starting.',
+    reply: `${CLINICAL_BRIEFINGS.prep}\n\n${CLINICAL_BRIEFINGS.hormones}\n\nPrEP reduces sexual HIV acquisition risk by about 99% when taken as prescribed, not risk from every infection. Ask your provider how long your regimen takes to protect your exposure sites.`,
     actions: [
       { id: 'plan', label: 'Arm Medications' },
       { id: 'resources', label: 'Read the briefing' },
@@ -224,8 +254,7 @@ const BRIEFINGS: Briefing[] = [
   },
   {
     match: /\b(doxy|doxycycline|chlamydia|syphilis|gonorrhea|gonorrhoea|bacterial)\b/i,
-    reply:
-      'Doxy-PEP is the bacterial-STI layer most people never hear about.\n\n- 200 mg of doxycycline taken within 72 hours after sex, ideally inside 24.\n- Cuts chlamydia and syphilis risk by up to about 80%. Gonorrhea response is more mixed.\n- It is a prescription, so it needs a provider conversation — but you can ask for it before you need it and keep it on hand.\n\nHaving it in the drawer is the whole point. A layer you have to go get is a layer you will skip.',
+    reply: CLINICAL_BRIEFINGS.doxy,
     actions: [
       { id: 'plan', label: 'Add to my plan' },
       { id: 'clinics', label: 'Find a clinic' },
@@ -233,8 +262,7 @@ const BRIEFINGS: Briefing[] = [
   },
   {
     match: /\b(test|testing|screen|screening|window period|results|panel)\b/i,
-    reply:
-      "Testing is maintenance, not a verdict.\n\n- Multiple partners: every 3 months, sometimes monthly if things are busy.\n- On PrEP: every 3 months anyway, it's built into the care.\n- Window periods — HIV 10 to 33 days depending on the test, chlamydia and gonorrhea 1 to 2 weeks, syphilis 3 to 6 weeks.\n- Test the sites you actually use: throat and rectal swabs get missed constantly if you don't ask.\n\nIf you're overdue, that's data, not a failure. Put the next one on a schedule so it stops being a decision.",
+    reply: `Testing is maintenance, not a verdict.\n\n${CLINICAL_BRIEFINGS.windows}\n\n${CLINICAL_BRIEFINGS.sites}\n\n${CLINICAL_BRIEFINGS.hepatitisC}\n\nAsk for a testing schedule tailored to your PrEP regimen, exposures and symptoms.`,
     actions: [
       { id: 'reminders', label: 'Set a cadence' },
       { id: 'clinics', label: 'Find testing' },
@@ -242,8 +270,7 @@ const BRIEFINGS: Briefing[] = [
   },
   {
     match: /\b(condom|barrier|lube|dam|glove|internal condom|latex)\b/i,
-    reply:
-      "Barriers work — when they're in reach and the right fit.\n\n- External condoms: about 98% effective with perfect use. Fit matters more than brand; the wrong size is most of why they fail.\n- Internal condoms put control with the receptive partner and can go in ahead of time.\n- Dams for oral. A cut-open condom does the same job in a pinch.\n- Lube: water-based is safe with everything, silicone is latex-safe. Never oil with latex.\n\nOne layer is never the plan. Barriers plus a medication layer plus a testing rhythm is what holds when one thing slips.",
+    reply: `Barriers work when they are available, correctly used and paired with compatible lube.\n\n${CLINICAL_BRIEFINGS.lambskin}\n\nUse water- or silicone-based lube with latex; never oil. Change barriers between partners and sites. Dams add protection for oral contact. Check toy and barrier instructions for material compatibility.\n\n${CLINICAL_BRIEFINGS.pregnancy}`,
     actions: [
       { id: 'plan', label: 'Arm Tools' },
       { id: 'checkin', label: 'Restock check' },
@@ -251,8 +278,7 @@ const BRIEFINGS: Briefing[] = [
   },
   {
     match: /\b(u=u|undetectable|untransmittable|viral load|art|positive|poz|hiv treatment)\b/i,
-    reply:
-      "U=U is settled science, not a slogan. A person on ART with a sustained undetectable viral load does not sexually transmit HIV. Not low risk — no transmission.\n\n- Undetectable usually means under 200 copies/mL, sustained for six months or more.\n- Staying in care keeps that true; adherence is the whole mechanism.\n- Living with HIV is compatible with sex, love, pleasure and kids. Full stop.\n\nIf you're navigating disclosure on top of this, the Script Vault has language that doesn't apologise for existing.",
+    reply: `U=U is settled science: a person on ART with a sustained undetectable viral load does not transmit HIV sexually. Staying in care maintains suppression.\n\n${CLINICAL_BRIEFINGS.disclosure}`,
     actions: [
       { id: 'scripts', label: 'Disclosure scripts' },
       { id: 'resources', label: 'Read the briefing' },
@@ -279,9 +305,10 @@ const BRIEFINGS: Briefing[] = [
     ],
   },
   {
+    doseQuestion: true,
     match: /\b(missed|forgot|late dose|skipped)\b/i,
     reply:
-      "A missed dose is a data point, not a collapse.\n\n- Daily oral PrEP: take it when you remember, then continue as normal. Don't double up. Protection for anal sex holds well at 4+ doses a week; vaginal and front-hole coverage needs closer to daily.\n- Several days missed plus recent sex: talk to a provider about whether PEP is the right call and about restarting.\n- Injectable PrEP (cabotegravir or lenacapavir) past the window: contact your provider today. Timing is much tighter than with pills.\n\nThen fix the system, not the willpower. Set a reminder so the next one isn't a memory test.",
+      'A missed dose is a data point, not a failure.\n\n- Follow the instructions for your exact medication; do not improvise extra doses. Ask your prescriber or pharmacist if you are unsure.\n- For a late cabotegravir or lenacapavir injection, contact your prescribing clinic promptly for a restart or bridging plan.\n- If protection may have lapsed and a possible HIV exposure occurred, go to the nearest emergency department now for urgent PEP evaluation. PEP must start as soon as possible, within 72 hours. Do not delay care for a phone call.\n\nThen fix the system: set a reminder and a refill buffer.',
     actions: [
       { id: 'reminders', label: 'Set reminders' },
       { id: 'emergency', label: 'Check the window' },
@@ -314,7 +341,13 @@ const OFFLINE_DEFAULT =
 
 /** Keyword-routed answer from the built-in curriculum. Used when the model is unreachable. */
 export function offlineBriefing(question: string): { reply: string; actions: LilZAction[] } {
-  const found = BRIEFINGS.find((briefing) => briefing.match.test(question));
+  const normalized = question.replace(/\bdoxy[\s-]*pep\b/gi, 'doxy');
+  // Urgent exposure takes priority even when a question also names a curriculum topic.
+  const urgent = BRIEFINGS.find((briefing) => briefing.urgent && briefing.match.test(normalized));
+  const dose = BRIEFINGS.find(
+    (briefing) => briefing.doseQuestion && briefing.match.test(normalized),
+  );
+  const found = urgent ?? dose ?? BRIEFINGS.find((briefing) => briefing.match.test(normalized));
   if (found) return { reply: found.reply, actions: found.actions };
   return {
     reply: OFFLINE_DEFAULT,

@@ -9,6 +9,7 @@ import { HexScore } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZDock } from '@/components/LilZ';
 import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
+import { CLINICAL_BRIEFINGS } from '@/lib/curriculum';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
 import { LINE_SOFT, PANEL, STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
@@ -63,6 +64,7 @@ export default function PlanScreen() {
         <View className="mt-4 items-center">
           <HexScore score={score} label={tier.label} color={tier.color} size={126} />
         </View>
+        <BodyText className="text-caution-soft mx-5 mt-3">{CLINICAL_BRIEFINGS.score}</BodyText>
 
         <View className="mt-4 px-5">
           {MATCH_PIECES.map((piece) => {

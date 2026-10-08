@@ -1,3 +1,6 @@
+import * as Haptics from 'expo-haptics';
+import { router } from 'expo-router';
+import { Button } from 'heroui-native';
 import { ExternalLink } from 'lucide-react-native';
 import { useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
@@ -19,13 +22,24 @@ export default function ResourcesScreen() {
       subtitle="Plain-language briefings, one MATCH piece at a time"
       hint="Read the piece you scored lowest on first."
     >
+      <Button
+        variant="secondary"
+        className="border-hud/40 bg-hud/10 mb-4 border"
+        onPress={() => router.push('/tools/curriculum')}
+      >
+        <Button.Label className="text-hud font-body text-base">HARNESS curriculum</Button.Label>
+      </Button>
       <View className="mb-4 flex-row gap-2">
         {MATCH_PIECES.map((item) => {
           const on = item.key === piece;
           return (
             <Pressable
               key={item.key}
-              onPress={() => setPiece(item.key)}
+              onPress={() => {
+                if (piece === item.key) return;
+                void Haptics.selectionAsync();
+                setPiece(item.key);
+              }}
               className="flex-1 items-center rounded-xl border py-2.5 active:opacity-70"
               style={{
                 borderColor: on ? item.color : LINE,

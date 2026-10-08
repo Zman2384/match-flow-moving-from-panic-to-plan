@@ -47,13 +47,15 @@ export const MATCH_PIECES: MatchPiece[] = [
         id: 'prep-injectable',
         label: 'Long-acting injectable PrEP',
         points: 22,
-        detail: 'Clinic injections on a fixed schedule.',
+        detail:
+          'Two-month cabotegravir or twice-yearly lenacapavir: initiation and follow-up schedules are set by your provider.',
       },
       {
         id: 'prep-ondemand',
         label: 'On-demand / event-driven PrEP',
         points: 14,
-        detail: 'Dosing around planned encounters.',
+        detail:
+          'Off-label in the US; only for selected people after provider assessment. Not appropriate for every body or exposure.',
       },
       {
         id: 'art',
@@ -266,7 +268,8 @@ export function scoreTier(score: number): ScoreTier {
     return {
       label: 'Fortified',
       color: MATCH_COLOR.M,
-      blurb: 'Multiple independent layers. One failure will not sink you.',
+      blurb:
+        'Multiple planned layers add backup options. Keep each one current; readiness is not a guarantee.',
     };
   }
   if (score >= 65) {

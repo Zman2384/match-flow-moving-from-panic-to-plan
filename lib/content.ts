@@ -1,3 +1,4 @@
+import { CLINICAL_BRIEFINGS } from '@/lib/curriculum';
 import type { PieceKey } from '@/lib/match';
 import { GHOST_COLOR, HUD, MATCH_COLOR } from '@/lib/palette';
 
@@ -163,6 +164,36 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
     ],
   },
   {
+    id: 'hiv-disclosure',
+    title: 'HIV disclosure',
+    description: 'The fact, the science, the door',
+    pieces: ['M', 'C'],
+    group: 'field',
+    lines: [
+      { id: 'hd-1', goal: 'The fact', text: 'I live with HIV, and I am on treatment.' },
+      {
+        id: 'hd-2',
+        goal: 'The science — when sustained suppression is confirmed',
+        text: 'My viral load is sustained undetectable. U=U means I do not transmit HIV sexually. We still plan for other STIs and pregnancy where relevant.',
+      },
+      {
+        id: 'hd-3',
+        goal: 'The door',
+        text: 'What would you like to ask? We can take time before deciding anything.',
+      },
+      {
+        id: 'hd-4',
+        goal: 'A bad reaction',
+        text: 'I shared this to be honest, not to be judged. We can pause, and I can leave if this no longer feels respectful.',
+      },
+      {
+        id: 'hd-5',
+        goal: 'Check local legal obligations with qualified counsel',
+        text: 'Can you connect me with qualified local advice on HIV disclosure laws? I understand some laws have not caught up with U=U.',
+      },
+    ],
+  },
+  {
     id: 'medical-question',
     title: 'Medical Question',
     description: 'You need to raise PrEP, vaccines, or testing',
@@ -235,7 +266,7 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
       {
         id: 'pb-4',
         goal: 'Book follow-up testing',
-        text: 'I am testing at two weeks and again at six. No blame, just my routine.',
+        text: 'Which tests do I need now, and when should I repeat them based on my exposure and medications?',
       },
     ],
   },
@@ -249,7 +280,7 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
       {
         id: 'ct-1',
         goal: 'Ask for the full panel',
-        text: 'I would like a full STI screen today: HIV, syphilis, gonorrhoea and chlamydia, plus hepatitis.',
+        text: 'I would like HIV and syphilis testing, plus gonorrhea and chlamydia testing at my exposure sites. Please discuss hepatitis B and test for hepatitis C by name.',
       },
       {
         id: 'ct-2',
@@ -278,7 +309,7 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
       {
         id: 'cp-2',
         goal: 'Compare the options',
-        text: 'Can we talk through daily oral versus the injectable and which suits my routine?',
+        text: 'Can we compare daily oral PrEP, cabotegravir every two months, and twice-yearly lenacapavir (Yeztugo), including monitoring and how each fits my routine?',
       },
       {
         id: 'cp-3',
@@ -526,16 +557,19 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
       },
       {
         title: 'Doxy-PEP targets bacteria only',
-        body: 'It reduces syphilis, chlamydia, and some gonorrhoea risk. It does nothing for HIV or viral STIs.',
+        body: CLINICAL_BRIEFINGS.doxy,
       },
       {
         title: 'Keep a refill buffer',
         body: 'Request refills at the one-week-remaining mark so a pharmacy delay never becomes a coverage gap.',
       },
       {
-        title: 'Vaccines are cheap coverage',
-        body: 'HPV, hepatitis A and B, and mpox vaccination remove whole categories of risk permanently.',
+        title: 'Vaccines add a layer',
+        body: CLINICAL_BRIEFINGS.vaccines,
       },
+      { title: 'Hepatitis C: ask by name', body: CLINICAL_BRIEFINGS.hepatitisC },
+      { title: 'PrEP formats', body: CLINICAL_BRIEFINGS.prep },
+      { title: 'PrEP and gender-affirming care', body: CLINICAL_BRIEFINGS.hormones },
     ],
     links: [
       { label: 'CDC — HIV prevention', url: 'https://www.cdc.gov/hiv/basics/prevention.html' },
@@ -547,7 +581,7 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
     tips: [
       {
         title: 'Test by site, not just by blood',
-        body: 'Throat and rectal infections are usually asymptomatic and are missed by urine-only testing.',
+        body: CLINICAL_BRIEFINGS.sites,
       },
       {
         title: 'Every three months is a baseline',
@@ -555,7 +589,7 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
       },
       {
         title: 'Windows matter',
-        body: 'Testing too soon after exposure returns a false reassurance. Re-test at the recommended interval.',
+        body: CLINICAL_BRIEFINGS.windows,
       },
       {
         title: '"Clean" is not a status',
@@ -590,6 +624,13 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
         title: 'Add lube inside and out',
         body: 'Most breakage is friction. A few drops on both sides reduces both breakage and numbness.',
       },
+      { title: 'Condom materials matter', body: CLINICAL_BRIEFINGS.lambskin },
+      { title: 'The pregnancy layer', body: CLINICAL_BRIEFINGS.pregnancy },
+      {
+        title: 'Toys and sharing',
+        body: 'Change barriers between partners and body sites. Clean toys according to their manufacturer’s instructions; check silicone-lube compatibility with silicone toys. Avoid sharing porous toys that cannot be reliably cleaned.',
+      },
+      { title: 'Blood is its own category', body: CLINICAL_BRIEFINGS.blood },
       {
         title: 'Carry a duplicate kit',
         body: 'One kit at home helps only at home. Keep a second in the bag you always take out.',
@@ -606,6 +647,7 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
         title: 'Rehearse before you need it',
         body: 'Under arousal or pressure you will use whatever sentence is already loaded. Load a good one.',
       },
+      { title: 'Disclosure: fact, science, door', body: CLINICAL_BRIEFINGS.disclosure },
       {
         title: 'Go first',
         body: 'Disclosing your own status and test date first makes the other person far more likely to answer honestly.',

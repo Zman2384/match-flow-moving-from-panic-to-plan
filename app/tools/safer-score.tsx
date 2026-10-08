@@ -4,6 +4,7 @@ import { Pressable, Text, View } from 'react-native';
 import { MatchPiece } from '@/components/BrandArt';
 import { HexScore } from '@/components/HexScore';
 import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
+import { CLINICAL_BRIEFINGS } from '@/lib/curriculum';
 import { RISK_QUESTIONS } from '@/lib/content';
 import { MATCH_PIECES, PIECE_BY_KEY, type PieceKey, scoreTier } from '@/lib/match';
 import { PANEL } from '@/lib/palette';
@@ -18,7 +19,7 @@ export default function SaferScoreScreen() {
   const answeredCount = Object.keys(answers).length;
   const complete = answeredCount === RISK_QUESTIONS.length;
 
-  const { exposure, protection, byPiece, weakest } = useMemo(() => {
+  const { protection, byPiece, weakest } = useMemo(() => {
     const maxTotal = RISK_QUESTIONS.reduce(
       (sum, q) => sum + Math.max(...q.options.map((o) => o.points)),
       0,
@@ -58,17 +59,18 @@ export default function SaferScoreScreen() {
 
   if (submitted) {
     return (
-      <ScreenShell title="SafER result" subtitle="A snapshot of exposure versus coverage right now">
+      <ScreenShell title="SafER result" subtitle="Your plan-readiness checklist">
+        <BodyText className="text-caution-soft">{CLINICAL_BRIEFINGS.score}</BodyText>
         <View className="items-center py-2">
           <HexScore
             score={protection}
             label={tier.label}
             color={tier.color}
-            caption="Coverage index"
+            caption="Readiness index"
           />
         </View>
 
-        <HudPanel label="Read-out" status={`${exposure}% exposure`} className="mt-4">
+        <HudPanel label="Read-out" status={`${protection}/100 readiness`} className="mt-4">
           <BodyText className="text-muted">{tier.blurb}</BodyText>
           <View className="mt-4 gap-2">
             {MATCH_PIECES.map((piece) => {
@@ -149,6 +151,7 @@ export default function SaferScoreScreen() {
       subtitle={`${answeredCount} of ${RISK_QUESTIONS.length} answered`}
       hint="Answer honestly — the score is only useful if it reflects a normal week."
     >
+      <BodyText className="text-caution-soft mb-4">{CLINICAL_BRIEFINGS.score}</BodyText>
       <View className="bg-panel-deep mb-5 h-1.5 w-full overflow-hidden rounded-full">
         <View
           className="bg-hud h-1.5 rounded-full"

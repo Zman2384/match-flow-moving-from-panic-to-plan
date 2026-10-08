@@ -142,6 +142,41 @@ Read more:
 - [Bilt MCP Documentation](https://bilt.me/docs)
 - [MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.buildingapplications%2Fmcp/versions/latest)
 
+## Lil Z: behind-the-scenes maintenance profile
+
+Lil Z combines the existing MATCH Flow companion identity with a CDC Content & Resource Integration maintenance role. The server-side profile covers official-source monitoring, MATCH-specific filtering, provenance and date validation, public-resource change proposals, and privacy-safe audit summaries. Clinical changes require qualified human review before publication.
+
+**Current status:** the deployed `lil-z` function answers user-triggered chat requests. The maintenance profile is configured, but continuous CDC monitoring, scheduled syncs, content/database writes, stored audit reporting, and external Bilt MCP lifecycle automation are **not connected or running**. A profile alone does not enable these capabilities or guarantee current medical guidance. App UI, local plans, Ghost Audits, and chat contracts are unchanged.
+
+Private participant data must never enter a public-content maintenance pipeline, project workflow message, or audit log. Saved plans and audits remain device-local. Optional live chat still processes the disclosed context off-device only after the existing per-visit permission; uninstalling cannot erase external provider records or backups.
+
+### External maintenance agent configuration
+
+This declaration describes the intended role and documented tools; it is not an executable connection or scheduler. Connect an authorized external MCP client separately. Do not place credentials in the mobile app.
+
+```json
+{
+  "agent_name": "Lil Z",
+  "platform": "Bilt MCP Server",
+  "primary_directive": "Support authorized MATCH Flow lifecycle workflows and reviewed CDC public-health content maintenance.",
+  "supported_tools": [
+    "bilt_list_projects",
+    "bilt_get_project",
+    "bilt_create_project",
+    "bilt_get_session",
+    "bilt_send_message",
+    "bilt_cancel_workflow",
+    "bilt_get_messages"
+  ]
+}
+```
+
+An authorized maintenance cycle should locate the existing project, check for active workflows, retrieve and validate official public sources, obtain clinical review for medical changes, submit approved instructions, and verify workflow results. Project creation, cancellation, and release publication require explicit authorization. Do not report a successful sync, build, or release without an actual result.
+
+Each actual cycle should record source URL, source publication/update date, retrieval time, affected MATCH topic, public-content diff, validation outcome, reviewer decision, and pushed/modified/archived/flagged/failed status. Never log participant conversations, memories, plans, Ghost Audits, or identifiers.
+
+Bilt references: [Available MCP tools](https://bilt.me/docs/api-reference/overview#available-tools), [Check before sending a message](https://bilt.me/docs/api-reference/bilt_get_session#check-before-sending-a-message), and [MCP setup](https://bilt.me/docs/quickstart-mcp).
+
 ## Need help?
 
 - 📚 [Bilt Documentation](https://bilt.me/docs)

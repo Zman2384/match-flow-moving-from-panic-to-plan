@@ -331,7 +331,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
           'state that the App is educational and not medical advice, and that it cannot call for help;',
           'state that entries stay on the device being used, and who else can access that device;',
           'state that no one will read the participant’s entries, and then honour that;',
-          'confirm participants are 18 or older, or that an appropriate adult-education framework and guardian consent process is in place where local law permits younger participants;',
+          'confirm participants are at least 18, or the age of majority where they live if higher. MATCH Flow is adult-only; guardian consent does not open a youth track;',
           'offer an opt-out that carries no penalty;',
           'give participants the emergency numbers relevant to the region, on paper or verbally, independently of the App.',
         ],

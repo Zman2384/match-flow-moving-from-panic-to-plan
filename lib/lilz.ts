@@ -212,7 +212,7 @@ const BRIEFINGS: Briefing[] = [
   {
     match: /\b(curriculum|harness|chapter|module|field kit|fearless challenge)\b/i,
     reply:
-      'The HARNESS adult track is six modules and 19 chapters: Mindset of Protection (1–3), Sexual Barriers (4–6), Medical Shields (7–11), Real Talk (12), Your Perfect MATCH (13–15), and The Field Kit (16–19). Appendices A–E are part of the curriculum. The app currently has the chapter map and safety briefings drawn from supplied pages 1–5, not all 98 pages. Missing manuscript lessons, catalogue entries, dossiers and challenge actions are not invented.',
+      'MATCH Flow follows MATCH Your Protection: Science as Your Wingman, for adults 18 and older. The HARNESS adult curriculum v2.0 has six modules, 19 chapters and 19 lessons: Mindset of Protection (1–3), Sexual Barriers (4–6), Medical Shields (7–11), Real Talk (12), Your Perfect MATCH (13–15), and Field Kit (16–19). Five reproducible appendices (A–E) are part of the curriculum. The free MATCH workshop pack is a separate 5-session adult letter lab, not a preview of the book and not for middle school. CAPE Flow is the separate grades 6–12 surface. The app currently has the chapter map and safety briefings drawn from supplied pages 1–5, not all 98 pages. Missing manuscript lessons, catalogue entries, dossiers and challenge actions are not invented.',
     actions: [{ id: 'curriculum', label: 'Open the curriculum' }],
   },
   {

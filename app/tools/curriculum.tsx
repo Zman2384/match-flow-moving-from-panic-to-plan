@@ -11,6 +11,7 @@ import {
   CURRICULUM_EDITION,
   CURRICULUM_MODULES,
   CURRICULUM_SOURCE_NOTE,
+  MATCH_BOOK_TITLE,
 } from '@/lib/curriculum';
 
 export default function CurriculumScreen() {
@@ -26,10 +27,12 @@ export default function CurriculumScreen() {
     <ScreenShell
       title={CURRICULUM_EDITION}
       chapterIcon={BookOpen}
-      subtitle="MATCH your protection · Adult track"
+      subtitle={MATCH_BOOK_TITLE}
       showGuide={false}
     >
-      <BodyText className="text-foreground">6 modules · 19 chapters · Appendices A–E</BodyText>
+      <BodyText className="text-foreground">
+        Adult track · 6 modules · 19 chapters · 19 lessons · 5 reproducible appendices
+      </BodyText>
       <View className="border-caution-edge/40 bg-caution-edge/10 mt-3 rounded-2xl border p-4">
         <BodyText className="text-caution-soft">{CURRICULUM_SOURCE_NOTE}</BodyText>
       </View>
@@ -95,7 +98,11 @@ export default function CurriculumScreen() {
         <BodyText className="text-caution-soft mt-3">
           Appendix pages and the five workshop delivery models were not included. No unverified
           handouts or timetables are reproduced here. This adult curriculum is separate from the
-          CAPE youth packet.
+          CAPE Youth Edition Curriculum v3.0.
+        </BodyText>
+        <BodyText className="text-muted mt-3">
+          The free MATCH workshop pack is a 5-session adult letter lab. It is not a preview of the
+          19-chapter book and it is not for middle school.
         </BodyText>
       </View>
     </ScreenShell>

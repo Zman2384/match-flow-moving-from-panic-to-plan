@@ -36,7 +36,7 @@ export const TOOLS: ToolEntry[] = [
   {
     id: 'curriculum',
     title: 'HARNESS Curriculum',
-    blurb: 'Adult track: six modules and 19 canonical chapters.',
+    blurb: 'Adult track: 6 modules, 19 chapters, 19 lessons.',
     href: '/tools/curriculum',
     icon: 'book',
     accent: HUD,

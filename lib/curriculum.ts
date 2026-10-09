@@ -1,9 +1,10 @@
 import type { Href } from 'expo-router';
 
 /** Supplied HARNESS v2.0 reconciliation, source v2.1, pages 1–5 only. */
+export const MATCH_BOOK_TITLE = 'MATCH Your Protection: Science as Your Wingman';
 export const CURRICULUM_EDITION = 'HARNESS Curriculum v2.0';
 export const CURRICULUM_SOURCE_NOTE =
-  'Adult track · Reconciled to the final interior manuscript (v2.1). This map and its briefings use the supplied pages 1–5, not the complete 98-page lesson text.';
+  'Canon: October 2, 2026 · MATCH Your Protection final interior. This adult curriculum map and its briefings use the supplied reconciliation pages 1–5, not the complete 98-page lesson text. Confirm clinical details with a licensed provider or current CDC guidance.';
 
 /** Manuscript estimates, not individual protection probabilities or prescribing advice. */
 export const CLINICAL_BRIEFINGS = {
@@ -185,7 +186,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
   },
   {
     number: 6,
-    title: 'The Field Kit',
+    title: 'Field Kit',
     chapters: [
       {
         number: 16,

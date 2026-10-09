@@ -61,6 +61,10 @@ export default function GateScreen() {
             </View>
           </View>
           <MatchFlowHero />
+          <BodyText className="text-foreground mt-5 text-center">
+            MATCH Flow follows MATCH Your Protection, 6 modules, 19 chapters. It is not the youth
+            app. CAPE Flow is the grades 6–12 surface.
+          </BodyText>
           <Text className="text-hud mt-5 text-[11px] font-bold tracking-[3px] uppercase">
             Layered protection system
           </Text>
@@ -150,8 +154,9 @@ export default function GateScreen() {
         </Pressable>
 
         <BodyText className="text-muted mt-6 text-center">
-          In an emergency, call your local emergency number. For exposure within 72 hours, go to the
-          nearest emergency department and ask about PEP.
+          In an emergency, call your local emergency number. If a possible HIV exposure is inside 72
+          hours, go to an emergency department now and ask to be evaluated for PEP. Do not delay
+          care.
         </BodyText>
 
         <BrandFooter />

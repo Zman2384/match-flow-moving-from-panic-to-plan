@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
 import { BodyText, HudPanel, ScreenShell, SectionLabel } from '@/components/ScreenShell';
@@ -85,6 +86,16 @@ export default function StressTestScreen() {
       subtitle={`Scenario ${index + 1} of ${STRESS_SCENARIOS.length}`}
       hint="Results come from the plan you armed on the My Shield tab."
     >
+      <BodyText className="text-muted mb-3">
+        Supplemental readiness drills, not clinical risk predictions. Canonical dossiers A–H use
+        written pivots and rehearsed scripts rather than a pass/fail score.
+      </BodyText>
+      <Link
+        href={{ pathname: '/tools/lesson', params: { chapter: '17' } }}
+        className="text-hud font-body mb-4 text-base"
+      >
+        Open Lesson 17 dossiers
+      </Link>
       <View className="bg-panel-deep mb-5 h-1.5 w-full overflow-hidden rounded-full">
         <View
           className="bg-hud h-1.5 rounded-full"

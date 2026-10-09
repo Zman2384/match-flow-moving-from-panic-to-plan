@@ -77,6 +77,10 @@ export interface CustomScript {
 }
 
 interface MatchState {
+  curriculumNotes: Record<string, string>;
+  challengeCompleted: number[];
+  setCurriculumNote: (key: string, value: string) => void;
+  toggleChallengeAction: (index: number) => void;
   ageConfirmed: boolean;
   statusConfirmed: boolean;
   armed: Record<string, boolean>;
@@ -148,6 +152,8 @@ function uid() {
 }
 
 const initial = {
+  curriculumNotes: {} as Record<string, string>,
+  challengeCompleted: [] as number[],
   ageConfirmed: false,
   statusConfirmed: false,
   armed: {} as Record<string, boolean>,
@@ -184,6 +190,15 @@ export const useMatchStore = create<MatchState>()(
   persist(
     (set) => ({
       ...initial,
+
+      setCurriculumNote: (key, value) =>
+        set((state) => ({ curriculumNotes: { ...state.curriculumNotes, [key]: value } })),
+      toggleChallengeAction: (index) =>
+        set((state) => ({
+          challengeCompleted: state.challengeCompleted.includes(index)
+            ? state.challengeCompleted.filter((item) => item !== index)
+            : [...state.challengeCompleted, index],
+        })),
 
       confirmAge: () => set({ ageConfirmed: true }),
       confirmStatus: () => set({ statusConfirmed: true }),

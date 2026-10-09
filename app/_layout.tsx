@@ -202,6 +202,7 @@ export default function RootLayout() {
           <Stack.Screen name="tools/reminders" />
           <Stack.Screen name="tools/resources" />
           <Stack.Screen name="tools/curriculum" />
+          <Stack.Screen name="tools/lesson" />
         </Stack>
         <InstallPrompt />
       </HeroUINativeProvider>

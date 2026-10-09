@@ -7,7 +7,12 @@ import { Text, View } from 'react-native';
 
 import { BodyText, ScreenShell } from '@/components/ScreenShell';
 import {
-  CURRICULUM_APPENDICES,
+  APPENDIX_FRAMING,
+  APPENDIX_SUMMARIES,
+  AUTHOR_REVIEW_ITEMS,
+  WORKSHOP_MODELS,
+} from '@/lib/curriculum-lessons';
+import {
   CURRICULUM_EDITION,
   CURRICULUM_MODULES,
   CURRICULUM_SOURCE_NOTE,
@@ -15,6 +20,7 @@ import {
 } from '@/lib/curriculum';
 
 export default function CurriculumScreen() {
+  const [showFacilitatorGuide, setShowFacilitatorGuide] = useState(false);
   const { module: initialModule } = useLocalSearchParams<{ module?: string }>();
   const [moduleNumber, setModuleNumber] = useState(() => {
     const number = Number(initialModule);
@@ -31,7 +37,7 @@ export default function CurriculumScreen() {
       showGuide={false}
     >
       <BodyText className="text-foreground">
-        Adult track · 6 modules · 19 chapters · 19 lessons · 5 reproducible appendices
+        Adult track · 6 modules · 19 lessons · Appendix A–E guide
       </BodyText>
       <View className="border-caution-edge/40 bg-caution-edge/10 mt-3 rounded-2xl border p-4">
         <BodyText className="text-caution-soft">{CURRICULUM_SOURCE_NOTE}</BodyText>
@@ -78,6 +84,18 @@ export default function CurriculumScreen() {
           ) : null}
           <Button
             variant="secondary"
+            className="border-hud bg-hud/15 mt-4 h-auto min-h-12 border px-3 py-3"
+            onPress={() =>
+              router.push({
+                pathname: '/tools/lesson',
+                params: { chapter: String(chapter.number) },
+              })
+            }
+          >
+            <Button.Label className="font-body text-hud text-base">Open lesson</Button.Label>
+          </Button>
+          <Button
+            variant="secondary"
             className="border-hud/40 bg-hud/10 mt-4 h-auto min-h-12 border px-3 py-3"
             onPress={() => router.push(chapter.tool.href)}
           >
@@ -88,23 +106,75 @@ export default function CurriculumScreen() {
         </View>
       ))}
       <View className="border-border bg-panel-deep/90 mt-6 rounded-2xl border p-4">
-        <Text className="text-foreground text-lg font-bold">Reproducible appendices</Text>
-        {CURRICULUM_APPENDICES.map((appendix) => (
-          <BodyText
-            key={appendix.letter}
-            className="text-muted mt-2"
-          >{`${appendix.letter} · ${appendix.title}`}</BodyText>
+        <Text className="text-foreground text-lg font-bold">Appendix A–E guide</Text>
+        <BodyText className="text-caution-soft mt-3">{APPENDIX_FRAMING}</BodyText>
+        {APPENDIX_SUMMARIES.map((summary) => (
+          <BodyText key={summary} className="text-muted mt-3">
+            {summary}
+          </BodyText>
         ))}
         <BodyText className="text-caution-soft mt-3">
-          Appendix pages and the five workshop delivery models were not included. No unverified
-          handouts or timetables are reproduced here. This adult curriculum is separate from the
-          CAPE Youth Edition Curriculum v3.0.
+          The supplied pages describe these forms but do not include their full reproducible
+          interiors. These summaries are not replacement forms.
         </BodyText>
         <BodyText className="text-muted mt-3">
           The free MATCH workshop pack is a 5-session adult letter lab. It is not a preview of the
           19-chapter book and it is not for middle school.
         </BodyText>
       </View>
+      <Button
+        variant="secondary"
+        className="mt-4 h-auto min-h-12 py-3"
+        accessibilityState={{ expanded: showFacilitatorGuide }}
+        onPress={() => {
+          setShowFacilitatorGuide((value) => !value);
+          void Haptics.selectionAsync();
+        }}
+      >
+        <Button.Label className="font-body text-hud shrink text-center text-base">
+          {showFacilitatorGuide ? 'Hide facilitator guide' : 'Workshop models and review notes'}
+        </Button.Label>
+      </Button>
+      {showFacilitatorGuide ? (
+        <View>
+          <BodyText className="text-caution-soft mt-4">
+            Facilitator use: do not explicitly name the Mindset of Protection concept until after
+            the Lesson 14 blindside. Module headings are retained from the supplied outline. FAP
+            remains facilitator-facing only. Workshop titles and schedules below are source
+            summaries, not authorization to certify facilitators.
+          </BodyText>
+          {WORKSHOP_MODELS.map((model) => (
+            <View
+              key={model.title}
+              className="border-border bg-panel-deep/90 mt-4 rounded-2xl border p-4"
+            >
+              <Text className="text-hud text-lg font-bold">{model.title}</Text>
+              {model.schedule.map((row) => (
+                <BodyText key={row} className="text-foreground mt-3">
+                  {row}
+                </BodyText>
+              ))}
+              {model.note ? (
+                <BodyText className="text-caution-soft mt-3">{model.note}</BodyText>
+              ) : null}
+            </View>
+          ))}
+          <View className="border-border bg-panel-deep/90 mt-4 rounded-2xl border p-4">
+            <Text className="text-hud text-lg font-bold">Author review and missing material</Text>
+            {AUTHOR_REVIEW_ITEMS.map((item) => (
+              <BodyText key={item} className="text-muted mt-3">
+                {item}
+              </BodyText>
+            ))}
+            <BodyText className="text-muted mt-3">
+              Reprint or retire: old Ghost Prompt Cards, Persona Cards and EXT-E worksheet are not
+              canonical app activities. Retain Constraint Cards; retag the Hard Pause as Lesson 15.
+              Printed cards, downloads, educator licences and website copy require changes outside
+              this app.
+            </BodyText>
+          </View>
+        </View>
+      ) : null}
     </ScreenShell>
   );
 }

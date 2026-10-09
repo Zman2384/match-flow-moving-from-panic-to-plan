@@ -66,6 +66,13 @@ export default function PlanScreen() {
         </View>
         <BodyText className="text-caution-soft mx-5 mt-3">{CLINICAL_BRIEFINGS.score}</BodyText>
 
+        <View className="mx-5 mt-4">
+          <Link href={{ pathname: '/tools/lesson', params: { chapter: '18' } }} asChild>
+            <Pressable className="border-hud/40 bg-hud/10 rounded-2xl border p-4">
+              <BodyText className="text-hud">Write your six-step MATCH plan</BodyText>
+            </Pressable>
+          </Link>
+        </View>
         <View className="mt-4 px-5">
           {MATCH_PIECES.map((piece) => {
             const earned = scores[piece.key];

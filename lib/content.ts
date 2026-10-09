@@ -1,4 +1,5 @@
 import { CLINICAL_BRIEFINGS } from '@/lib/curriculum';
+import { COMMUNICATION_SCRIPTS } from '@/lib/curriculum-lessons';
 import type { PieceKey } from '@/lib/match';
 import { GHOST_COLOR, HUD, MATCH_COLOR } from '@/lib/palette';
 
@@ -22,6 +23,18 @@ export interface ScriptSituation {
 }
 
 export const SCRIPT_SITUATIONS: ScriptSituation[] = [
+  {
+    id: 'curriculum-communication',
+    title: 'Lesson 3 · Vocal armor',
+    description: 'Canonical openers, Gentle Hold and Exit Line · supplied page 8',
+    pieces: ['C'],
+    group: 'field',
+    lines: COMMUNICATION_SCRIPTS.map((script, index) => ({
+      id: `curriculum-communication-${index}`,
+      goal: script.title,
+      text: script.text,
+    })),
+  },
   {
     id: 'status-unknown',
     title: 'Status Unknown',

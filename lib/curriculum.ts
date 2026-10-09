@@ -1,10 +1,10 @@
 import type { Href } from 'expo-router';
 
-/** Supplied HARNESS v2.0 reconciliation, source v2.1, pages 1–5 only. */
+/** Supplied HARNESS v2.0 reconciliation, source v2.1, pages 1–26. */
 export const MATCH_BOOK_TITLE = 'MATCH Your Protection: Science as Your Wingman';
 export const CURRICULUM_EDITION = 'HARNESS Curriculum v2.0';
 export const CURRICULUM_SOURCE_NOTE =
-  'Canon: October 2, 2026 · MATCH Your Protection final interior. This adult curriculum map and its briefings use the supplied reconciliation pages 1–5, not the complete 98-page lesson text. Confirm clinical details with a licensed provider or current CDC guidance.';
+  'Canon: October 2, 2026 · MATCH Your Protection final interior. Lessons and activities are adapted from supplied reconciliation pages 1–26. Pages 27–98, full appendix forms and the complete challenge remain unavailable. Clinical safety qualifications are identified alongside source content; confirm care with a licensed provider.';
 
 /** Manuscript estimates, not individual protection probabilities or prescribing advice. */
 export const CLINICAL_BRIEFINGS = {
@@ -92,7 +92,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
       },
       {
         number: 6,
-        title: 'Smooth Moves: The Magic of Lube and Toys',
+        title: 'Smooth Moves: Lube and Toys',
         focus:
           'Compatible lube, toys and the sharing protocol. Change barriers between partners and sites; clean toys according to their instructions.',
         tool: { label: 'Review the Tools layer', href: '/piece/T' },
@@ -172,8 +172,6 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
         focus:
           'From checklist to living strategy: a plan that only works under perfect conditions is a wish. Draft → disrupt → adapt → debrief is the facilitator workshop method, not a separate extension chapter.',
         tool: { label: 'Stress-test your plan', href: '/tools/stress-test' },
-        sourceGap:
-          'The manuscript’s five-scenario pivot table was not included. Existing app drills are practice tools, not a transcription of that table.',
       },
       {
         number: 15,
@@ -193,26 +191,22 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
         title: 'The Ghost Catalogue',
         focus:
           'The canonical catalogue contains 16 ghosts, each with a named shield, MATCH letter and “move this week.”',
-        tool: { label: 'Use the current Ghost Vault', href: '/tools/ghost-vault' },
-        sourceGap:
-          'The 16 manuscript entries were not supplied. The current app catalogue is supplemental, not the verified chapter 16 catalogue.',
+        tool: { label: 'Open the canonical Ghost Vault', href: '/tools/ghost-vault' },
       },
       {
         number: 17,
         title: 'Stress-Test Dossiers',
         focus: 'Eight canonical drills connect disruptions to backup layers.',
-        tool: { label: 'Use current practice drills', href: '/tools/stress-test' },
+        tool: { label: 'Open supplemental scored drills', href: '/tools/stress-test' },
         sourceGap:
-          'The eight manuscript dossiers were not supplied. Current app scenarios are not verified reproductions.',
+          'Canonical dossier summaries A–H are available in this lesson. Full dossier worksheets are not supplied; the scored Stress Test Lab remains a separate practice tool.',
       },
       {
         number: 18,
         title: 'Build Your MATCH Plan',
         focus:
           'Six steps, beginning with Step 1 · Name Your Ghosts. The chapter replaces the old EXT-E worksheet.',
-        tool: { label: 'Name your ghosts', href: '/tools/ghost-vault' },
-        sourceGap:
-          'The remaining five manuscript steps and worksheet were not supplied. My Shield remains available as a separate planning tool.',
+        tool: { label: 'Review your armed layers', href: '/(tabs)/plan' },
       },
       {
         number: 19,
@@ -220,7 +214,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
         focus: 'Thirty named actions turn protection into a routine.',
         tool: { label: 'Set a maintenance routine', href: '/tools/reminders' },
         sourceGap:
-          'The 30 named manuscript actions were not supplied. Reminders are not a reproduction of the challenge.',
+          'The supplied outline lists 24 representative actions, not all 30. Track the available actions in this lesson; no missing actions have been invented.',
       },
     ],
   },

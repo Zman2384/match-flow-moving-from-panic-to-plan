@@ -11,6 +11,7 @@ import {
   customEntry,
   GHOST_CATEGORIES,
   GHOSTS,
+  LEGACY_GHOSTS,
   type GhostCategoryId,
   type GhostEntry,
   pieceDemand,
@@ -36,8 +37,14 @@ export default function GhostVaultScreen() {
   const [ownCategory, setOwnCategory] = useState<GhostCategoryId>('relational');
 
   const entries = useMemo<GhostEntry[]>(
-    () => [...customGhosts.map(customEntry), ...GHOSTS.map(archetypeEntry)],
-    [customGhosts],
+    () => [
+      ...customGhosts.map(customEntry),
+      ...GHOSTS.map(archetypeEntry),
+      ...LEGACY_GHOSTS.filter(
+        (ghost) => records[ghost.id] && !GHOSTS.some((item) => item.id === ghost.id),
+      ).map((ghost) => archetypeEntry({ ...ghost, name: `${ghost.name} (saved supplemental)` })),
+    ],
+    [customGhosts, records],
   );
 
   const named = useMemo(() => {
@@ -157,8 +164,8 @@ export default function GhostVaultScreen() {
           <View className="border-hud/20 mt-4 flex-row items-center gap-2 rounded-xl border border-dashed p-3">
             <Lock size={14} color={HUD} />
             <BodyText className="text-muted flex-1">
-              Stored on this device only. No account, no upload, no backup — delete the app and
-              every ghost here is gone for good.
+              Your Ghost Audit stays on this device. No account or upload. Use Settings to erase it;
+              device backups may retain a copy.
             </BodyText>
           </View>
         </HudPanel>

@@ -1,5 +1,7 @@
 import type { Href } from 'expo-router';
 
+import { CANONICAL_GHOSTS } from '@/lib/curriculum-lessons';
+
 import type { PieceKey } from '@/lib/match';
 import { PIECE_BY_KEY } from '@/lib/match';
 import { GHOST_COLOR, HUD, MATCH_COLOR } from '@/lib/palette';
@@ -76,7 +78,7 @@ export interface GhostArchetype {
   hrefLabel?: string;
 }
 
-export const GHOSTS: GhostArchetype[] = [
+export const LEGACY_GHOSTS: GhostArchetype[] = [
   // ── Relational & emotional ────────────────────────────────────────────────
   {
     id: 'rejection',
@@ -326,8 +328,31 @@ export const GHOSTS: GhostArchetype[] = [
   },
 ];
 
+export const GHOSTS: GhostArchetype[] = CANONICAL_GHOSTS.map((ghost) => {
+  const previous = LEGACY_GHOSTS.find((item) => item.id === ghost.id);
+  return {
+    id: ghost.id,
+    name: ghost.name,
+    category: previous?.category ?? (ghost.id === 'stigma-tax' ? 'relational' : 'clinical'),
+    fear: ghost.shield,
+    disarm: `Move this week: ${ghost.move}`,
+    pieces: [ghost.piece],
+    href:
+      ghost.piece === 'C'
+        ? '/tools/scripts'
+        : ghost.piece === 'A'
+          ? '/tools/clinics'
+          : ghost.piece === 'M'
+            ? '/piece/M'
+            : ghost.piece === 'T'
+              ? '/piece/T'
+              : '/tools/reminders',
+    hrefLabel: 'Take the next step',
+  };
+});
+
 export const GHOST_BY_ID: Record<string, GhostArchetype> = Object.fromEntries(
-  GHOSTS.map((ghost) => [ghost.id, ghost]),
+  [...LEGACY_GHOSTS, ...GHOSTS].map((ghost) => [ghost.id, ghost]),
 );
 
 /** The four positions on the emotional transition spectrum. */

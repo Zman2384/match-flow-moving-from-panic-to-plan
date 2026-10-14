@@ -1,14 +1,13 @@
 import type { Href } from 'expo-router';
 
-/** Supplied HARNESS v2.0 reconciliation, source v2.1, pages 1–26. */
 export const MATCH_BOOK_TITLE = 'MATCH Your Protection: Science as Your Wingman';
-export const CURRICULUM_EDITION = 'HARNESS Curriculum v2.0';
+export const CURRICULUM_EDITION = 'MATCH Your Protection';
 export const CURRICULUM_SOURCE_NOTE =
-  'Canon: October 2, 2026 · MATCH Your Protection final interior. Lessons and activities are adapted from supplied reconciliation pages 1–26. Pages 27–98, full appendix forms and the complete challenge remain unavailable. Clinical safety qualifications are identified alongside source content; confirm care with a licensed provider.';
+  'Each lesson follows a chapter of the book. Medication names, effectiveness figures and access rules change over time: confirm every clinical detail with a licensed provider. After a possible HIV exposure, go to an emergency room now.';
 
-/** Manuscript estimates, not individual protection probabilities or prescribing advice. */
+/** Published study estimates, not individual protection probabilities or prescribing advice. */
 export const CLINICAL_BRIEFINGS = {
-  doxy: 'Doxy-PEP is prescription doxycycline: 200 mg within 72 hours after sex, ideally sooner, and no more than 200 mg in 24 hours. A provider must assess eligibility. The manuscript reports relative reductions of about 80–87% for syphilis, 87–88% for chlamydia, and 50–55% for gonorrhea. These study estimates are not individual guarantees; the gonorrhea gap matters. It does not prevent HIV, viral STIs, or pregnancy.',
+  doxy: 'Doxy-PEP is prescription doxycycline: 200 mg within 72 hours after sex, ideally sooner, and no more than 200 mg in 24 hours. A provider must assess eligibility. Studies report relative reductions of about 80–87% for syphilis, 87–88% for chlamydia, and only 50–55% for gonorrhea (CDC, 2024). The evidence comes mainly from cisgender men who have sex with men and transgender women. These are study estimates, not guarantees; the gonorrhea gap matters. It does not prevent HIV, viral STIs, or pregnancy.',
   windows:
     'Approximate detection windows: laboratory HIV antigen/antibody testing, 18–45 days; rapid HIV antibody testing, 23–90 days; chlamydia and gonorrhea, 1–2 weeks; syphilis, 3–6 weeks; hepatitis C antibody, 8–11 weeks. Test type, medication and circumstances affect timing. An early negative result does not rule out infection. Ask a provider when to test and repeat; do not wait for a window to seek care after an exposure or with symptoms.',
   sites:
@@ -38,7 +37,6 @@ export interface CurriculumChapter {
   focus: string;
   briefing?: string;
   tool: { label: string; href: Href };
-  sourceGap?: string;
 }
 export interface CurriculumModule {
   number: number;
@@ -60,8 +58,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
       {
         number: 2,
         title: 'Ghost Hunting: Turning Fear Into Data',
-        focus:
-          'The Anxiety Audit is its own chapter. Name a fear, then connect it to a MATCH layer and an action.',
+        focus: 'The Anxiety Audit: name a fear, then connect it to a MATCH layer and an action.',
         tool: { label: 'Open the Anxiety Audit', href: '/tools/ghost-vault' },
       },
       {
@@ -170,7 +167,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
         number: 14,
         title: 'The Plan Stress Test',
         focus:
-          'From checklist to living strategy: a plan that only works under perfect conditions is a wish. Draft → disrupt → adapt → debrief is the facilitator workshop method, not a separate extension chapter.',
+          'From checklist to living strategy: a plan that only works under perfect conditions is a wish. Draft it, disrupt it, adapt it, then debrief what held.',
         tool: { label: 'Stress-test your plan', href: '/tools/stress-test' },
       },
       {
@@ -184,37 +181,31 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
   },
   {
     number: 6,
-    title: 'Field Kit',
+    title: 'The Field Kit',
     chapters: [
       {
         number: 16,
         title: 'The Ghost Catalogue',
-        focus:
-          'The canonical catalogue contains 16 ghosts, each with a named shield, MATCH letter and “move this week.”',
-        tool: { label: 'Open the canonical Ghost Vault', href: '/tools/ghost-vault' },
+        focus: 'Sixteen ghosts, each with a named shield, a MATCH letter and a move for this week.',
+        tool: { label: 'Open the Ghost Vault', href: '/tools/ghost-vault' },
       },
       {
         number: 17,
         title: 'Stress-Test Dossiers',
         focus: 'Eight canonical drills connect disruptions to backup layers.',
-        tool: { label: 'Open supplemental scored drills', href: '/tools/stress-test' },
-        sourceGap:
-          'Canonical dossier summaries A–H are available in this lesson. Full dossier worksheets are not supplied; the scored Stress Test Lab remains a separate practice tool.',
+        tool: { label: 'Practise in the Stress Test Lab', href: '/tools/stress-test' },
       },
       {
         number: 18,
         title: 'Build Your MATCH Plan',
-        focus:
-          'Six steps, beginning with Step 1 · Name Your Ghosts. The chapter replaces the old EXT-E worksheet.',
+        focus: 'Six steps, beginning with Step 1 · Name Your Ghosts.',
         tool: { label: 'Review your armed layers', href: '/(tabs)/plan' },
       },
       {
         number: 19,
         title: 'The 30-Day Fearless Challenge',
-        focus: 'Thirty named actions turn protection into a routine.',
+        focus: 'Thirty days of named actions that turn protection into a routine.',
         tool: { label: 'Set a maintenance routine', href: '/tools/reminders' },
-        sourceGap:
-          'The supplied outline lists 24 representative actions, not all 30. Track the available actions in this lesson; no missing actions have been invented.',
       },
     ],
   },

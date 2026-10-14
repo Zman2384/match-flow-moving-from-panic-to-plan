@@ -26,7 +26,7 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
   {
     id: 'curriculum-communication',
     title: 'Lesson 3 · Vocal armor',
-    description: 'Canonical openers, Gentle Hold and Exit Line · supplied page 8',
+    description: 'Openers, the Gentle Hold and the Exit Line',
     pieces: ['C'],
     group: 'field',
     lines: COMMUNICATION_SCRIPTS.map((script, index) => ({
@@ -216,7 +216,7 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
       {
         id: 'mq-1',
         goal: 'Explain what you are on',
-        text: 'I am on PrEP, which means my HIV risk from this is extremely low even without a condom. Other STIs still need barriers.',
+        text: 'I take PrEP as prescribed, so my HIV risk from this is very low. Other STIs still need barriers.',
       },
       {
         id: 'mq-2',
@@ -226,7 +226,7 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
       {
         id: 'mq-3',
         goal: 'Suggest they get covered too',
-        text: 'If you want the same coverage, PrEP is usually free or low cost. I can send you where I go.',
+        text: 'If you want the same coverage, PrEP is often low or no cost through insurance or assistance programs. I can send you where I go.',
       },
     ],
   },
@@ -461,8 +461,9 @@ export const EMERGENCY_PROTOCOLS: EmergencyProtocol[] = [
       'Do not douche or scrub internally — it can increase irritation and risk.',
       'Ask the partner directly for status and last test date.',
       'If HIV exposure is possible, go to the nearest emergency department now for urgent PEP evaluation.',
-      'If you have Doxy-PEP, take it inside the recommended window.',
-      'Book testing at two weeks and again at six weeks.',
+      'If you have a Doxy-PEP prescription, take it as prescribed, within 72 hours.',
+      'If pregnancy is possible, ask about emergency contraception now.',
+      'Follow the testing schedule the ER or clinic gives you. After PEP, HIV follow-up testing is usually at about 4–6 weeks and again at 12 weeks.',
     ],
     avoid: ['Waiting until morning to decide', 'Assuming one failure does not count'],
   },
@@ -471,16 +472,32 @@ export const EMERGENCY_PROTOCOLS: EmergencyProtocol[] = [
     title: 'Missed Dose',
     subtitle: 'You skipped PrEP or treatment',
     piece: 'M',
-    clock: 'Act at the next dose slot',
+    clock: 'Check your instructions today',
     steps: [
-      'Take the missed dose as soon as you remember, unless the next one is nearly due.',
-      'Never double up to catch up.',
-      'Count how many doses you have missed this week — that determines your coverage.',
-      'If it is more than two in a row, treat yourself as unprotected until you speak to a prescriber.',
-      'Add barriers for any encounter in the gap.',
-      'Set an automated reminder before you close the app.',
+      'Follow the missed-dose instructions for your exact medication. If you are unsure, call your pharmacist or prescriber today.',
+      'Never double up to catch up unless your prescriber tells you to.',
+      'Late for a cabotegravir or lenacapavir injection? Call your clinic now for a restart or bridging plan.',
+      'Until you know you are covered, use barriers for every encounter.',
+      'If a possible HIV exposure happened while protection may have lapsed, go to an emergency department now for PEP evaluation.',
+      'Set an automated reminder and a refill buffer before you close the app.',
     ],
     avoid: ['Guessing at your coverage', 'Silently stopping the medication'],
+  },
+  {
+    id: 'assault',
+    title: 'Sexual Assault',
+    subtitle: 'Someone did something without your consent',
+    piece: 'M',
+    clock: 'PEP window: 72 hours, sooner is better',
+    steps: [
+      'Get somewhere safe. If you are in danger now, call 911.',
+      'Go to an emergency department now. Ask to be evaluated for PEP, and ask about emergency contraception if pregnancy is possible.',
+      'You can ask for a forensic exam. If you can, keep the clothes you wore and avoid showering first, but care comes first either way.',
+      'You do not have to report to the police to get medical care.',
+      'Call RAINN at 1-800-656-4673, free and confidential, 24/7. They can connect you with a local advocate who can go with you.',
+      'Tell one person you trust, when you are ready.',
+    ],
+    avoid: ['Waiting to see how you feel tomorrow', 'Blaming yourself — it was not your fault'],
   },
   {
     id: 'boundary-pushed',
@@ -534,10 +551,32 @@ export interface HotlineEntry {
   label: string;
   value: string;
   note: string;
+  /** Text lines open a message instead of a call. */
+  text?: { to: string; body: string };
+}
+
+/** The URL that reaches a hotline: a pre-filled text for text lines, otherwise a call. */
+export function hotlineUrl(line: HotlineEntry, ios: boolean): string {
+  if (line.text) {
+    return `sms:${line.text.to}${ios ? '&' : '?'}body=${encodeURIComponent(line.text.body)}`;
+  }
+  const cleaned = line.value.replace(/[^\d+]/g, '');
+  return ios ? `telprompt:${cleaned}` : `tel:${cleaned}`;
 }
 
 export const HOTLINES: HotlineEntry[] = [
-  { label: 'Crisis Text Line', value: '741741', note: 'Text HOME to reach a crisis counsellor' },
+  { label: '988 Suicide & Crisis Lifeline', value: '988', note: 'Call or text, 24/7 (US)' },
+  {
+    label: 'Crisis Text Line',
+    value: 'Text HOME to 741741',
+    note: 'Text with a crisis counsellor, 24/7 (US)',
+    text: { to: '741741', body: 'HOME' },
+  },
+  {
+    label: 'RAINN Sexual Assault Hotline',
+    value: '1-800-656-4673',
+    note: '24/7, confidential. An ER can also offer PEP and a forensic exam',
+  },
   { label: 'Emergency services', value: '911', note: 'Immediate danger or medical emergency' },
 ];
 
@@ -597,8 +636,8 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
         body: CLINICAL_BRIEFINGS.sites,
       },
       {
-        title: 'Every three months is a baseline',
-        body: 'If you have multiple or new partners, quarterly screening is the standard cadence.',
+        title: 'Test every 3–6 months',
+        body: 'With new or multiple partners, testing every three to six months is common. If you are on PrEP, your provider will set a schedule. Ask what fits your life.',
       },
       {
         title: 'Windows matter',
@@ -711,109 +750,6 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
       },
     ],
     links: [{ label: 'CDC — sexual health basics', url: 'https://www.cdc.gov/sexualhealth/' }],
-  },
-];
-
-export interface Clinic {
-  id: string;
-  name: string;
-  kind: 'pep' | 'prep' | 'testing' | 'clinic' | 'pharmacy';
-  distance: string;
-  hours: string;
-  services: string[];
-  phone: string;
-  address: string;
-  latitude: number;
-  longitude: number;
-  slidingScale: boolean;
-}
-
-export const CLINIC_KINDS: { id: Clinic['kind']; label: string; emoji: string }[] = [
-  { id: 'pep', label: 'PEP / Emergency', emoji: '🚨' },
-  { id: 'prep', label: 'PrEP Provider', emoji: '💊' },
-  { id: 'testing', label: 'STI Testing', emoji: '🧪' },
-  { id: 'clinic', label: 'Sexual Health Clinic', emoji: '🏥' },
-  { id: 'pharmacy', label: 'Pharmacy', emoji: '🏪' },
-];
-
-export const CLINICS: Clinic[] = [
-  {
-    id: 'c1',
-    name: 'County General Emergency Department',
-    kind: 'pep',
-    distance: '1.2 mi',
-    hours: 'Open 24 hours',
-    services: ['PEP within 72h', 'Emergency care', 'On-site pharmacy'],
-    phone: '1-555-0140',
-    address: '1200 Harbor Blvd',
-    latitude: 29.7101,
-    longitude: -95.3982,
-    slidingScale: false,
-  },
-  {
-    id: 'c2',
-    name: 'Northside Sexual Health Center',
-    kind: 'clinic',
-    distance: '2.4 mi',
-    hours: 'Mon–Sat, 8:00–19:00',
-    services: ['PrEP', 'Doxy-PEP', 'Full STI panel', 'Walk-ins'],
-    phone: '1-555-0162',
-    address: '48 Grant Street',
-    latitude: 29.7604,
-    longitude: -95.3698,
-    slidingScale: true,
-  },
-  {
-    id: 'c3',
-    name: 'Riverside Community Testing',
-    kind: 'testing',
-    distance: '3.1 mi',
-    hours: 'Tue–Fri, 10:00–18:00',
-    services: ['Rapid HIV', 'Site-specific swabs', 'Free supplies'],
-    phone: '1-555-0173',
-    address: '905 River Road',
-    latitude: 29.7452,
-    longitude: -95.4102,
-    slidingScale: true,
-  },
-  {
-    id: 'c4',
-    name: 'Eastgate PrEP Clinic',
-    kind: 'prep',
-    distance: '4.0 mi',
-    hours: 'Mon–Fri, 9:00–17:00',
-    services: ['Daily PrEP', 'Injectable PrEP', 'Insurance navigation'],
-    phone: '1-555-0189',
-    address: '77 Eastgate Plaza',
-    latitude: 29.7712,
-    longitude: -95.3355,
-    slidingScale: true,
-  },
-  {
-    id: 'c5',
-    name: 'Meridian Pharmacy — 24h',
-    kind: 'pharmacy',
-    distance: '0.6 mi',
-    hours: 'Open 24 hours',
-    services: ['Condoms & lube', 'PrEP refills', 'Pharmacist consults'],
-    phone: '1-555-0117',
-    address: '15 Meridian Ave',
-    latitude: 29.7288,
-    longitude: -95.3854,
-    slidingScale: false,
-  },
-  {
-    id: 'c6',
-    name: 'Southbank Youth Health Hub',
-    kind: 'clinic',
-    distance: '5.3 mi',
-    hours: 'Mon–Thu, 12:00–20:00',
-    services: ['Confidential care 18+', 'PrEP', 'Counselling'],
-    phone: '1-555-0196',
-    address: '310 Southbank Way',
-    latitude: 29.6981,
-    longitude: -95.3521,
-    slidingScale: true,
   },
 ];
 

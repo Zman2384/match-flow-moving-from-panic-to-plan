@@ -48,7 +48,7 @@ export default function CommandCenter() {
         <MatchFlowBanner className="mb-5" />
 
         <View className="px-5 pb-3">
-          <BackChip label="Consent gate" href="/gate" mode="push" />
+          <BackChip label="Consent & privacy" href="/gate" mode="push" />
         </View>
 
         <Disclaimer className="mx-5 mb-4" />

@@ -3,15 +3,12 @@ import { useState } from 'react';
 import { Linking, Platform, Pressable, Text, View } from 'react-native';
 
 import { BodyText, ScreenShell, SectionLabel } from '@/components/ScreenShell';
-import { EMERGENCY_PROTOCOLS, HOTLINES } from '@/lib/content';
+import { EMERGENCY_PROTOCOLS, HOTLINES, hotlineUrl, type HotlineEntry } from '@/lib/content';
 import { PIECE_COLOR } from '@/lib/match';
 import { HUD, LINE_SOFT, PANEL } from '@/lib/palette';
 
-function dial(number: string) {
-  const cleaned = number.replace(/[^\d+]/g, '');
-  void Linking.openURL(Platform.OS === 'ios' ? `telprompt:${cleaned}` : `tel:${cleaned}`).catch(
-    () => undefined,
-  );
+function dial(line: HotlineEntry) {
+  void Linking.openURL(hotlineUrl(line, Platform.OS === 'ios')).catch(() => undefined);
 }
 
 export default function EmergencyScreen() {
@@ -122,7 +119,7 @@ export default function EmergencyScreen() {
       {HOTLINES.map((line) => (
         <Pressable
           key={line.label}
-          onPress={() => dial(line.value)}
+          onPress={() => dial(line)}
           className="border-hud/25 bg-panel/70 mb-2 flex-row items-center gap-3 rounded-2xl border p-4 active:opacity-70"
         >
           <Phone size={16} color={HUD} />

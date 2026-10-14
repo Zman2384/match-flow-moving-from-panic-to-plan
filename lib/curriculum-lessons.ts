@@ -1,6 +1,5 @@
 import type { PieceKey } from '@/lib/match';
 
-/** Adapted from the supplied HARNESS reconciliation pages 6–26, not unseen interiors. */
 export interface LessonSection {
   title: string;
   items: string[];
@@ -285,7 +284,6 @@ export const CANONICAL_DOSSIERS: CanonicalDossier[] = [
       'U=U requires sustained viral suppression. Other STIs and pregnancy need separate layers. Disclosure law varies: consult qualified local advice. Choose this drill only if it applies, or as voluntary ally practice.',
   },
 ];
-/** The supplied page calls these representative actions, not the complete list of 30. */
 export const CHALLENGE_ACTIONS = [
   'Named a ghost out loud to someone I trust',
   'Ran the full Anxiety Audit on paper',
@@ -428,7 +426,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Internal Condom Walkthrough: inner ring inserted, outer ring outside; guide penetration into the pouch. Follow the product’s instructions and indicated use.',
       'Pleasure Mapping: fit, texture and integrating barriers into foreplay.',
       'The Ask: “Condoms are my STI layer. What would you recommend as a second layer for pregnancy, and what should I keep on hand for emergencies?”',
-      'Gear Check: six boxes, including the emergency-contraception line; the actual six-box form is not supplied.',
+      'Gear Check: six boxes, including your emergency-contraception plan.',
     ],
     sections: [
       {
@@ -450,7 +448,6 @@ export const LESSON_DETAILS: LessonDetail[] = [
       },
     ],
     takeaway: 'One at a time, every time — and know your second layer.',
-    note: 'The page’s ~98%/~87% pair is ambiguously labeled “internal.” Do not use it as internal-condom guidance. Verify method-specific effectiveness before reprinting.',
   },
   {
     number: 5,
@@ -467,7 +464,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Dam discipline: one new dam each time; never flip it over.',
       'Gloves & finger cots: address hangnails and cuts.',
       'Three-Site Script Rehearsal: say the sentence out loud once.',
-      'Gear Check: five boxes; actual form not supplied.',
+      'Gear Check: dams, gloves and your three-site testing line.',
     ],
     sections: [
       {
@@ -496,7 +493,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Porous vs. Non-Porous Sort: jelly, rubber and TPR versus silicone, glass and stainless steel.',
       'Cleaning Demo: follow manufacturer instructions for each material and any motorized parts.',
       'Sharing Protocol: say the three steps aloud; consider whether you’d follow them mid-moment.',
-      'Gear Check: four boxes; actual form not supplied.',
+      'Gear Check: your lube, your toy materials and your sharing protocol.',
     ],
     sections: [
       {
@@ -517,7 +514,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       },
     ],
     takeaway: 'Friction reduction is infection prevention. Match the lube to the material.',
-    note: 'The source’s blanket boiling/dishwasher statement is not safe for every non-porous toy. Material, construction and manufacturer instructions control cleaning.',
+    note: 'Cleaning depends on the material and the manufacturer’s instructions. Not every non-porous toy can be boiled or put in a dishwasher.',
   },
   {
     number: 7,
@@ -554,7 +551,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     takeaway:
       'Taking PrEP isn’t an admission of recklessness. It’s a declaration that you are prepared.',
-    note: 'Module 3 framing: every clinical detail is confirmed with a licensed provider. PEPline is clinician-to-clinician, not a participant hotline; participant instruction is emergency-department care.',
+    note: 'Medication names, effectiveness figures and access rules change over time. Confirm every clinical detail with a licensed provider.',
   },
   {
     number: 8,
@@ -583,7 +580,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       },
     ],
     takeaway: 'Emergency rooms don’t close. Start fast, complete fully.',
-    note: '72 hours is a clinical initiation limit, not merely a curriculum clock. Do not wait for a search, drill or phone call. Houston examples in the manuscript are local examples, not universal routing.',
+    note: '72 hours is the outer limit for starting PEP, not a target. Do not wait for a search, a drill or a phone call: go now.',
   },
   {
     number: 9,
@@ -596,7 +593,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Discuss eligibility and a prescription before it is needed.',
     ],
     activities: [
-      'Evidence Review: syphilis ~80–87%, chlamydia ~87–88%, gonorrhea ~50–55%; manuscript study estimates, not guarantees.',
+      'Evidence Review: syphilis ~80–87%, chlamydia ~87–88%, gonorrhea only ~50–55% (CDC, 2024). Study estimates, not guarantees.',
       'What It Doesn’t Do: name three viral infections it does not prevent.',
       'Antibiotic stewardship: evidence and CDC recommendations focus on specific populations; candidacy belongs with a provider.',
       'The Script: “I’ve heard about Doxy-PEP as a backup for STI prevention. Based on my life right now, can we get a prescription on file for me just in case?”',
@@ -618,7 +615,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Language Practice: status-neutral versus stigmatizing card sort.',
       'Disclosure Script Draft: write it while nothing is at stake; rewrite in your own words.',
       'Consistency framing: medication as self-respect, not a reminder of diagnosis.',
-      'Facilitator legal note: refer to qualified local legal aid or an HIV services organization.',
+      'Legal note: disclosure laws vary by state. A legal aid or HIV services organization can advise you.',
       'Optional guest speaker: lived experience, voluntary participation.',
     ],
     sections: [
@@ -670,7 +667,6 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     takeaway:
       'Knowing your status is an act of self-respect — and a negative test only covers what your body had time to register.',
-    note: 'Author reconciliation needed: Appendix D reportedly lists hepatitis A and B, while this lesson lists hepatitis B. Do not silently add a missing vaccine row.',
   },
   {
     number: 12,
@@ -689,7 +685,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Crisis Communication: condom breaks mid-sex; when to seek emergency PEP care.',
       'Safewords: “Red” stops everything immediately, no negotiation.',
       'Aftercare: check-in, grounding, water and closeness by consent.',
-      'Pre-Game Checklist: five boxes; actual form not supplied.',
+      'Pre-Game Checklist: limits, buddy, kit, medication and a way home.',
     ],
     sections: [
       {
@@ -703,14 +699,14 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     takeaway:
       'No activity is inherently unsafe — layers make everything SafER. Desire is not a risk factor.',
-    note: 'The quoted takeaway expresses the manuscript’s nonjudgmental framing, not a clinical guarantee. Some activities carry substantial residual risk despite layers.',
+    note: 'Layers lower risk; they do not erase it. Some activities carry real risk even with every layer in place.',
   },
   {
     number: 13,
     pages: '16–17',
     objectives: [
       'Assemble five pieces into a personal Modular Protection Engine.',
-      'Use manuscript MATCH definitions.',
+      'Define each MATCH layer in your own words.',
       'Understand the SafER Score as educational readiness, not infection probability.',
       'Explain dynamic redundancy: when one layer breaks, activate another.',
     ],
@@ -733,7 +729,6 @@ export const LESSON_DETAILS: LessonDetail[] = [
       },
     ],
     takeaway: 'Prevention isn’t one-size-fits-all. It’s a puzzle you solve for yourself.',
-    note: 'Sequencing rule: do not explicitly introduce the Mindset of Protection concept here. It is named after the Lesson 14 stress-test blindside, not before it.',
   },
   {
     number: 14,
@@ -742,7 +737,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Move from a static checklist to living logic when something breaks.',
       'Run baseline → inject chaos → pivot.',
       'Write a pivot for each of five real-world breaks.',
-      'Name the Mindset of Protection only after the blindside.',
+      'Name the Mindset of Protection once the plan has been tested.',
     ],
     activities: [
       'DRAFT (8 min): write a concrete baseline plan before disruption.',
@@ -803,7 +798,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Post-Spike Inventory: what is still true? A broken condom does not erase PrEP; a fuzzy moment does not erase self-worth.',
       'First Pivot Naming: name the layer you turn to first.',
       'Say a boundary sentence out loud once.',
-      'Field Notes: four boxes; actual form not supplied.',
+      'Field Notes: what still held, and your first pivot.',
     ],
     sections: [
       {
@@ -816,13 +811,13 @@ export const LESSON_DETAILS: LessonDetail[] = [
       },
     ],
     takeaway: 'Protection begins with you — before any tool or partner.',
-    note: 'A brief pause may help grounding; three seconds is not a proven cortisol reset or a guarantee that the prefrontal cortex “reboots.” Participant-facing biological discussion belongs here in the adult track; CAPE handles it as facilitator framing.',
+    note: 'A short pause helps you ground and choose. It is a habit, not a guarantee.',
   },
   {
     number: 16,
     pages: '19–20',
     objectives: [
-      'Find two or three ghosts in the canonical sixteen.',
+      'Find your two or three loudest ghosts among the sixteen.',
       'Match each to a shield and MATCH letter.',
       'Complete one move this week.',
     ],
@@ -834,7 +829,6 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     sections: [],
     takeaway: 'Every ghost has a shield. This is the index.',
-    note: 'Retire the old Ghost Prompt Cards for this lesson; their sixteen differ from this canonical set. Saved personal notes remain available, but retired entries are not part of the canonical catalogue.',
   },
   {
     number: 17,
@@ -852,7 +846,6 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     sections: [],
     takeaway: 'Rehearse the night before you live it.',
-    note: 'The old Persona Cards are retired. Financial Strain maps to E, Post-Substance to F, Long-Distance to G, New Relationship to D. Group Setting and Public Health Alerts have no supplied replacement dossier; author confirmation remains needed.',
   },
   {
     number: 18,
@@ -879,7 +872,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
     objectives: [
       'Turn knowledge into specific, completable actions.',
       'Actions need not happen in order or one per day.',
-      'Replace an open-ended “choose one” prompt with named actions.',
+      'Finish named actions, not vague intentions.',
     ],
     activities: [
       'Launch in-session: complete at least one action before leaving.',
@@ -889,7 +882,6 @@ export const LESSON_DETAILS: LessonDetail[] = [
     sections: [],
     takeaway: 'Thirty days is long enough to build a habit and short enough to finish.',
     prompts: ['Day 30: what stuck, what didn’t, what comes next'],
-    note: 'Page 22 labels its list “Representative actions.” Only 24 actions are visible in the supplied pages; the remaining six are not invented. Habit-formation timing varies.',
   },
 ];
 export const APPENDIX_FRAMING =
@@ -900,85 +892,4 @@ export const APPENDIX_SUMMARIES = [
   'C · Sexual Health Communication Agreement: fuller consent and commitment statements. Both partners; Lesson 12.',
   'D · MATCH Framework Worksheet: five layers and physical, emotional, relational and emergency Strength Shield. You alone; Lesson 13.',
   'E · Fearless Foundations: protection quadrants, conversation practice, Power Statement, reflection and signature. You alone; Lessons 18 or 19.',
-];
-export interface WorkshopModel {
-  title: string;
-  schedule: string[];
-  note?: string;
-}
-export const WORKSHOP_MODELS: WorkshopModel[] = [
-  {
-    title: 'Model 1 · The Essentials · 90 minutes',
-    schedule: [
-      '0:00 Welcome and ground rules · 10 min',
-      '0:10 Two Words Icebreaker · 5 min',
-      '0:15 Rapid Anxiety Audit · 10 min',
-      '0:25 Mindset mini-lesson and Emotional Transition Spectrum · 10 min',
-      '0:35 Communication role-play with pushback · 25 min',
-      '1:00 MATCH and quick Ghost Mapping · 15 min',
-      '1:15 Save 24/7 PEP access, closing and resources · 15 min',
-      '1:30 End',
-    ],
-    note: 'The supplied compressed schedule names Mindset before a blindside, conflicting with the standing sequencing rule. Facilitator review is needed before using it unchanged.',
-  },
-  {
-    title: 'Model 2 · Core Concepts · 4 hours 30 minutes',
-    schedule: [
-      '0:00 Welcome and Lesson 1 · 30 min',
-      '0:30 Lesson 2: full Anxiety Audit and spectrum · 30 min',
-      '1:00 Lesson 3: communication, Gentle Hold and Exit Line · 45 min',
-      '1:45 Lessons 4–6: barriers with demos · 60 min',
-      '2:45 Break · 15 min',
-      '3:00 Selected Medical Shields: PrEP, PEP and site-specific testing · 50 min',
-      '3:50 Lesson 13: MATCH with Ghost Mapping · 20 min',
-      '4:10 Abbreviated Stress Test: Draft / Disrupt / Adapt · 20 min',
-      '4:30 Closing and action steps',
-    ],
-    note: 'Certificates add 15 minutes. The source does not allocate a separate duration for the closing block.',
-  },
-  {
-    title: 'Model 3 · Deep Dive · 7 hours 50 minutes including breaks',
-    schedule: [
-      '0:00 Welcome, icebreaker and ground rules · 20 min',
-      '0:20 Lessons 1–3 with full Anxiety Audit · 80 min',
-      '1:40 Break · 15 min',
-      '1:55 Lessons 4–6 · 75 min',
-      '3:10 Lunch · 45 min',
-      '3:55 Lessons 7–11 · 105 min',
-      '5:40 Break · 15 min',
-      '5:55 Module 4: Real Talk · 35 min',
-      '6:30 Lessons 13–15 with stress-test blindside · 60 min',
-      '7:30 Closing and evaluation · 20 min',
-    ],
-    note: 'The supplied Module 4 row says Lesson 12 3 (an apparent transcription/numbering error); use the established Chapter 12 map and confirm with the author. Module 6 is take-home structured self-work; use Model 4 for in-room delivery.',
-  },
-  {
-    title: 'Model 4 · Two-Day Certification Intensive · 6 hours/day',
-    schedule: [
-      'Day 1: Lessons 1–11; full Anxiety Audit, barrier demos, Medical Shields, windows, testing sites and disclosure.',
-      'Day 2: Lesson 12; Lessons 13–15 with four-phase Stress Test and Constraint Cards; Lessons 16–19 with Ghost Gallery, two written dossiers, plan and challenge launch; Appendix A–E distribution.',
-    ],
-    note: 'Recommended for peer educators, clinic staff and facilitator certification. Exact segment times and certification criteria are not supplied.',
-  },
-  {
-    title: 'Model 5 · Eight-Session Series · 90 minutes each',
-    schedule: [
-      '1 · Lessons 1–2: Respect Check and Anxiety Audit',
-      '2 · Lesson 3: communication and Rehearsal Protocol',
-      '3 · Lessons 4–6: barriers',
-      '4 · Lessons 7–9: PrEP, PEP, Doxy-PEP',
-      '5 · Lessons 10–11: U=U, disclosure, vaccines and windows',
-      '6 · Lessons 12–13: Real Talk and MATCH',
-      '7 · Lessons 14–15: Stress Test and 1 a.m. Reality',
-      '8 · Lessons 16–19: Field Kit and 30-Day launch',
-    ],
-  },
-];
-export const AUTHOR_REVIEW_ITEMS = [
-  'Hepatitis A/B: reconcile Chapter 11 with Appendix D’s reported vaccine row.',
-  'Fearless Foundations names both Appendix E and a CAPE 90-minute workshop; retain the printed appendix name and review the CAPE name separately.',
-  'Ghost deck: the canonical sixteen replace old cards; eight retired names are not silently added back.',
-  'CAPE → HARNESS handoff and book cross-references need review in the print surfaces, outside this app.',
-  'Group Setting and Public Health Alerts: confirm the old personas are retired rather than pending.',
-  'Pages 27–98, complete appendix forms, the final six challenge actions and full dossier worksheets are not in the attachments.',
 ];

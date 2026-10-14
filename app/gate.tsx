@@ -92,6 +92,9 @@ export default function GateScreen() {
               <Pressable
                 key={check.id}
                 onPress={() => setChecked((prev) => ({ ...prev, [check.id]: !prev[check.id] }))}
+                accessibilityRole="checkbox"
+                accessibilityState={{ checked: on }}
+                accessibilityLabel={check.label}
                 className={`flex-row items-start gap-3 rounded-2xl border p-4 active:opacity-70 ${
                   on ? 'border-hud/60 bg-hud/10' : 'border-border bg-panel/60'
                 }`}
@@ -136,6 +139,8 @@ export default function GateScreen() {
 
         <Pressable
           disabled={!allChecked}
+          accessibilityRole="button"
+          accessibilityState={{ disabled: !allChecked }}
           onPress={() => {
             confirmAge();
             router.replace('/(tabs)');

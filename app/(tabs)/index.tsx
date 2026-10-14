@@ -55,10 +55,12 @@ export default function CommandCenter() {
 
         <View className="flex-row items-start justify-between px-5">
           <View>
-            <Text className="text-hud text-[10px] font-bold tracking-[3px] uppercase">
+            <Text className="text-hud font-mono text-[10px] tracking-[3px] uppercase">
               Command Center
             </Text>
-            <Text className="text-foreground mt-1 text-2xl font-bold">Your shield today</Text>
+            <Text className="text-foreground font-display mt-1 text-3xl tracking-wide">
+              Your shield today
+            </Text>
           </View>
           <Link href="/settings" asChild>
             <View className="border-hud/30 bg-hud/10 h-9 w-9 items-center justify-center rounded-full border">
@@ -103,7 +105,7 @@ export default function CommandCenter() {
               <TriangleAlert size={20} color={weakest.color} />
               <View className="flex-1">
                 <Text
-                  className="text-[10px] font-bold tracking-widest uppercase"
+                  className="font-mono text-[10px] tracking-widest uppercase"
                   style={{ color: weakest.color }}
                 >
                   Thinnest layer
@@ -127,7 +129,7 @@ export default function CommandCenter() {
           >
             <LilZAvatar size={48} pulse />
             <View className="flex-1">
-              <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">
+              <Text className="text-hud font-mono text-[10px] tracking-[2px] uppercase">
                 Your guide
               </Text>
               <Text className="text-foreground mt-0.5 text-base font-bold">Ask Lil Z</Text>
@@ -143,7 +145,7 @@ export default function CommandCenter() {
 
         <View className="mt-6 px-5">
           <View className="mb-3 flex-row items-center justify-between">
-            <Text className="text-hud/70 text-[11px] font-bold tracking-[2px] uppercase">
+            <Text className="text-hud/70 font-mono text-[11px] tracking-[2px] uppercase">
               Priority tools
             </Text>
             <Text
@@ -170,7 +172,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <View className="flex-1 items-center py-3">
       <Text className="text-foreground text-lg font-bold">{value}</Text>
-      <Text className="text-muted mt-0.5 text-[9px] font-semibold tracking-wider uppercase">
+      <Text className="text-muted mt-0.5 font-mono text-[9px] tracking-wider uppercase">
         {label}
       </Text>
     </View>

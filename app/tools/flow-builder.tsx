@@ -120,7 +120,7 @@ export default function FlowBuilderScreen() {
           flowNodes.map((node, index) => (
             <View key={node.id} className="border-hud/25 bg-panel/70 mb-3 rounded-2xl border p-4">
               <View className="flex-row items-start justify-between gap-3">
-                <Text className="text-hud text-[10px] font-bold tracking-widest uppercase">
+                <Text className="text-hud font-mono text-[10px] tracking-widest uppercase">
                   Branch {index + 1}
                 </Text>
                 <Pressable onPress={() => removeFlowNode(node.id)} hitSlop={8}>
@@ -149,7 +149,7 @@ export default function FlowBuilderScreen() {
 function Labeled({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <View className="mb-3">
-      <Text className="text-muted mb-1.5 text-[10px] font-bold tracking-wider uppercase">
+      <Text className="text-muted mb-1.5 font-mono text-[10px] tracking-wider uppercase">
         {label}
       </Text>
       {children}

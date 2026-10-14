@@ -40,10 +40,12 @@ export default function PlanScreen() {
 
         <View className="flex-row items-start justify-between px-5">
           <View className="flex-1">
-            <Text className="text-hud text-[10px] font-bold tracking-[3px] uppercase">
+            <Text className="text-hud font-mono text-[10px] tracking-[3px] uppercase">
               MATCH plan builder
             </Text>
-            <Text className="text-foreground mt-1 text-2xl font-bold">Arm your layers</Text>
+            <Text className="text-foreground font-display mt-1 text-3xl tracking-wide">
+              Arm your layers
+            </Text>
             <BodyText className="text-muted mt-1">
               {planUpdatedAt
                 ? `Last updated ${new Date(planUpdatedAt).toLocaleDateString()}`

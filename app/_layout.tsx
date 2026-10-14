@@ -2,16 +2,16 @@
 import '../global.css';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { BreeSerif_400Regular } from '@expo-google-fonts/bree-serif';
 import { AllertaStencil_400Regular } from '@expo-google-fonts/allerta-stencil';
-import { Yellowtail_400Regular } from '@expo-google-fonts/yellowtail';
+import { BebasNeue_400Regular } from '@expo-google-fonts/bebas-neue';
 import {
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_600SemiBold,
-  Inter_700Bold,
+  DMSans_400Regular,
+  DMSans_500Medium,
+  DMSans_700Bold,
   useFonts,
-} from '@expo-google-fonts/inter';
+} from '@expo-google-fonts/dm-sans';
+import { SpaceMono_400Regular, SpaceMono_700Bold } from '@expo-google-fonts/space-mono';
+import { Yellowtail_400Regular } from '@expo-google-fonts/yellowtail';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { Platform } from 'react-native';
 import { useEffect } from 'react';
@@ -57,11 +57,14 @@ void SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    Inter_400Regular,
-    Inter_500Medium,
-    Inter_600SemiBold,
-    Inter_700Bold,
-    BreeSerif_400Regular,
+    // Brand type stack: Bebas Neue (titles), Space Mono (labels), DM Sans (body).
+    DMSans_400Regular,
+    DMSans_500Medium,
+    DMSans_700Bold,
+    BebasNeue_400Regular,
+    SpaceMono_400Regular,
+    SpaceMono_700Bold,
+    // Wordmark lettering only.
     AllertaStencil_400Regular,
     Yellowtail_400Regular,
   });
@@ -96,22 +99,22 @@ export default function RootLayout() {
     if (Platform.OS === 'web') {
       // Check if link already exists
       const existingLink = document.querySelector(
-        'link[href*="fonts.googleapis.com/css2?family=Inter"]',
+        'link[href*="fonts.googleapis.com/css2?family=DM+Sans"]',
       );
 
       if (!existingLink) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href =
-          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bree+Serif&family=Allerta+Stencil&family=Yellowtail&display=swap';
+          'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Allerta+Stencil&family=Yellowtail&display=swap';
         link.crossOrigin = 'anonymous';
         document.head.appendChild(link);
       }
 
-      // Note: The @import in global.css and the link tag above ensure Inter and
-      // Bree Serif load. expo-font registers the family names (Inter_400Regular,
-      // BreeSerif_400Regular). If expo-font fails due to proxy issues the faces
-      // are still available via the direct Google Fonts CDN link.
+      // Note: The @import in global.css and the link tag above ensure the brand
+      // faces load. expo-font registers the family names (DMSans_400Regular,
+      // BebasNeue_400Regular, SpaceMono_400Regular). If expo-font fails due to
+      // proxy issues the faces are still available via the Google Fonts CDN link.
     }
   }, []);
 

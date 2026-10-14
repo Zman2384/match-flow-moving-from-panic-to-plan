@@ -121,7 +121,7 @@ export default function ScriptVaultScreen() {
                     key={script.id}
                     className="border-hud/25 bg-panel/70 mb-2 rounded-2xl border p-4"
                   >
-                    <Text className="text-hud text-[10px] font-bold tracking-widest uppercase">
+                    <Text className="text-hud font-mono text-[10px] tracking-widest uppercase">
                       {script.title}
                     </Text>
                     <BodyText className="text-foreground mt-1.5">“{script.body}”</BodyText>
@@ -185,7 +185,7 @@ export default function ScriptVaultScreen() {
                       return (
                         <View key={line.id} className="mb-3">
                           <View className="flex-row items-start justify-between gap-3">
-                            <Text className="text-hud/80 flex-1 text-[10px] font-bold tracking-wider uppercase">
+                            <Text className="text-hud/80 flex-1 font-mono text-[10px] tracking-wider uppercase">
                               {line.goal}
                             </Text>
                             <Pressable

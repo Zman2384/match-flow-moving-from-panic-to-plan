@@ -56,7 +56,7 @@ export function ScreenShell({
         <ChapterHero title={title} subtitle={subtitle} icon={chapterIcon} />
       ) : (
         <>
-          <Text className="text-foreground text-2xl font-bold">{title}</Text>
+          <Text className="text-foreground font-display text-3xl tracking-wide">{title}</Text>
           {subtitle ? <BodyText className="text-muted mt-1">{subtitle}</BodyText> : null}
         </>
       )}
@@ -115,7 +115,7 @@ export function HudPanel({
         <View className="border-hud/20 flex-row items-center justify-between border-b bg-black/25 px-4 py-3">
           <View className="flex-row items-center gap-2">
             <View className="bg-hud h-1.5 w-1.5 rounded-full" />
-            <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">{label}</Text>
+            <Text className="text-hud font-mono text-[10px] tracking-[2px] uppercase">{label}</Text>
           </View>
           {status ? <Text className="text-hud/60 text-[10px] font-semibold">{status}</Text> : null}
         </View>
@@ -127,7 +127,7 @@ export function HudPanel({
 
 export function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <Text className="text-hud/70 mt-6 mb-3 text-[11px] font-bold tracking-[2px] uppercase">
+    <Text className="text-hud/70 mt-6 mb-3 font-mono text-[11px] tracking-[2px] uppercase">
       {children}
     </Text>
   );
@@ -171,7 +171,7 @@ export function Disclaimer({
     >
       <View className="bg-caution mt-1.5 h-2 w-2 rounded-full" />
       <View className="flex-1">
-        <Text className="text-caution text-[13px] font-bold tracking-[0.6px] uppercase">
+        <Text className="text-caution font-mono text-[13px] tracking-[0.6px] uppercase">
           Educational Tool — Not Medical Advice
         </Text>
         <BodyText className="text-caution-soft mt-1">

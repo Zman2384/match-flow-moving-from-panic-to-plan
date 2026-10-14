@@ -59,8 +59,8 @@ export default function LiveSessionScreen() {
       <HudPanel label="Readiness" status={`${readiness}%`}>
         <View className="flex-row items-end justify-between">
           <View>
-            <Text className="text-foreground text-4xl font-bold">{cleared}</Text>
-            <Text className="text-muted text-[10px] font-semibold tracking-wider uppercase">
+            <Text className="text-foreground font-display text-5xl tracking-wide">{cleared}</Text>
+            <Text className="text-muted font-mono text-[10px] tracking-wider uppercase">
               of {SWEEP.length} cleared
             </Text>
           </View>
@@ -138,7 +138,7 @@ export default function LiveSessionScreen() {
             onPress={() => setTimerOn((v) => !v)}
             className="bg-hud flex-1 items-center rounded-xl py-3 active:opacity-80"
           >
-            <Text className="text-abyss text-[11px] font-bold tracking-widest uppercase">
+            <Text className="text-abyss font-mono text-[11px] tracking-widest uppercase">
               {timerOn ? 'Pause' : 'Start'}
             </Text>
           </Pressable>
@@ -149,7 +149,7 @@ export default function LiveSessionScreen() {
             }}
             className="border-border bg-panel-deep flex-1 items-center rounded-xl border py-3 active:opacity-70"
           >
-            <Text className="text-muted text-[11px] font-bold tracking-widest uppercase">
+            <Text className="text-muted font-mono text-[11px] tracking-widest uppercase">
               Reset
             </Text>
           </Pressable>
@@ -163,7 +163,7 @@ export default function LiveSessionScreen() {
         }}
         className="border-hud bg-hud/15 mt-5 items-center rounded-2xl border py-4 active:opacity-80"
       >
-        <Text className="text-hud text-xs font-bold tracking-widest uppercase">
+        <Text className="text-hud font-mono text-xs tracking-widest uppercase">
           {logged ? 'Session logged' : 'Log this session'}
         </Text>
       </Pressable>
@@ -184,7 +184,7 @@ function Selector({
 }) {
   return (
     <View className="mb-3">
-      <Text className="text-muted mb-2 text-[10px] font-bold tracking-wider uppercase">
+      <Text className="text-muted mb-2 font-mono text-[10px] tracking-wider uppercase">
         {label}
       </Text>
       <View className="flex-row flex-wrap gap-2">

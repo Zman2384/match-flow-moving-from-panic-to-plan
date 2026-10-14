@@ -102,7 +102,7 @@ export default function SaferScoreScreen() {
           }}
         >
           <Text
-            className="text-[10px] font-bold tracking-widest uppercase"
+            className="font-mono text-[10px] tracking-widest uppercase"
             style={{ color: PIECE_BY_KEY[weakest].color }}
           >
             Highest-leverage fix
@@ -120,7 +120,7 @@ export default function SaferScoreScreen() {
           }}
           className="border-hud bg-hud/15 mt-5 items-center rounded-2xl border py-3.5 active:opacity-80"
         >
-          <Text className="text-hud text-xs font-bold tracking-widest uppercase">
+          <Text className="text-hud font-mono text-xs tracking-widest uppercase">
             Run assessment again
           </Text>
         </Pressable>

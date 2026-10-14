@@ -217,11 +217,11 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
         </Svg>
 
         <View pointerEvents="none" className="absolute inset-0 items-center justify-center">
-          <Text className="text-foreground mt-14 text-2xl font-bold">
+          <Text className="text-foreground font-display mt-14 text-3xl tracking-wide">
             {disarmed}
             <Text className="text-muted text-base font-semibold"> / {named}</Text>
           </Text>
-          <Text className="text-hud text-[9px] font-bold tracking-[2px] uppercase">disarmed</Text>
+          <Text className="text-hud font-mono text-[9px] tracking-[2px] uppercase">disarmed</Text>
         </View>
       </View>
     </View>

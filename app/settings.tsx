@@ -67,7 +67,7 @@ export default function SettingsScreen() {
             }}
             className="bg-hud mt-2 items-center rounded-xl py-3 active:opacity-80"
           >
-            <Text className="text-abyss text-xs font-bold tracking-widest uppercase">
+            <Text className="text-abyss font-mono text-xs tracking-widest uppercase">
               {saved ? 'Saved' : 'Save contact'}
             </Text>
           </Pressable>
@@ -131,7 +131,7 @@ export default function SettingsScreen() {
               newName.trim() && newPhone.trim() ? 'bg-hud/20 border-hud border' : 'bg-panel-deep'
             }`}
           >
-            <Text className="text-hud text-xs font-bold tracking-widest uppercase">
+            <Text className="text-hud font-mono text-xs tracking-widest uppercase">
               Add contact
             </Text>
           </Pressable>
@@ -268,7 +268,7 @@ function Field({
 }) {
   return (
     <View className="mb-3">
-      <Text className="text-muted mb-1.5 text-[10px] font-bold tracking-wider uppercase">
+      <Text className="text-muted mb-1.5 font-mono text-[10px] tracking-wider uppercase">
         {label}
       </Text>
       <TextInput

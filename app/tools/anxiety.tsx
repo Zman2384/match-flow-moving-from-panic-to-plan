@@ -80,7 +80,7 @@ export default function AnxietyScreen() {
 
         {STEPS.map((step) => (
           <View key={step.key} className="mt-4">
-            <Text className="text-hud text-[10px] font-bold tracking-widest uppercase">
+            <Text className="text-hud font-mono text-[10px] tracking-widest uppercase">
               {step.label}
             </Text>
             <Text className="text-muted mt-1 mb-2 text-[11px]">{step.prompt}</Text>

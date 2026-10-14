@@ -26,7 +26,10 @@ export function ChapterHero({
         <Icon size={142} color={HUD} strokeWidth={1} />
       </View>
       <View className="bg-hud mb-4 h-1 w-12 rounded-full" />
-      <Text accessibilityRole="header" className="text-foreground text-2xl font-bold">
+      <Text
+        accessibilityRole="header"
+        className="text-foreground font-display text-3xl tracking-wide"
+      >
         {title}
       </Text>
       {subtitle ? (

@@ -25,7 +25,7 @@ export default function LegalDocumentScreen() {
           onPress={() => router.replace('/legal')}
           className="bg-hud items-center rounded-xl py-3 active:opacity-80"
         >
-          <Text className="text-abyss text-xs font-bold tracking-widest uppercase">
+          <Text className="text-abyss font-mono text-xs tracking-widest uppercase">
             Back to all documents
           </Text>
         </Pressable>
@@ -45,7 +45,7 @@ export default function LegalDocumentScreen() {
         style={{ borderColor: `${doc.accent}55`, backgroundColor: `${doc.accent}12` }}
       >
         <Text
-          className="text-[10px] font-bold tracking-[2px] uppercase"
+          className="font-mono text-[10px] tracking-[2px] uppercase"
           style={{ color: doc.accent }}
         >
           {doc.summary}

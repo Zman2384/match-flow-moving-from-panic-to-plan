@@ -57,7 +57,7 @@ export default function ResourcesScreen() {
         style={{ borderColor: `${active.color}55`, backgroundColor: `${active.color}14` }}
       >
         <Text
-          className="text-[10px] font-bold tracking-widest uppercase"
+          className="font-mono text-[10px] tracking-widest uppercase"
           style={{ color: active.color }}
         >
           {active.name}
@@ -74,7 +74,7 @@ export default function ResourcesScreen() {
 
       {group?.links.length ? (
         <>
-          <Text className="text-hud/70 mt-6 mb-3 text-[11px] font-bold tracking-[2px] uppercase">
+          <Text className="text-hud/70 mt-6 mb-3 font-mono text-[11px] tracking-[2px] uppercase">
             Go deeper
           </Text>
           {group.links.map((link) => (

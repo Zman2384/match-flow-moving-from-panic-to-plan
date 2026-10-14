@@ -139,7 +139,7 @@ export function LilZDock({ bottomOffset = 24 }: { bottomOffset?: number }) {
     >
       <LilZAvatar size={30} pulse />
       <View>
-        <Text className="text-hud text-[11px] font-bold tracking-wider uppercase">Ask Lil Z</Text>
+        <Text className="text-hud font-mono text-[11px] tracking-wider uppercase">Ask Lil Z</Text>
         <Text className="text-muted text-[9px]">Your guide, 24/7</Text>
       </View>
     </Pressable>

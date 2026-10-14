@@ -124,7 +124,7 @@ export default function CheckInScreen() {
           }}
           className="bg-hud mt-4 items-center rounded-2xl py-4 active:opacity-80"
         >
-          <Text className="text-abyss text-xs font-bold tracking-widest uppercase">
+          <Text className="text-abyss font-mono text-xs tracking-widest uppercase">
             Save check-in
           </Text>
         </Pressable>

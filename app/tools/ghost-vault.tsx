@@ -109,7 +109,7 @@ export default function GhostVaultScreen() {
                   }}
                 >
                   <Text
-                    className="text-[10px] font-bold tracking-wider uppercase"
+                    className="font-mono text-[10px] tracking-wider uppercase"
                     style={{ color: active ? item.color : STEEL_SOFT }}
                   >
                     {item.label}
@@ -137,7 +137,7 @@ export default function GhostVaultScreen() {
 
           <BodyText className="text-foreground mt-3">{stage.state}</BodyText>
           <View className="border-hud/25 bg-hud/[0.07] mt-3 rounded-xl border p-3">
-            <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">
+            <Text className="text-hud font-mono text-[10px] tracking-[2px] uppercase">
               Next move
             </Text>
             <BodyText className="text-foreground/90 mt-1">{stage.guidance}</BodyText>
@@ -354,7 +354,7 @@ function FilterChip({
       }}
     >
       <Text
-        className="text-[11px] font-bold tracking-wider uppercase"
+        className="font-mono text-[11px] tracking-wider uppercase"
         style={{ color: active ? color : STEEL_SOFT }}
       >
         {label}
@@ -421,7 +421,7 @@ function LooseGhostCard({
           <View className="mt-2.5 flex-row items-center gap-1.5">
             <Plus size={12} color={category.color} />
             <Text
-              className="text-[10px] font-bold tracking-widest uppercase"
+              className="font-mono text-[10px] tracking-widest uppercase"
               style={{ color: category.color }}
             >
               Name it
@@ -452,7 +452,7 @@ function NamedGhostCard({ entry, record }: { entry: GhostEntry; record: GhostRec
         style={{ backgroundColor: `${category.color}1a` }}
       >
         <Text
-          className="text-[9px] font-bold tracking-[2px] uppercase"
+          className="font-mono text-[9px] tracking-[2px] uppercase"
           style={{ color: category.color }}
         >
           {category.fullLabel}
@@ -484,13 +484,13 @@ function NamedGhostCard({ entry, record }: { entry: GhostEntry; record: GhostRec
         </View>
 
         <View className="border-hud/20 bg-hud/[0.06] mt-3 rounded-xl border p-3">
-          <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">
+          <Text className="text-hud font-mono text-[10px] tracking-[2px] uppercase">
             Counter-move
           </Text>
           <BodyText className="text-foreground/90 mt-1">{entry.disarm}</BodyText>
         </View>
 
-        <Text className="text-hud/70 mt-3 mb-2 text-[10px] font-bold tracking-[2px] uppercase">
+        <Text className="text-hud/70 mt-3 mb-2 font-mono text-[10px] tracking-[2px] uppercase">
           Carried by
         </Text>
         <PieceChips pieces={entry.pieces} />

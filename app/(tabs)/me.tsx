@@ -41,23 +41,25 @@ export default function MeScreen() {
       >
         <View className="px-5">
           <BackChip mode="jump" className="mb-3" />
-          <Text className="text-hud text-[10px] font-bold tracking-[3px] uppercase">
+          <Text className="text-hud font-mono text-[10px] tracking-[3px] uppercase">
             Operator profile
           </Text>
-          <Text className="text-foreground mt-1 text-2xl font-bold">Your progress</Text>
+          <Text className="text-foreground font-display mt-1 text-3xl tracking-wide">
+            Your progress
+          </Text>
 
           <Disclaimer className="mt-3" />
 
           <View className="border-hud/25 bg-panel/70 mt-4 rounded-3xl border p-4">
             <View className="flex-row items-center justify-between">
-              <Text className="text-muted text-[10px] font-bold tracking-widest uppercase">
+              <Text className="text-muted font-mono text-[10px] tracking-widest uppercase">
                 Current shield
               </Text>
               <Text className="text-base font-bold" style={{ color: tier.color }}>
                 {tier.label}
               </Text>
             </View>
-            <Text className="text-foreground mt-1 text-4xl font-bold">
+            <Text className="text-foreground font-display mt-1 text-5xl tracking-wide">
               {score}
               <Text className="text-muted text-base font-semibold"> / 100</Text>
             </Text>
@@ -90,7 +92,7 @@ export default function MeScreen() {
 
           {relationshipStyle ? (
             <View className="border-hud/25 bg-hud/[0.07] mt-4 rounded-2xl border p-4">
-              <Text className="text-hud text-[10px] font-bold tracking-widest uppercase">
+              <Text className="text-hud font-mono text-[10px] tracking-widest uppercase">
                 Agreement model
               </Text>
               <Text className="text-foreground mt-1 text-base font-semibold capitalize">
@@ -99,7 +101,7 @@ export default function MeScreen() {
             </View>
           ) : null}
 
-          <Text className="text-hud/70 mt-6 mb-3 text-[11px] font-bold tracking-[2px] uppercase">
+          <Text className="text-hud/70 mt-6 mb-3 font-mono text-[11px] tracking-[2px] uppercase">
             Manage
           </Text>
           {LINKS.map((link) => (
@@ -126,7 +128,7 @@ function Metric({ label, value }: { label: string; value: string }) {
   return (
     <View className="border-border bg-panel/60 min-w-[46%] flex-1 rounded-2xl border p-4">
       <Text className="text-foreground text-xl font-bold">{value}</Text>
-      <Text className="text-muted mt-0.5 text-[10px] font-semibold tracking-wider uppercase">
+      <Text className="text-muted mt-0.5 font-mono text-[10px] tracking-wider uppercase">
         {label}
       </Text>
     </View>

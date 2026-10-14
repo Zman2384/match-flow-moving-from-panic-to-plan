@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bree+Serif&family=Allerta+Stencil&family=Yellowtail&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Allerta+Stencil&family=Yellowtail&display=swap');
 
 @import 'tailwindcss';
 @import 'uniwind';
@@ -112,8 +112,12 @@
 }
 
 @theme {
-  /* Body type — Bree Serif per brand, 16pt floor enforced by <BodyText />. */
-  --font-body: 'BreeSerif_400Regular';
+  /* Brand type stack. Body: DM Sans, 16pt floor enforced by <BodyText />. */
+  --font-body: 'DMSans_400Regular';
+  /* Screen titles: Bebas Neue (stencil-tactical display). */
+  --font-display: 'BebasNeue_400Regular';
+  /* Eyebrows, telemetry and labels: Space Mono. */
+  --font-mono: 'SpaceMono_400Regular';
 
   /* Active signal — Neon Cyan telemetry / heartbeat. */
   --color-hud: #00bdbd;

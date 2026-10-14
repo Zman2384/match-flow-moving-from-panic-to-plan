@@ -35,10 +35,10 @@ export default function ToolkitScreen() {
       >
         <View className="px-5">
           <BackChip mode="jump" className="mb-3" />
-          <Text className="text-hud text-[10px] font-bold tracking-[3px] uppercase">
+          <Text className="text-hud font-mono text-[10px] tracking-[3px] uppercase">
             Tactical toolkit
           </Text>
-          <Text className="text-foreground mt-1 text-2xl font-bold">
+          <Text className="text-foreground font-display mt-1 text-3xl tracking-wide">
             {TOOLS.length} tools, one system
           </Text>
           <BodyText className="text-muted mt-1">

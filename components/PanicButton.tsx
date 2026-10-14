@@ -51,7 +51,7 @@ export function PanicButton({ bottomOffset = 88 }: { bottomOffset?: number }) {
               onPress={() => dial({ label: name || 'Contact', value: phone, note: '' })}
               className="bg-danger/20 border-danger/40 mb-3 rounded-2xl border p-4 active:opacity-80"
             >
-              <Text className="text-danger text-xs font-bold tracking-wider uppercase">
+              <Text className="text-danger font-mono text-xs tracking-wider uppercase">
                 Your support contact
               </Text>
               <Text className="text-foreground mt-1 text-base font-bold">{name || 'Contact'}</Text>

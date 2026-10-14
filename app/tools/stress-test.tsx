@@ -74,7 +74,7 @@ export default function StressTestScreen() {
           }}
           className="border-hud bg-hud/15 mt-4 items-center rounded-2xl border py-3.5 active:opacity-80"
         >
-          <Text className="text-hud text-xs font-bold tracking-widest uppercase">Run again</Text>
+          <Text className="text-hud font-mono text-xs tracking-widest uppercase">Run again</Text>
         </Pressable>
       </ScreenShell>
     );
@@ -141,7 +141,7 @@ export default function StressTestScreen() {
           }}
         >
           <Text
-            className="text-[10px] font-bold tracking-widest uppercase"
+            className="font-mono text-[10px] tracking-widest uppercase"
             style={{ color: holds ? STATE_PASS : STATE_FAIL }}
           >
             {holds ? 'Shield held' : 'Shield broke'}
@@ -168,7 +168,7 @@ export default function StressTestScreen() {
         }}
         className="bg-hud mt-5 items-center rounded-2xl py-4 active:opacity-80"
       >
-        <Text className="text-abyss text-xs font-bold tracking-widest uppercase">
+        <Text className="text-abyss font-mono text-xs tracking-widest uppercase">
           {revealed ? 'Next scenario' : 'Run the scenario'}
         </Text>
       </Pressable>

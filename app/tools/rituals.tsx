@@ -52,7 +52,7 @@ export default function RitualsScreen() {
           onPress={() => setIndex((i) => i + 1)}
           className="border-hud bg-hud/10 mt-3 items-center rounded-xl border py-2.5 active:opacity-70"
         >
-          <Text className="text-hud text-[11px] font-bold tracking-widest uppercase">
+          <Text className="text-hud font-mono text-[11px] tracking-widest uppercase">
             Another line
           </Text>
         </Pressable>
@@ -72,7 +72,7 @@ export default function RitualsScreen() {
                 className="p-4 active:opacity-70"
               >
                 <Text
-                  className="text-[10px] font-bold tracking-widest uppercase"
+                  className="font-mono text-[10px] tracking-widest uppercase"
                   style={{ color: card.accent }}
                 >
                   {card.category} · {card.window}

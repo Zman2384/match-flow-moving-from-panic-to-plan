@@ -158,7 +158,7 @@ export default function RemindersScreen() {
           </View>
         ) : null}
 
-        <Text className="text-muted mt-4 mb-2 text-[10px] font-bold tracking-wider uppercase">
+        <Text className="text-muted mt-4 mb-2 font-mono text-[10px] tracking-wider uppercase">
           Preferred time
         </Text>
         <View className="flex-row flex-wrap gap-2">

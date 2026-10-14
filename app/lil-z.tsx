@@ -164,7 +164,7 @@ export default function LilZScreen() {
           <View className="border-hud/15 bg-panel-deep/90 border-b px-5 py-4">
             <View className="flex-row items-center justify-between">
               <View className="flex-1 pr-3">
-                <Text className="text-hud text-[10px] font-bold tracking-[2px] uppercase">
+                <Text className="text-hud font-mono text-[10px] tracking-[2px] uppercase">
                   Agent memory
                 </Text>
                 <BodyText className="text-muted mt-1">

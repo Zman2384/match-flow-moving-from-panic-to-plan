@@ -12,7 +12,7 @@ export default function NotFoundScreen() {
       <View className="bg-background flex-1">
         <HudBackdrop />
         <View className="flex-1 items-center justify-center px-8">
-          <Text className="text-hud text-[10px] font-bold tracking-[3px] uppercase">
+          <Text className="text-hud font-mono text-[10px] tracking-[3px] uppercase">
             Signal lost
           </Text>
           <Text className="text-foreground mt-2 text-center text-xl font-bold">

@@ -22,7 +22,7 @@ export default function EmergencyScreen() {
       hint="If you are in danger right now, call your local emergency number first."
     >
       <View className="border-danger/40 bg-danger/10 mb-5 rounded-2xl border p-4">
-        <Text className="text-danger text-[10px] font-bold tracking-widest uppercase">
+        <Text className="text-danger font-mono text-[10px] tracking-widest uppercase">
           Time matters
         </Text>
         <BodyText className="text-foreground mt-1">
@@ -100,7 +100,7 @@ export default function EmergencyScreen() {
                 })}
 
                 <View className="border-border mt-3 rounded-xl border border-dashed p-3">
-                  <Text className="text-muted mb-1.5 text-[10px] font-bold tracking-wider uppercase">
+                  <Text className="text-muted mb-1.5 font-mono text-[10px] tracking-wider uppercase">
                     Do not
                   </Text>
                   {protocol.avoid.map((item) => (

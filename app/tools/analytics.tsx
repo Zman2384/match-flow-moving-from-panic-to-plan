@@ -124,7 +124,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <View className="border-border bg-panel/60 flex-1 rounded-2xl border p-3">
       <Text className="text-foreground text-lg font-bold">{value}</Text>
-      <Text className="text-muted mt-0.5 text-[9px] font-semibold tracking-wider uppercase">
+      <Text className="text-muted mt-0.5 font-mono text-[9px] tracking-wider uppercase">
         {label}
       </Text>
     </View>

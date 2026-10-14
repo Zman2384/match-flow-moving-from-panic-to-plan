@@ -49,7 +49,7 @@ export default function FrameworksScreen() {
                 </View>
                 <View className="flex-1">
                   <Text
-                    className="text-[10px] font-bold tracking-widest uppercase"
+                    className="font-mono text-[10px] tracking-widest uppercase"
                     style={{ color: framework.accent }}
                   >
                     {framework.category}
@@ -93,7 +93,7 @@ export default function FrameworksScreen() {
                     }}
                   >
                     <Text
-                      className="text-[11px] font-bold tracking-widest uppercase"
+                      className="font-mono text-[11px] tracking-widest uppercase"
                       style={{ color: framework.accent }}
                     >
                       {selected ? 'Selected as my model' : 'This is my model'}

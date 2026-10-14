@@ -82,9 +82,11 @@ export function HexScore({ score, size = 156, label, color, caption }: HexScoreP
           />
         </Svg>
         <View pointerEvents="none" className="absolute inset-0 items-center justify-center">
-          <Text className="text-foreground text-3xl font-bold">{Math.round(score)}</Text>
+          <Text className="text-foreground font-display text-4xl tracking-wide">
+            {Math.round(score)}
+          </Text>
           <Text
-            className="mt-0.5 text-[10px] font-bold tracking-widest uppercase"
+            className="mt-0.5 font-mono text-[10px] tracking-widest uppercase"
             style={{ color }}
           >
             {label}
@@ -150,7 +152,7 @@ export function PieceHex({ pieceKey, percent, color, armed }: PieceHexProps) {
         </View>
       </View>
       <Text
-        className="text-[9px] font-bold tracking-wider uppercase"
+        className="font-mono text-[9px] tracking-wider uppercase"
         style={{ color: armed ? color : STEEL }}
       >
         {Math.round(percent)}%

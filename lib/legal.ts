@@ -32,11 +32,13 @@ export interface LegalDocument {
 
 /** Single source of truth for the identifying details used across all documents. */
 export const LEGAL_ENTITY = 'MATCH Flow';
-export const LEGAL_CONTACT_EMAIL = 'legal@matchflow.app';
-export const LEGAL_PRIVACY_EMAIL = 'privacy@matchflow.app';
-export const LEGAL_ACCESSIBILITY_EMAIL = 'access@matchflow.app';
-export const LEGAL_GOVERNING_LAW = 'the State of Delaware, United States';
-export const LEGAL_LAST_UPDATED = 'August 5, 2026';
+/** The company that publishes the App and is party to these documents. */
+export const LEGAL_OPERATOR = 'The Harness Project LLC';
+export const LEGAL_CONTACT_EMAIL = 'email@theharnessproject.org';
+export const LEGAL_PRIVACY_EMAIL = 'email@theharnessproject.org';
+export const LEGAL_ACCESSIBILITY_EMAIL = 'email@theharnessproject.org';
+export const LEGAL_GOVERNING_LAW = 'the State of Texas, United States';
+export const LEGAL_LAST_UPDATED = 'October 14, 2026';
 export const LEGAL_VERSION = '1.0';
 
 export const LEGAL_DOCUMENTS: LegalDocument[] = [
@@ -46,7 +48,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
     summary: 'EULA, license, prohibited conduct, purchases',
     icon: 'document',
     accent: GHOST_COLOR.internal,
-    intro: `These Terms of Service ("Terms") are a binding agreement between you and ${LEGAL_ENTITY} ("we", "us") covering your use of the ${LEGAL_ENTITY} mobile and web application (the "App"). By installing, opening, or continuing to use the App you accept these Terms. If you do not accept them, delete the App.`,
+    intro: `These Terms of Service ("Terms") are a binding agreement between you and ${LEGAL_OPERATOR}, the publisher of ${LEGAL_ENTITY} ("we", "us") covering your use of the ${LEGAL_ENTITY} mobile and web application (the "App"). By installing, opening, or continuing to use the App you accept these Terms. If you do not accept them, delete the App.`,
     sections: [
       {
         heading: '1. Eligibility',

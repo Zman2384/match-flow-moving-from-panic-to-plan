@@ -3,14 +3,12 @@ import { useState } from 'react';
 import { Linking, Modal, Platform, Pressable, Text, View } from 'react-native';
 
 import { BodyText } from '@/components/ScreenShell';
-import { HOTLINES } from '@/lib/content';
+import { HOTLINES, hotlineUrl, type HotlineEntry } from '@/lib/content';
 import { STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
 
-function dial(number: string) {
-  const cleaned = number.replace(/[^\d+]/g, '');
-  const url = Platform.OS === 'ios' ? `telprompt:${cleaned}` : `tel:${cleaned}`;
-  void Linking.openURL(url).catch(() => undefined);
+function dial(line: HotlineEntry) {
+  void Linking.openURL(hotlineUrl(line, Platform.OS === 'ios')).catch(() => undefined);
 }
 
 /**
@@ -37,14 +35,20 @@ export function PanicButton({ bottomOffset = 88 }: { bottomOffset?: number }) {
         <View className="bg-panel border-hud/30 absolute right-0 bottom-0 left-0 rounded-t-3xl border-t p-5 pb-10">
           <View className="mb-4 flex-row items-center justify-between">
             <Text className="text-foreground text-lg font-bold">Get help now</Text>
-            <Pressable onPress={() => setOpen(false)} hitSlop={10} className="active:opacity-60">
+            <Pressable
+              onPress={() => setOpen(false)}
+              hitSlop={10}
+              accessibilityRole="button"
+              accessibilityLabel="Close"
+              className="active:opacity-60"
+            >
               <X size={20} color={STEEL} />
             </Pressable>
           </View>
 
           {phone ? (
             <Pressable
-              onPress={() => dial(phone)}
+              onPress={() => dial({ label: name || 'Contact', value: phone, note: '' })}
               className="bg-danger/20 border-danger/40 mb-3 rounded-2xl border p-4 active:opacity-80"
             >
               <Text className="text-danger text-xs font-bold tracking-wider uppercase">
@@ -69,7 +73,7 @@ export function PanicButton({ bottomOffset = 88 }: { bottomOffset?: number }) {
           {HOTLINES.map((line) => (
             <Pressable
               key={line.label}
-              onPress={() => dial(line.value)}
+              onPress={() => dial(line)}
               className="border-border bg-panel-deep mb-2 flex-row items-center justify-between rounded-2xl border p-4 active:opacity-80"
             >
               <View className="flex-1 pr-3">

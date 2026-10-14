@@ -80,15 +80,14 @@ export default function LessonScreen() {
       <ScreenShell
         title={chapter.title}
         chapterIcon={BookOpen}
-        subtitle={`Lesson ${number} · supplied pages ${lesson.pages}`}
+        subtitle={`Module ${module.number} · Lesson ${number}`}
         backLabel="Curriculum"
         backHref={{ pathname: '/tools/curriculum', params: { module: String(module.number) } }}
         showGuide={false}
       >
         <BodyText className="text-foreground">{chapter.focus}</BodyText>
         <BodyText className="text-muted mt-3">
-          Adapted adult lesson outline, not a reproduction of unseen worksheet pages. Private notes
-          stay on this device and are saved as you type.
+          Your notes stay on this device and save as you type.
         </BodyText>
         {lesson.note ? (
           <View className="border-caution-edge/40 bg-caution-edge/10 mt-4 rounded-2xl border p-4">
@@ -103,7 +102,7 @@ export default function LessonScreen() {
         ))}
         {number === 16 ? (
           <View className="mt-4">
-            <Text className="text-hud text-lg font-bold">The canonical sixteen</Text>
+            <Text className="text-hud text-lg font-bold">The sixteen ghosts</Text>
             {CANONICAL_GHOSTS.map((ghost) => (
               <View
                 key={ghost.id}
@@ -170,10 +169,9 @@ export default function LessonScreen() {
         ) : null}
         {number === 19 ? (
           <View className="mt-4">
-            <Text className="text-hud text-lg font-bold">{`${completed.length} of ${CHALLENGE_ACTIONS.length} available actions complete`}</Text>
+            <Text className="text-hud text-lg font-bold">{`${completed.length} of ${CHALLENGE_ACTIONS.length} actions complete`}</Text>
             <BodyText className="text-muted mt-2">
-              Choose any order. These are the representative actions supplied on page 22, not the
-              complete thirty.
+              Any order, as many as you like in a day. Aim to finish them inside thirty days.
             </BodyText>
             {CHALLENGE_ACTIONS.map((action, index) => (
               <Button

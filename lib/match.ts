@@ -67,13 +67,13 @@ export const MATCH_PIECES: MatchPiece[] = [
         id: 'doxypep',
         label: 'Doxy-PEP on hand',
         points: 8,
-        detail: 'Bacterial STI prophylaxis after exposure.',
+        detail: 'A prescription on file: one dose within 72 hours after sex.',
       },
       {
         id: 'vaccines',
         label: 'Vaccines current',
         points: 6,
-        detail: 'HPV, hepatitis A/B, mpox as advised.',
+        detail: 'HPV, hepatitis B and mpox, as your provider advises.',
       },
       {
         id: 'pep-plan',
@@ -97,7 +97,7 @@ export const MATCH_PIECES: MatchPiece[] = [
         id: 'tested-3mo',
         label: 'Tested in the last 3 months',
         points: 4,
-        detail: 'Recent full-panel screening.',
+        detail: 'HIV and STI testing at the body sites you use.',
       },
       {
         id: 'test-schedule',

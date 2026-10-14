@@ -212,7 +212,7 @@ const BRIEFINGS: Briefing[] = [
   {
     match: /\b(curriculum|harness|chapter|module|field kit|fearless challenge)\b/i,
     reply:
-      'MATCH Flow follows MATCH Your Protection: Science as Your Wingman for adults 18 and older. HARNESS v2.0 has six modules, 19 chapters and 19 lessons. Supplied pages 1–26 now provide lesson objectives and activities, the canonical sixteen ghosts, dossier summaries A–H, a six-step written plan and five workshop models. The app tracks 24 supplied representative challenge actions, not an invented list of thirty. Pages 27–98 and full appendix forms remain unavailable. Appendix A–E summaries preserve the rule that consent is always withdrawable and forms are not contracts. The free 5-session adult letter lab is separate from the book. CAPE Flow is the separate grades 6–12 surface. Clinical details belong with a qualified provider; the SafER Score measures readiness, not infection probability.',
+      'MATCH Flow follows MATCH Your Protection: Science as Your Wingman, for adults 18 and older. Six modules, 19 lessons: Mindset of Protection, Sexual Barriers, Medical Shields, Real Talk, Your Perfect MATCH and the Field Kit, with 16 ghosts, eight stress-test dossiers, a six-step MATCH plan and the 30-Day Fearless Challenge. Each lesson has objectives, activities and space for your own notes, saved on this device. Clinical details belong with a licensed provider; the SafER Score measures readiness, not infection risk.',
     actions: [{ id: 'curriculum', label: 'Open the curriculum' }],
   },
   {
@@ -237,8 +237,15 @@ const BRIEFINGS: Briefing[] = [
   },
   {
     urgent: true,
+    match: /\b(assault|assaulted|raped|rape|forced me|didn'?t consent|did not consent)\b/i,
+    reply:
+      "I'm really sorry this happened. It was not your fault.\n\n- If you are in danger now, call 911.\n- Go to the nearest emergency department now. Ask to be evaluated for PEP; it must start as soon as possible and no later than 72 hours. You can also ask for a forensic exam and emergency contraception. You do not have to report to police to get care.\n- RAINN's hotline, 1-800-656-4673, is free, confidential and open 24/7. They can connect you with a local advocate who can go with you.\n\nYou get to decide what happens next, one step at a time.",
+    actions: [{ id: 'emergency', label: 'Emergency steps' }],
+  },
+  {
+    urgent: true,
     match:
-      /\b(pep|broke|broken|slipped|slipped off|exposure|exposed|unprotected|condomless|bareback|assault)\b/i,
+      /\b(pep|broke|broken|slipped|slipped off|exposure|exposed|unprotected|condomless|bareback)\b/i,
     reply:
       "Let's take this in order. Take one slow breath while arranging care — do not delay.\n\n- Go to the nearest emergency department now for urgent PEP evaluation after a possible HIV exposure. PEP must start as soon as possible, ideally within 24 hours and no later than 72 hours. Do not wait for a call, an appointment or test results.\n- If prescribed, PEP is a 28-day course. Ask the clinician about follow-up testing and prevention.\n- Use locator.hiv.gov to prepare an access plan while calm, not to postpone urgent care.\n- If pregnancy is possible, ask about emergency contraception now; method-specific windows differ.\n- Doxy-PEP is a separate prescription and eligibility conversation. It does not replace PEP.\n\nYou're taking care of yourself right now — that matters.",
     actions: [{ id: 'emergency', label: 'Emergency department plan' }],
@@ -246,7 +253,7 @@ const BRIEFINGS: Briefing[] = [
   {
     match:
       /\b(prep|descovy|truvada|f\/taf|f\/tdf|apretude|cabotegravir|lenacapavir|yeztugo|2-1-1)\b/i,
-    reply: `${CLINICAL_BRIEFINGS.prep}\n\n${CLINICAL_BRIEFINGS.hormones}\n\nPrEP reduces sexual HIV acquisition risk by about 99% when taken as prescribed, not risk from every infection. Ask your provider how long your regimen takes to protect your exposure sites.`,
+    reply: `${CLINICAL_BRIEFINGS.prep}\n\n${CLINICAL_BRIEFINGS.hormones}\n\nOral PrEP taken as prescribed reduces sexual HIV risk by about 99%. The injectables have their own evidence, so ask your provider about yours. PrEP does not cover other STIs. Ask your provider how long your regimen takes to protect your exposure sites.`,
     actions: [
       { id: 'plan', label: 'Arm Medications' },
       { id: 'resources', label: 'Read the briefing' },
@@ -317,7 +324,7 @@ const BRIEFINGS: Briefing[] = [
   {
     match: /\b(cost|afford|money|insurance|parents|confidential|paper trail|free|uninsured)\b/i,
     reply:
-      'Money and privacy are real barriers, not excuses — and both have workarounds.\n\n- PrEP assistance programs and manufacturer support cover many uninsured people; clinics know these by name, ask the front desk directly.\n- Ask for confidential billing when you book. Many sexual health clinics never generate an insurance statement at all.\n- Health department and community clinics often test free, no insurance touched.\n- One sentence that opens all of it: "I need this to stay confidential and I need to know the cost before we start."\n\nThe fear of the paper trail is a ghost worth naming — it has a specific counter-move, which is what the vault is for.',
+      'Money and privacy are real barriers, not excuses — and both have workarounds.\n\n- PrEP assistance programs and manufacturer support cover many uninsured people; clinics know these by name, ask the front desk directly.\n- Ask about confidential billing when you book. Many sexual health clinics can bill without sending a statement home; confirm before your visit.\n- Health department and community clinics often test free, no insurance touched.\n- One sentence that opens all of it: "I need this to stay confidential and I need to know the cost before we start."\n\nThe fear of the paper trail is a ghost worth naming — it has a specific counter-move, which is what the vault is for.',
     actions: [
       { id: 'clinics', label: 'Find a clinic' },
       { id: 'ghost-vault', label: 'Name that ghost' },

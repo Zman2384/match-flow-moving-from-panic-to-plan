@@ -1,4 +1,5 @@
 import { Star } from 'lucide-react-native';
+import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 
@@ -18,8 +19,13 @@ const GROUPS: { id: Group; label: string }[] = [
 ];
 
 export default function ScriptVaultScreen() {
-  const [group, setGroup] = useState<Group>('field');
-  const [openId, setOpenId] = useState<string | null>(SCRIPT_SITUATIONS[0]?.id ?? null);
+  // `?script=<id>` opens one script directly (the PEP timer links to clinic-pep).
+  const { script: linkedId } = useLocalSearchParams<{ script?: string }>();
+  const linked = SCRIPT_SITUATIONS.find((s) => s.id === linkedId);
+  const [group, setGroup] = useState<Group>(linked?.group ?? 'field');
+  const [openId, setOpenId] = useState<string | null>(
+    linked?.id ?? SCRIPT_SITUATIONS[0]?.id ?? null,
+  );
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 

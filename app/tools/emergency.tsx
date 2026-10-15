@@ -2,6 +2,7 @@ import { Clock, Phone } from 'lucide-react-native';
 import { useState } from 'react';
 import { Linking, Platform, Pressable, Text, View } from 'react-native';
 
+import { PepTimer } from '@/components/PepTimer';
 import { BodyText, ScreenShell, SectionLabel } from '@/components/ScreenShell';
 import { EMERGENCY_PROTOCOLS, HOTLINES, hotlineUrl, type HotlineEntry } from '@/lib/content';
 import { PIECE_COLOR } from '@/lib/match';
@@ -21,6 +22,8 @@ export default function EmergencyScreen() {
       subtitle="What to do in the first hours, in order"
       hint="If you are in danger right now, call your local emergency number first."
     >
+      <PepTimer />
+
       <View className="border-danger/40 bg-danger/10 mb-5 rounded-2xl border p-4">
         <Text className="text-danger font-mono text-[10px] tracking-widest uppercase">
           Time matters

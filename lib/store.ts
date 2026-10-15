@@ -109,6 +109,8 @@ interface MatchState {
   /** Durable facts Lil Z carries between chats. Never leaves the device unprompted. */
   lilzMemories: LilZMemory[];
   lilzMemoryEnabled: boolean;
+  /** When the 72-hour PEP clock started (ISO). Device-local, erased with everything else. */
+  pepExposureAt: string | null;
 
   confirmAge: () => void;
   confirmStatus: () => void;
@@ -144,6 +146,9 @@ interface MatchState {
   rememberLilz: (text: string) => void;
   forgetLilz: (id: string) => void;
   setLilzMemoryEnabled: (enabled: boolean) => void;
+  /** Start the 72-hour PEP clock from the time of a possible exposure (ISO string). */
+  setPepExposure: (at: string) => void;
+  clearPepExposure: () => void;
   wipeLocalData: () => void;
 }
 
@@ -180,6 +185,8 @@ const initial = {
   lilzMessages: [] as LilZMessage[],
   lilzMemories: [] as LilZMemory[],
   lilzMemoryEnabled: true,
+  /** When the 72-hour PEP clock started. On this device only; wiped with everything else. */
+  pepExposureAt: null as string | null,
 };
 
 /** Transcript and memory caps — the vault stays small enough to stay private. */
@@ -389,6 +396,9 @@ export const useMatchStore = create<MatchState>()(
           lilzMemoryEnabled: enabled,
           lilzMemories: enabled ? state.lilzMemories : [],
         })),
+
+      setPepExposure: (at) => set({ pepExposureAt: at }),
+      clearPepExposure: () => set({ pepExposureAt: null }),
 
       wipeLocalData: () => set({ ...initial }),
     }),

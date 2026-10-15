@@ -10,6 +10,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BackChip, isCommandCenter } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZDock } from '@/components/LilZ';
+import { usePageTitle } from '@/lib/usePageTitle';
 
 interface ScreenShellProps {
   title: string;
@@ -40,6 +41,7 @@ export function ScreenShell({
   backHref = '/(tabs)',
   showGuide = true,
 }: ScreenShellProps) {
+  usePageTitle(title);
   const insets = useSafeAreaInsets();
 
   const header = (

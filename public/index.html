@@ -19,11 +19,99 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
     />
     <title>%WEB_TITLE%</title>
+    <meta
+      name="description"
+      content="Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a SafER Score. No sign-ups. Everything stays on your phone."
+    />
+    <link rel="canonical" href="https://theharnessproject.org/matchflow" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/png" href="/icons/favicon.png" />
+
+    <!-- Link previews (Open Graph + Twitter). Keep in sync with the title and description. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The HARNESS Project" />
+    <meta
+      property="og:title"
+      content="MATCH Flow: The Biomedical Command Center | The HARNESS Project"
+    />
+    <meta
+      property="og:description"
+      content="Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a SafER Score. No sign-ups. Everything stays on your phone."
+    />
+    <meta property="og:url" content="https://theharnessproject.org/matchflow" />
+    <meta property="og:image" content="https://theharnessproject.org/images/matchflow-share.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="MATCH Flow logo, a heartbeat line through a gold flame, with the words: MATCH Flow. Free, no sign-ups, stays on your phone."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="MATCH Flow: The Biomedical Command Center | The HARNESS Project"
+    />
+    <meta
+      name="twitter:description"
+      content="Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a SafER Score. No sign-ups. Everything stays on your phone."
+    />
+    <meta name="twitter:image" content="https://theharnessproject.org/images/matchflow-share.png" />
+
+    <!-- Structured data: the app and The HARNESS Project. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "EducationalOrganization",
+            "@id": "https://theharnessproject.org/#org",
+            "name": "The HARNESS Project LLC",
+            "url": "https://theharnessproject.org/",
+            "email": "email@theharnessproject.org",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Houston",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            },
+            "founder": {
+              "@type": "Person",
+              "name": "Christopher Zacharie"
+            }
+          },
+          {
+            "@type": "WebApplication",
+            "name": "MATCH Flow",
+            "url": "https://theharnessproject.org/matchflow",
+            "description": "Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a SafER Score. No sign-ups. Everything stays on your phone.",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "iOS, Android, Web",
+            "isAccessibleForFree": true,
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "image": "https://theharnessproject.org/images/matchflow-share.png",
+            "publisher": {
+              "@id": "https://theharnessproject.org/#org"
+            },
+            "audience": {
+              "@type": "PeopleAudience",
+              "suggestedMinAge": 18
+            },
+            "isPartOf": {
+              "@type": "Course",
+              "name": "HARNESS Adult Track"
+            }
+          }
+        ]
+      }
+    </script>
 
     <!-- Web app manifest — the install contract for Android/Chrome -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#09090b" />
+    <meta name="theme-color" content="#0d1a2e" />
 
     <!-- iOS home-screen support. No apple-mobile-web-app-title: iOS falls back to
          <title>, which is substituted from app.config.ts and stays in sync. -->
@@ -54,7 +142,29 @@
 
   <body>
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <main>
+        <h1>MATCH Flow: moving from panic to a plan</h1>
+        <p>
+          Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a
+          SafER Score. No sign-ups. Everything stays on your phone.
+        </p>
+        <ul>
+          <li>72-hour PEP window timer and emergency protocol</li>
+          <li>Clinic Finder for testing, PrEP and PEP care</li>
+          <li>Boundary scripts you can practise before the moment</li>
+          <li>SafER Score and a Stress Test for your prevention plan</li>
+          <li>The MATCH framework and the Ghost Vault</li>
+          <li>Zero Stigma Tax: no accounts, no tracking, data stays on the device</li>
+        </ul>
+        <p>Turn on JavaScript to open the app.</p>
+        <p>
+          The HARNESS Project LLC | theharnessproject.org. For educational purposes only. Not
+          medical advice. © 2026 Christopher Zacharie and The HARNESS Project LLC. All rights
+          reserved.
+        </p>
+      </main>
+    </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
   </body>

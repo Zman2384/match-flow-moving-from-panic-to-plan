@@ -1,13 +1,13 @@
 {
-  "name": "Your App Name",
-  "short_name": "Your App",
-  "description": "An app built with Bilt",
+  "name": "MATCH Flow",
+  "short_name": "MATCH Flow",
+  "description": "Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a SafER Score. No sign-ups. Everything stays on your phone.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "theme_color": "#6366f1",
-  "background_color": "#ffffff",
+  "theme_color": "#0d1a2e",
+  "background_color": "#0d1a2e",
   "icons": [
     {
       "src": "/icons/icon-192.png",
@@ -27,5 +27,8 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "id": "/",
+  "lang": "en-US",
+  "categories": ["health", "education"]
 }

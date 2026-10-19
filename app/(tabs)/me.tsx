@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BackChip } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZDock } from '@/components/LilZ';
-import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
+import { BodyText, BrandFooter } from '@/components/ScreenShell';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
 import { STEEL } from '@/lib/palette';
 import { useMatchStore } from '@/lib/store';
@@ -36,7 +36,7 @@ export default function MeScreen() {
     <View className="bg-background flex-1">
       <HudBackdrop />
       <ScrollView
-        contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 48 }}
+        contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 104 }}
         showsVerticalScrollIndicator={false}
       >
         <View className="px-5">
@@ -47,8 +47,6 @@ export default function MeScreen() {
           <Text className="text-foreground font-display mt-1 text-3xl tracking-wide">
             Your progress
           </Text>
-
-          <Disclaimer className="mt-3" />
 
           <View className="border-hud/25 bg-panel/70 mt-4 rounded-3xl border p-4">
             <View className="flex-row items-center justify-between">

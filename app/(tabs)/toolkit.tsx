@@ -6,7 +6,7 @@ import { BackChip } from '@/components/BackChip';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZDock } from '@/components/LilZ';
 import { PanicButton } from '@/components/PanicButton';
-import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
+import { BodyText, BrandFooter } from '@/components/ScreenShell';
 import { ToolCard } from '@/components/ToolCard';
 import { CATEGORY_BLURB, TOOLS, TOOL_CATEGORIES, type ToolEntry } from '@/lib/tools';
 
@@ -30,7 +30,7 @@ export default function ToolkitScreen() {
     <View className="bg-background flex-1">
       <HudBackdrop />
       <ScrollView
-        contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 48 }}
+        contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 104 }}
         showsVerticalScrollIndicator={false}
       >
         <View className="px-5">
@@ -44,7 +44,6 @@ export default function ToolkitScreen() {
           <BodyText className="text-muted mt-1">
             Every tool strengthens at least one MATCH piece.
           </BodyText>
-          <Disclaimer className="mt-3" />
         </View>
 
         <ScrollView

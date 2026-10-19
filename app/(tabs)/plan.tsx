@@ -8,7 +8,7 @@ import { BackChip } from '@/components/BackChip';
 import { HexScore } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZDock } from '@/components/LilZ';
-import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
+import { BodyText, BrandFooter } from '@/components/ScreenShell';
 import { CLINICAL_BRIEFINGS } from '@/lib/curriculum';
 import { MATCH_PIECES, pieceScores, saferScore, scoreTier } from '@/lib/match';
 import { LINE_SOFT, PANEL, STEEL } from '@/lib/palette';
@@ -29,7 +29,7 @@ export default function PlanScreen() {
     <View className="bg-background flex-1">
       <HudBackdrop />
       <ScrollView
-        contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 48 }}
+        contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 104 }}
         showsVerticalScrollIndicator={false}
       >
         <View className="px-5 pb-3">
@@ -60,8 +60,6 @@ export default function PlanScreen() {
             <RotateCcw size={15} color={STEEL} />
           </Pressable>
         </View>
-
-        <Disclaimer className="mx-5 mt-3" />
 
         <View className="mt-4 items-center">
           <HexScore score={score} label={tier.label} color={tier.color} size={126} />

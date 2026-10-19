@@ -67,7 +67,6 @@ export function ScreenShell({
           <Text className="text-hud text-[13px] font-semibold">💡 {hint}</Text>
         </View>
       ) : null}
-      <Disclaimer compact className="mt-3" />
     </View>
   );
 
@@ -157,8 +156,8 @@ export function BodyText({
 }
 
 /**
- * Mandated yellow/orange safety banner. `compact` is the always-on header
- * form; the full form carries the emergency and data-sovereignty lines too.
+ * Mandated yellow/orange safety banner. Shown in full on the consent gate;
+ * `compact` is used beside live AI replies. The full form carries the emergency and data-sovereignty lines too.
  */
 export function Disclaimer({
   compact = false,
@@ -192,7 +191,7 @@ export function BrandFooter({ className = '' }: { className?: string }) {
     <View className={`border-hud/15 mt-8 items-center border-t pt-5 ${className}`}>
       <Text className="font-body text-muted text-center text-[13px] leading-5">
         The HARNESS Project LLC | theharnessproject.org. For educational purposes only. Not medical
-        advice. © 2026 Christopher Zacharie.
+        advice. © 2026 Christopher Zacharie and The HARNESS Project LLC. All rights reserved.
       </Text>
     </View>
   );

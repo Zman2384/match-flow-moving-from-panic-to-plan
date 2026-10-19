@@ -9,7 +9,7 @@ import { HexScore, PieceHex } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
 import { LilZAvatar, LilZDock } from '@/components/LilZ';
 import { PanicButton } from '@/components/PanicButton';
-import { BodyText, BrandFooter, Disclaimer } from '@/components/ScreenShell';
+import { BodyText, BrandFooter } from '@/components/ScreenShell';
 import { ToolCard } from '@/components/ToolCard';
 import { MATCH_PIECES, armedCount, pieceScores, saferScore, scoreTier } from '@/lib/match';
 import { HUD } from '@/lib/palette';
@@ -42,7 +42,7 @@ export default function CommandCenter() {
     <View className="bg-background flex-1">
       <HudBackdrop />
       <ScrollView
-        contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 48 }}
+        contentContainerStyle={{ paddingTop: insets.top + 12, paddingBottom: 104 }}
         showsVerticalScrollIndicator={false}
       >
         <MatchFlowBanner className="mb-5" />
@@ -50,8 +50,6 @@ export default function CommandCenter() {
         <View className="px-5 pb-3">
           <BackChip label="Consent & privacy" href="/gate" mode="push" />
         </View>
-
-        <Disclaimer className="mx-5 mb-4" />
 
         <View className="flex-row items-start justify-between px-5">
           <View>

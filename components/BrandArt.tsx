@@ -123,23 +123,28 @@ export function MatchFrameworkTitle({ className }: { className?: string }) {
 }
 
 /**
- * Single-piece slices of the wordmark artboard (1536 x 1024). Each piece is
- * cropped straight out of the shared PNG, so the five tiles stay pixel-identical
- * to the full lockup and there is only one asset to keep in sync.
+ * Individual MATCH puzzle pieces (assets/match-piece-*.png). Each is a
+ * transparent 360 x 384 PNG cut from the official five-piece artwork, centred
+ * on a shared canvas so every tile renders at the same footprint.
  */
-const SLICE_LEFT: Record<PieceKey, number> = {
-  M: 72 / 1536,
-  A: 349.5 / 1536,
-  T: 627 / 1536,
-  C: 904.5 / 1536,
-  H: 1182 / 1536,
+const PIECE_SOURCE: Record<PieceKey, number> = {
+  M: require('../assets/match-piece-m.png'),
+  A: require('../assets/match-piece-a.png'),
+  T: require('../assets/match-piece-t.png'),
+  C: require('../assets/match-piece-c.png'),
+  H: require('../assets/match-piece-h.png'),
 };
-const SLICE_TOP = 304 / 1024;
-const SLICE_WIDTH = 260 / 1536;
-const SLICE_HEIGHT = 397 / 1024;
 
-/** Width / height of one cropped puzzle tile. */
-export const MATCH_PIECE_ASPECT = (SLICE_WIDTH * 1536) / (SLICE_HEIGHT * 1024);
+const PIECE_LABEL: Record<PieceKey, string> = {
+  M: 'M — Medications',
+  A: 'A — Awareness',
+  T: 'T — Tools',
+  C: 'C — Communication',
+  H: 'H — Habits',
+};
+
+/** Width / height of one puzzle-piece canvas. */
+export const MATCH_PIECE_ASPECT = 360 / 384;
 
 /** Pixel width of a tile rendered at the given height. */
 export function matchPieceWidth(height: number) {
@@ -155,28 +160,17 @@ interface MatchPieceProps {
   className?: string;
 }
 
-/** One MATCH puzzle tile (M, A, T, C or H) cropped from the wordmark artwork. */
+/** One MATCH puzzle piece (M, A, T, C or H) on a transparent background. */
 export function MatchPiece({ pieceKey, height, dimmed = false, className }: MatchPieceProps) {
   const width = matchPieceWidth(height);
-  const fullWidth = width / SLICE_WIDTH;
-  const fullHeight = height / SLICE_HEIGHT;
 
   return (
-    <View
-      className={cn('overflow-hidden', className)}
-      style={{ width, height, opacity: dimmed ? 0.32 : 1 }}
-    >
+    <View className={className} style={{ width, height, opacity: dimmed ? 0.32 : 1 }}>
       <Image
-        source={require('../assets/match-wordmark.png')}
-        style={{
-          position: 'absolute',
-          left: -fullWidth * SLICE_LEFT[pieceKey],
-          top: -fullHeight * SLICE_TOP,
-          width: fullWidth,
-          height: fullHeight,
-        }}
-        resizeMode="stretch"
-        accessibilityLabel={pieceKey}
+        source={PIECE_SOURCE[pieceKey]}
+        style={{ width, height }}
+        resizeMode="contain"
+        accessibilityLabel={PIECE_LABEL[pieceKey]}
       />
     </View>
   );

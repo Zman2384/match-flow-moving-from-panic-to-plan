@@ -94,8 +94,7 @@ export default function LessonScreen() {
             <BodyText className="text-caution-soft">{lesson.note}</BodyText>
           </View>
         ) : null}
-        <Section title="Learning objectives" items={lesson.objectives} />
-        <Section title="Activities" items={lesson.activities} />
+        <Section title="Key points" items={lesson.keyPoints} />
         {chapter.briefing ? <Section title="Clinical briefing" items={[chapter.briefing]} /> : null}
         {lesson.sections.map((section) => (
           <Section key={section.title} {...section} />

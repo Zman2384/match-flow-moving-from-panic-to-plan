@@ -6,9 +6,8 @@ export interface LessonSection {
 }
 export interface LessonDetail {
   number: number;
-  pages: string;
-  objectives: string[];
-  activities: string[];
+  /** Reader-facing key points. Objectives, activities and page refs stay in the facilitator materials. */
+  keyPoints: string[];
   sections: LessonSection[];
   takeaway: string;
   prompts?: string[];
@@ -313,21 +312,14 @@ export const CHALLENGE_ACTIONS = [
 export const LESSON_DETAILS: LessonDetail[] = [
   {
     number: 1,
-    pages: '6',
-    objectives: [
-      'Reframe SafER sex as self-love and leadership, not a list of rules.',
-      'Run the Respect Check privately, with no sharing required.',
-      'Distinguish fear-based decisions from respect-based decisions.',
-      'Identify one small, repeatable act of leadership.',
-    ],
-    activities: [
-      'Two Words Icebreaker: two words about sexual health right now (5 min).',
-      'Respect Check Solo Pass: run all three questions privately (8 min).',
-      'Field Notes: one fear-based decision identified; one repeatable act of leadership chosen; status no longer treated as a verdict.',
-      'Your First Move: the act I start this week and how I’ll know it’s working.',
+    keyPoints: [
+      'SafER sex is self-respect and leadership, not a list of rules.',
+      'Run the Respect Check on your own. Nobody else needs to see your answers.',
+      'Fear-based decisions shrink you; respect-based decisions feel like you afterward.',
+      'Pick one small act of leadership you can repeat.',
     ],
     sections: [
-      { title: 'The Respect Check — teach verbatim', items: RESPECT_CHECK },
+      { title: 'The Respect Check', items: RESPECT_CHECK },
       {
         title: 'Read the decision',
         items: [
@@ -340,19 +332,11 @@ export const LESSON_DETAILS: LessonDetail[] = [
   },
   {
     number: 2,
-    pages: '7',
-    objectives: [
-      'Validate fear as a biological and social reality, not a character flaw.',
-      'Externalize specific anxieties through the Anxiety Audit.',
-      'Place yourself on the Emotional Transition Spectrum; Cautious is a valid stage.',
-      'Convert each ghost into a practical next step.',
-    ],
-    activities: [
-      'The Anxiety Audit: private, no sharing required (15 min).',
-      'Biological Normalization: “These are responses, not flaws” (5 min).',
-      'Spectrum Placement: privately mark where you sit today (3 min).',
-      'Optional Pair Share: what would change if a concrete plan addressed your ghosts? (15 min).',
-      'Start with the fear that made your stomach drop; the full catalogue follows in Lesson 16.',
+    keyPoints: [
+      'Fear is a normal biological and social response, not a character flaw.',
+      'Naming each ghost on paper takes away much of its power.',
+      'Cautious is a valid place to be on the Emotional Transition Spectrum.',
+      'Every ghost can be turned into a practical next step.',
     ],
     sections: [
       {
@@ -375,23 +359,15 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     takeaway: 'The ghost you name today is the first thing your MATCH plan will silence.',
     note: 'The Audit is a back-pocket tool, not a one-time exercise. Ghosts return in new relationships and new life stages.',
+    prompts: ['The ghost I’m naming today, and my practical next step'],
   },
   {
     number: 3,
-    pages: '8',
-    objectives: [
-      'Name Rejection, Judgment and Mood-Killer as conversation barriers.',
-      'Deliver the three opening scripts fluently.',
-      'Hold the line under pushback with the Gentle Hold and Exit Line.',
-      'Understand consent as a loop, not a checkbox.',
-      'Complete the Rehearsal Protocol.',
-    ],
-    activities: [
-      'Bridge from Lesson 2’s Rejection Ghost (10 min).',
-      'Role-Play Triads: Speaker / Listener / Observer, rotate; include a pushback round (30 min).',
-      'Consent Loop: “Is this still good?” / “How does this feel?” You may change your order or leave at any time.',
-      'Write Your Own: a Pre-Game script in words you’d say and one non-negotiable sentence.',
-      'Commitment: one conversation I’ll have this week (10 min).',
+    keyPoints: [
+      'Rejection, Judgment and Mood-Killer are the ghosts that keep people quiet.',
+      'Three opening scripts get the conversation started; the Gentle Hold and Exit Line keep it on track under pushback.',
+      'Consent is a loop you keep checking — “Is this still good?” — not a box you tick once.',
+      'Practise out loud before the moment, using the Rehearsal Protocol below.',
     ],
     sections: [
       { title: 'Vocal armor', items: COMMUNICATION_SCRIPTS.map((s) => `${s.title}: “${s.text}”`) },
@@ -411,22 +387,12 @@ export const LESSON_DETAILS: LessonDetail[] = [
   },
   {
     number: 4,
-    pages: '9',
-    objectives: [
-      'Demonstrate external and internal condom use.',
-      'Distinguish perfect-use and typical-use pregnancy figures; they are not STI estimates.',
-      'Apply the DOs and DON’Ts, including pinching the external condom tip.',
-      'Reject double-bagging; use one barrier at a time.',
-      'Match material to need; natural membrane is not an HIV/STI barrier.',
-      'Build a separate pregnancy-prevention layer if relevant.',
-    ],
-    activities: [
-      'Condom Demo & Practice on anatomical models.',
-      'Common Mistakes Gallery: wallet storage, teeth, oil-based lube, doubling up, reuse.',
-      'Internal Condom Walkthrough: inner ring inserted, outer ring outside; guide penetration into the pouch. Follow the product’s instructions and indicated use.',
-      'Pleasure Mapping: fit, texture and integrating barriers into foreplay.',
-      'The Ask: “Condoms are my STI layer. What would you recommend as a second layer for pregnancy, and what should I keep on hand for emergencies?”',
-      'Gear Check: six boxes, including your emergency-contraception plan.',
+    keyPoints: [
+      'Use one condom at a time. Two together raise the chance of breakage.',
+      'Pinch the tip of an external condom as you roll it on; keep condoms out of wallets and away from teeth and oil-based lube.',
+      'Perfect-use and typical-use figures describe pregnancy, not STI protection.',
+      'Natural-membrane condoms do not protect against HIV or STIs.',
+      'If pregnancy is possible, add a separate pregnancy layer and know your emergency-contraception plan.',
     ],
     sections: [
       {
@@ -448,23 +414,15 @@ export const LESSON_DETAILS: LessonDetail[] = [
       },
     ],
     takeaway: 'One at a time, every time — and know your second layer.',
+    prompts: ['My barrier and my second layer'],
   },
   {
     number: 5,
-    pages: '10',
-    objectives: [
-      'Reject the assumption that oral sex is risk-free.',
-      'Use dams, gloves and finger cots appropriately.',
-      'Build a dam from a condom.',
-      'Ask for testing at relevant exposure sites.',
-    ],
-    activities: [
-      'DIY Dental Dam: unroll a non-lubricated condom, snip tip and base, cut down one side, unfold.',
-      'Pleasure hack: compatible water-based lube on the body side.',
-      'Dam discipline: one new dam each time; never flip it over.',
-      'Gloves & finger cots: address hangnails and cuts.',
-      'Three-Site Script Rehearsal: say the sentence out loud once.',
-      'Gear Check: dams, gloves and your three-site testing line.',
+    keyPoints: [
+      'Oral sex is not risk-free.',
+      'Dams, gloves and finger cots each have a job; use a new dam every time and never flip it over.',
+      'You can make a dam from a non-lubricated condom: snip the tip and base, cut one side and unfold.',
+      'Ask for testing at every site you were exposed — throat and rectal as well as urine.',
     ],
     sections: [
       {
@@ -478,22 +436,15 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     takeaway:
       'Peace of mind is an aphrodisiac — and a urine-only panel is not a clean bill of health.',
+    prompts: ['The testing sentence I’ll say at my next visit'],
   },
   {
     number: 6,
-    pages: '10–11',
-    objectives: [
-      'Explain why friction reduction belongs in protection.',
-      'Match lubricant to barrier and toy material.',
-      'Distinguish porous from non-porous materials.',
-      'Run the Golden Rule of Sharing.',
-    ],
-    activities: [
-      'Lube Station: compare water-based and silicone-based; test compatibility claims.',
-      'Porous vs. Non-Porous Sort: jelly, rubber and TPR versus silicone, glass and stainless steel.',
-      'Cleaning Demo: follow manufacturer instructions for each material and any motorized parts.',
-      'Sharing Protocol: say the three steps aloud; consider whether you’d follow them mid-moment.',
-      'Gear Check: your lube, your toy materials and your sharing protocol.',
+    keyPoints: [
+      'Reducing friction is part of infection prevention.',
+      'Match the lubricant to the barrier and the toy material.',
+      'Porous materials (jelly, rubber, TPR) are harder to clean than non-porous ones (silicone, glass, stainless steel).',
+      'Follow the Golden Rule of Sharing below every time a toy moves between people or body sites.',
     ],
     sections: [
       {
@@ -515,23 +466,16 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     takeaway: 'Friction reduction is infection prevention. Match the lube to the material.',
     note: 'Cleaning depends on the material and the manufacturer’s instructions. Not every non-porous toy can be boiled or put in a dishwasher.',
+    prompts: ['My lube, my toy materials and my sharing routine'],
   },
   {
     number: 7,
-    pages: '12',
-    objectives: [
-      'Keep the ~99% sexual-exposure estimate specific to oral PrEP taken as prescribed.',
-      'Describe a layer independent of a partner’s permission or honesty.',
-      'Match the three formats to a real routine.',
-      'Discuss gender-affirming hormone coordination.',
-      'Name and refuse the Stigma Tax.',
-    ],
-    activities: [
-      'PrEP Overview: mechanism, effectiveness, three formats.',
-      'Format-to-Life Match: which fits your routine and why? A fit exercise, not a gatekeeping quiz.',
-      'Access Mapping: PrEPLocator.org, insurance and patient-assistance programs.',
-      'Hormone Coordination Script: practise aloud.',
-      'The Ask: “I’d like to talk about starting PrEP. Can we go over which option fits my life and what my coverage looks like?”',
+    keyPoints: [
+      'Oral PrEP taken as prescribed lowers sexual HIV risk by about 99%; that figure belongs to oral PrEP only.',
+      'PrEP protects you without depending on a partner’s permission or honesty.',
+      'There are three formats; pick the one that fits your routine with a provider.',
+      'Find access through PrEPLocator.org, insurance or patient-assistance programs.',
+      'Taking PrEP is preparation, not an admission of anything. Refuse the Stigma Tax.',
     ],
     sections: [
       {
@@ -552,21 +496,16 @@ export const LESSON_DETAILS: LessonDetail[] = [
     takeaway:
       'Taking PrEP isn’t an admission of recklessness. It’s a declaration that you are prepared.',
     note: 'Medication names, effectiveness figures and access rules change over time. Confirm every clinical detail with a licensed provider.',
+    prompts: ['The PrEP format that fits my life, and my next step to access it'],
   },
   {
     number: 8,
-    pages: '13',
-    objectives: [
+    keyPoints: [
       'Start PEP as soon as possible, no later than 72 hours after a possible HIV exposure.',
-      'Use an emergency department; another setting only if it can evaluate and provide PEP promptly.',
-      'Complete the prescribed 28-day course.',
-      'Identify a 24-hour access point before it is needed.',
-    ],
-    activities: [
-      'Save It Now, while calm: use locator.hiv.gov and verify 24-hour PEP evaluation; save the access point.',
-      'The Sentence: “I need to be evaluated for PEP.”',
-      '72-Hour Timeline Drill: calculate actual elapsed hours from an exposure.',
-      'PEP → PrEP Transition: emergency prevention is a tactical success, not a moral failure.',
+      'Go to an emergency department, or another setting only if it can evaluate and provide PEP right away.',
+      'Say: “I need to be evaluated for PEP.”',
+      'Finish the full 28-day course.',
+      'Save a 24-hour access point now, while you are calm (locator.hiv.gov).',
     ],
     sections: [
       {
@@ -581,42 +520,28 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     takeaway: 'Emergency rooms don’t close. Start fast, complete fully.',
     note: '72 hours is the outer limit for starting PEP, not a target. Do not wait for a search, a drill or a phone call: go now.',
+    prompts: ['My saved 24-hour PEP access point'],
   },
   {
     number: 9,
-    pages: '13',
-    objectives: [
-      'Describe prescription Doxy-PEP: 200 mg within 72 hours after sex, ideally sooner; no more than 200 mg in 24 hours.',
-      'Distinguish the syphilis, chlamydia and gonorrhea reduction estimates.',
-      'State that it does not prevent HIV, herpes or HPV.',
-      'Use it as a redundant layer, not a replacement for Tools or Communication.',
-      'Discuss eligibility and a prescription before it is needed.',
-    ],
-    activities: [
-      'Evidence Review: syphilis ~80–87%, chlamydia ~87–88%, gonorrhea only ~50–55% (CDC, 2024). Study estimates, not guarantees.',
-      'What It Doesn’t Do: name three viral infections it does not prevent.',
-      'Antibiotic stewardship: evidence and CDC recommendations focus on specific populations; candidacy belongs with a provider.',
-      'The Script: “I’ve heard about Doxy-PEP as a backup for STI prevention. Based on my life right now, can we get a prescription on file for me just in case?”',
+    keyPoints: [
+      'Doxy-PEP is prescription doxycycline: 200 mg within 72 hours after sex, ideally sooner, and no more than 200 mg in 24 hours.',
+      'Studies report reductions of about 80–87% for syphilis, 87–88% for chlamydia and only 50–55% for gonorrhea (CDC, 2024). These are study estimates, not guarantees.',
+      'It does not prevent HIV, herpes or HPV.',
+      'It is a backup layer, not a replacement for Tools or Communication.',
+      'Ask a provider about eligibility and a prescription before you need it: “Based on my life right now, can we get a prescription on file for me just in case?”',
     ],
     sections: [],
     takeaway: 'One dose to restore your shield — and know exactly what it doesn’t cover.',
+    prompts: ['What I’ll ask my provider about Doxy-PEP'],
   },
   {
     number: 10,
-    pages: '14–15',
-    objectives: [
-      'Explain sustained undetectable viral load and zero sexual HIV transmission risk accurately.',
-      'Practise status-neutral care language.',
-      'Deliver disclosure using the fact → science → door structure.',
-      'Recognize that disclosure law varies and may predate U=U.',
-    ],
-    activities: [
-      'U=U Explainer + One-Sentence Test: explain it to another person.',
-      'Language Practice: status-neutral versus stigmatizing card sort.',
-      'Disclosure Script Draft: write it while nothing is at stake; rewrite in your own words.',
-      'Consistency framing: medication as self-respect, not a reminder of diagnosis.',
-      'Legal note: disclosure laws vary by state. A legal aid or HIV services organization can advise you.',
-      'Optional guest speaker: lived experience, voluntary participation.',
+    keyPoints: [
+      'Sustained undetectable viral load means zero risk of sexual HIV transmission (U=U).',
+      'Status-neutral language keeps the focus on care, not blame.',
+      'Disclosure can follow a simple shape: the fact, the science, the door.',
+      'Disclosure laws vary by state and may predate U=U. A legal aid or HIV services organization can advise you.',
     ],
     sections: [
       {
@@ -637,24 +562,16 @@ export const LESSON_DETAILS: LessonDetail[] = [
       },
     ],
     takeaway: 'Undetectable = Untransmittable. Science has changed the story of HIV.',
+    prompts: ['U=U in one sentence, in my own words'],
   },
   {
     number: 11,
-    pages: '14–15',
-    objectives: [
-      'Discuss HPV, hepatitis B and mpox vaccines with a provider.',
-      'Recognize hepatitis C: no vaccine; ask for testing by name.',
-      'Plan a testing cadence for your exposures and prevention regimen.',
-      'Apply test-specific window periods.',
-      'Ask for appropriate testing sites regardless of gender assumptions.',
-    ],
-    activities: [
-      'Immunity & Testing Tracker: HPV, hepatitis B, mpox, HIV, relevant-site STI testing and hepatitis C, each with status and next due date.',
-      'Window Period Puzzle: exposure date versus test date; repeat with three tests.',
-      'Ask-For-It Round: “Can you include a hepatitis C screen with the rest?”',
-      'Discuss three-to-six-month testing when appropriate with a provider.',
-      'At-home options when the clinic is the barrier.',
-      'Name one free or low-cost testing access point.',
+    keyPoints: [
+      'Ask a provider about HPV, hepatitis B and mpox vaccines.',
+      'Hepatitis C has no vaccine; ask for the test by name.',
+      'Set a testing schedule that fits your exposures and prevention plan; every three to six months is common when appropriate.',
+      'Each test has its own window period. An early negative may need a retest.',
+      'Ask for testing at the sites you were exposed, whatever assumptions are made about your gender. At-home kits help when the clinic is the barrier.',
     ],
     sections: [
       {
@@ -667,31 +584,21 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     takeaway:
       'Knowing your status is an act of self-respect — and a negative test only covers what your body had time to register.',
+    prompts: ['My next test and vaccine dates'],
   },
   {
     number: 12,
-    pages: '16',
-    objectives: [
-      'Apply layers to kink, group settings, fluid bonding and substance nights without lecturing.',
-      'Practise pre-scene negotiation, safewords, aftercare and equipment hygiene.',
-      'Treat blood exposure as its own category.',
-      'Run a pre-game plan before substance use affects decision-making.',
-    ],
-    activities: [
-      'Continuum of Risk: name a layer that makes each activity safer.',
-      'Kink Scenario Discussions: BDSM, group and fetish safety.',
-      'Blood-Play Hygiene: never share blades; sterile single-use equipment for blood exposure.',
-      'Substance Pre-Game: limits, buddy system, kit and medication plan before heading out.',
-      'Crisis Communication: condom breaks mid-sex; when to seek emergency PEP care.',
-      'Safewords: “Red” stops everything immediately, no negotiation.',
-      'Aftercare: check-in, grounding, water and closeness by consent.',
-      'Pre-Game Checklist: limits, buddy, kit, medication and a way home.',
+    keyPoints: [
+      'Layers apply to kink, group settings, fluid bonding and substance nights too.',
+      'Negotiate before a scene: limits, a safeword (“Red” stops everything immediately), aftercare and equipment hygiene.',
+      'Never share blades; use sterile single-use equipment for any blood exposure.',
+      'Make your plan before substances affect decisions: limits, a buddy, your kit, medications and a way home.',
+      'If a condom breaks mid-sex, know when to seek emergency PEP care.',
     ],
     sections: [
       {
-        title: 'Adult-only scope',
+        title: 'Blood exposure and fluid bonding',
         items: [
-          'This lesson belongs in the MATCH adult track, not a CAPE youth room.',
           'Blood exposure adds hepatitis B, hepatitis C and HIV concerns. Hepatitis B has a vaccine; hepatitis C does not, but treatment can cure it.',
           'Fluid bonding requires explicit negotiation and shared testing information; it does not eliminate STI risk.',
         ],
@@ -700,21 +607,15 @@ export const LESSON_DETAILS: LessonDetail[] = [
     takeaway:
       'No activity is inherently unsafe — layers make everything SafER. Desire is not a risk factor.',
     note: 'Layers lower risk; they do not erase it. Some activities carry real risk even with every layer in place.',
+    prompts: ['My pre-game plan for my next big night'],
   },
   {
     number: 13,
-    pages: '16–17',
-    objectives: [
-      'Assemble five pieces into a personal Modular Protection Engine.',
-      'Define each MATCH layer in your own words.',
-      'Understand the SafER Score as educational readiness, not infection probability.',
-      'Explain dynamic redundancy: when one layer breaks, activate another.',
-    ],
-    activities: [
-      'Five-Piece Assembly: name all five letters without looking.',
-      'Strongest / Weakest Layer: name what is strongest, weakest and what would fix it.',
-      'SafER Score Walkthrough: build readiness layer by layer in a volunteer scenario.',
-      'Field Notes: one broken layer does not mean the plan failed.',
+    keyPoints: [
+      'Your five MATCH pieces work together as one protection system.',
+      'Define each layer in your own words, then name your strongest and weakest piece.',
+      'The SafER Score measures readiness, not your chance of infection.',
+      'When one layer breaks, activate another. One broken layer does not mean the plan failed.',
     ],
     sections: [
       {
@@ -729,33 +630,17 @@ export const LESSON_DETAILS: LessonDetail[] = [
       },
     ],
     takeaway: 'Prevention isn’t one-size-fits-all. It’s a puzzle you solve for yourself.',
+    prompts: ['My strongest layer, my weakest layer and the fix'],
   },
   {
     number: 14,
-    pages: '17–18',
-    objectives: [
-      'Move from a static checklist to living logic when something breaks.',
-      'Run baseline → inject chaos → pivot.',
-      'Write a pivot for each of five real-world breaks.',
-      'Name the Mindset of Protection once the plan has been tested.',
-    ],
-    activities: [
-      'DRAFT (8 min): write a concrete baseline plan before disruption.',
-      'DISRUPT (1 min): one Constraint Card face-down per participant; flip simultaneously on signal, no early looks.',
-      'ADAPT (8 min): revise under time pressure; identify actual fail-safes, not wishes.',
-      'DEBRIEF (8 min): name layers that held and gaps exposed; adjusting is the goal, not perfection.',
-      'Stress-Test Worksheet: write five pivots in your own words.',
+    keyPoints: [
+      'A checklist only works when nothing goes wrong; a plan has to handle breaks.',
+      'Write a baseline plan, imagine what breaks it, then write your pivot.',
+      'Know your pivot for each of the five common breaks below.',
+      'When external tools are unavailable, name what still holds and move to it.',
     ],
     sections: [
-      {
-        title: 'Constraint Cards',
-        items: [
-          'Late-Night Emergency: no pharmacy open; three hours in — nearest ER?',
-          'The Buzz: drinking; communication inaccessible — what is your fail-safe?',
-          'Empty Go-Bag: kit empty — which layer steps forward?',
-          'New Partner, Unknown Status: partner declines disclosure; you’re on PrEP — how does the plan hold?',
-        ],
-      },
       {
         title: 'Five breaks / pivots',
         items: [
@@ -764,15 +649,6 @@ export const LESSON_DETAILS: LessonDetail[] = [
           'Partner pressure: “I relax more when we’re protected.” If they cannot respect that, leave safely.',
           'Supplies run out: appropriate improvised dam, backup lube or a conversation about another activity.',
           'Clinic closed: identify an emergency department now, not during the crisis.',
-        ],
-      },
-      {
-        title: 'Analytical debrief',
-        items: [
-          'No lube and drinking: which letter is your primary shield and why? Discuss M and C without ignoring capacity for consent.',
-          'Did your plan rely on a pharmacy? How does elapsed time change the next move?',
-          'How do PrEP or U=U change panic when a condom is unavailable? Medication is an active layer, not a last resort.',
-          'Now name the Mindset of Protection: when external tools are unavailable, identify what still holds and pivot.',
         ],
       },
     ],
@@ -787,18 +663,11 @@ export const LESSON_DETAILS: LessonDetail[] = [
   },
   {
     number: 15,
-    pages: '18',
-    objectives: [
-      'Recognize that acute stress can make decision-making harder.',
-      'Run Pause · Pivot · Protect as a physical drill.',
-      'Name the first MATCH layer to pivot to when Tools fail.',
-    ],
-    activities: [
-      'Three-Second Drill: count out loud before responding to a scenario; repeat three times.',
-      'Post-Spike Inventory: what is still true? A broken condom does not erase PrEP; a fuzzy moment does not erase self-worth.',
-      'First Pivot Naming: name the layer you turn to first.',
-      'Say a boundary sentence out loud once.',
-      'Field Notes: what still held, and your first pivot.',
+    keyPoints: [
+      'Acute stress makes decisions harder; that is biology, not failure.',
+      'Pause · Pivot · Protect is a drill you practise before you need it.',
+      'After a spike, ask what is still true: a broken condom does not erase PrEP.',
+      'Know which MATCH layer you turn to first when Tools fail.',
     ],
     sections: [
       {
@@ -812,55 +681,35 @@ export const LESSON_DETAILS: LessonDetail[] = [
     ],
     takeaway: 'Protection begins with you — before any tool or partner.',
     note: 'A short pause helps you ground and choose. It is a habit, not a guarantee.',
+    prompts: ['My first pivot when Tools fail'],
   },
   {
     number: 16,
-    pages: '19–20',
-    objectives: [
-      'Find your two or three loudest ghosts among the sixteen.',
-      'Match each to a shield and MATCH letter.',
-      'Complete one move this week.',
-    ],
-    activities: [
-      'Find Your Three: mark the two or three that made your chest tighten.',
-      'Letter Assignment: name each ghost’s MATCH letter.',
-      'One Move, Today: choose a move and schedule it.',
-      'Optional anonymous Gallery Walk across the sixteen; no public identification required.',
+    keyPoints: [
+      'Find the two or three ghosts that hit hardest among the sixteen below.',
+      'Every ghost has a shield and a MATCH letter.',
+      'Choose one move and do it this week.',
     ],
     sections: [],
     takeaway: 'Every ghost has a shield. This is the index.',
   },
   {
     number: 17,
-    pages: '20–21',
-    objectives: [
-      'Rehearse eight named nights before living them.',
-      'Write the script and pivot: imagined practice is not written practice.',
-      'For each dossier, name scene, friction, pivot, spoken line, own words and prerequisites.',
-    ],
-    activities: [
-      'One dossier per week for eight weeks, or all eight in an afternoon.',
-      'Workshop: work at least two all the way through in writing.',
-      'Win Dossier F before the night starts.',
-      'Dossier H is voluntary for those it applies to, or voluntary ally practice without outing anyone.',
+    keyPoints: [
+      'Rehearse eight named nights before you live them.',
+      'Writing the script and pivot down beats imagining it.',
+      'For each dossier: the scene, the friction, the pivot, the line you will say, your own words and what you need in place first.',
+      'Dossier H is for those it applies to, or for practising as an ally.',
     ],
     sections: [],
     takeaway: 'Rehearse the night before you live it.',
   },
   {
     number: 18,
-    pages: '21',
-    objectives: [
-      'Complete all six steps for life right now.',
-      'Close the Ghost → MATCH loop from Step 1.',
-      'Leave with a plan accessible in your phone, not only on a shelf.',
-    ],
-    activities: [
-      'Guided individual completion; optional pair share of one element.',
-      'Return to Lesson 2 and Lesson 16 ghosts; confirm each has an addressed MATCH piece.',
-      'Review Lesson 14: which letter held, which exposed a gap?',
-      'Keep a copy you can reach under pressure.',
-      'Closing Circle: “I feel more fearless because…”',
+    keyPoints: [
+      'Complete all six steps for your life right now.',
+      'Check that every ghost you named in Lessons 2 and 16 now has a MATCH piece answering it.',
+      'Keep your plan on your phone, where you can reach it under pressure.',
     ],
     sections: [],
     takeaway: 'Your plan is uniquely yours — dynamic, realistic, and empowering.',
@@ -868,16 +717,10 @@ export const LESSON_DETAILS: LessonDetail[] = [
   },
   {
     number: 19,
-    pages: '22–23',
-    objectives: [
-      'Turn knowledge into specific, completable actions.',
-      'Actions need not happen in order or one per day.',
+    keyPoints: [
+      'Turn what you know into specific actions you can finish.',
+      'Actions do not need to happen in order or one per day.',
       'Finish named actions, not vague intentions.',
-    ],
-    activities: [
-      'Launch in-session: complete at least one action before leaving.',
-      'Optional cohort check-in at day 15.',
-      'Day 30 Debrief: the habit that stuck, the one that didn’t and what I’m carrying forward.',
     ],
     sections: [],
     takeaway: 'Thirty days is long enough to build a habit and short enough to finish.',

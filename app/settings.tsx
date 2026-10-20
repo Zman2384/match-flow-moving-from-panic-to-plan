@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { BellRing, ChevronRight, Scale } from 'lucide-react-native';
+import { BellRing, ChevronRight, Scale } from '@/lib/icons';
 import { useState } from 'react';
 import {
   KeyboardAvoidingView,

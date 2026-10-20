@@ -14,7 +14,7 @@ import { MATCH_COLOR, NAVY } from '@/lib/palette';
 import { cn } from '@/lib/utils';
 
 /**
- * Source art (assets/lil-z-avatar.png) is a 1024 x 1024 portrait on the brand navy.
+ * Source art (assets/lil-z-avatar.webp) is a 1024 x 1024 portrait on the brand navy.
  * These fractions are the measured square crop around the head and shoulders, so the
  * circular frame never shows dead canvas.
  */
@@ -54,7 +54,7 @@ export function LilZAvatar({ size = 44, ring = true, pulse = false, className }:
         style={{ width: size, height: size, backgroundColor: NAVY }}
       >
         <Image
-          source={require('../assets/lil-z-avatar.png')}
+          source={require('../assets/lil-z-avatar.webp')}
           style={{
             position: 'absolute',
             left: -full * CROP_LEFT,

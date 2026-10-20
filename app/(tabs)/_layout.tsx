@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { LayoutGrid, Radar, ShieldHalf, UserRound } from 'lucide-react-native';
+import { LayoutGrid, Radar, ShieldHalf, UserRound } from '@/lib/icons';
 import { StatusBar } from 'expo-status-bar';
 
 import { HUD, LINE, NAVY, PANEL_DEEP, STEEL } from '@/lib/palette';

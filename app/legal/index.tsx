@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { ChevronRight, Eye, FileText, Lock, ShieldCheck, Stethoscope } from 'lucide-react-native';
+import { ChevronRight, Eye, FileText, Lock, ShieldCheck, Stethoscope } from '@/lib/icons';
 import type { LucideIcon } from 'lucide-react-native';
 import { Pressable, Text, View } from 'react-native';
 

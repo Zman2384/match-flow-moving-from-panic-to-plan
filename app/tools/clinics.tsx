@@ -1,7 +1,11 @@
 import * as Haptics from 'expo-haptics';
 import * as Location from 'expo-location';
-import { Button, Input, Label, Skeleton, Spinner } from 'heroui-native';
-import { LocateFixed, MapPin, Navigation, Phone, Search } from 'lucide-react-native';
+import { Button } from 'heroui-native/button';
+import { Input } from 'heroui-native/input';
+import { Label } from 'heroui-native/label';
+import { Skeleton } from 'heroui-native/skeleton';
+import { Spinner } from 'heroui-native/spinner';
+import { LocateFixed, MapPin, Navigation, Phone, Search } from '@/lib/icons';
 import { useRef, useState } from 'react';
 import {
   FlatList,

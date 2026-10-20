@@ -1,4 +1,5 @@
 /** @type {import('expo/metro-config').MetroConfig} */
+const path = require('path');
 const { getDefaultConfig } = require('expo/metro-config');
 const { withUniwindConfig } = require('uniwind/metro');
 
@@ -78,9 +79,25 @@ const shouldResolveEmpty = (moduleName, platform) =>
   (moduleName === 'react-native-maps' && platform === 'web') ||
   (moduleName === 'posthog-js' && platform !== 'web');
 
+// lucide-react-native's package "exports" hide its per-icon files. lib/icons.ts
+// imports them directly so only the icons in use are bundled.
+const LUCIDE_ICON_PREFIX = 'lucide-react-native/dist/esm/icons/';
+const lucideRoot = path.resolve(path.dirname(require.resolve('lucide-react-native')), '../..');
+
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (shouldResolveEmpty(moduleName, platform)) {
     return { type: 'empty' };
+  }
+
+  if (moduleName.startsWith(LUCIDE_ICON_PREFIX)) {
+    return {
+      type: 'sourceFile',
+      filePath: path.join(
+        lucideRoot,
+        'dist/esm/icons',
+        moduleName.slice(LUCIDE_ICON_PREFIX.length),
+      ),
+    };
   }
 
   return defaultResolveRequest

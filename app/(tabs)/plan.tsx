@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import { ChevronRight, RotateCcw } from 'lucide-react-native';
+import { ChevronRight, RotateCcw } from '@/lib/icons';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 

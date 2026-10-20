@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 const BANNER_ASPECT = 1830 / 1030;
 
 /**
- * Brand puzzle lockup (assets/match-puzzle-wordmark.png) is a 1255 x 396 RGBA
+ * Brand puzzle lockup (assets/match-puzzle-wordmark.webp) keeps the 1255 x 396 RGBA
  * artboard. Its white plate was keyed out to true transparency, so it sits
  * straight on the starfield with no panel behind it. These fractions are the
  * measured bounding box of the visible pieces inside that artboard, so the
@@ -41,7 +41,7 @@ export function MatchFlowBanner({ className }: { className?: string }) {
       style={{ width, height }}
     >
       <Image
-        source={require('../assets/match-flow-banner.png')}
+        source={require('../assets/match-flow-banner.webp')}
         style={{ width, height }}
         resizeMode="cover"
         accessibilityLabel="MATCH Flow — The Biomedical Command Center"
@@ -64,7 +64,7 @@ export function MatchFlowHero({ className }: { className?: string }) {
       style={{ width, height }}
     >
       <Image
-        source={require('../assets/match-flow-hero.png')}
+        source={require('../assets/match-flow-hero.webp')}
         style={{ width, height }}
         resizeMode="cover"
         accessibilityLabel="MATCH Flow — The Biomedical Command Center. Your science-based wingman for real-world friction."
@@ -83,7 +83,7 @@ export function MatchFlowIcon({
 }) {
   const responsiveWidth = useArtWidth(48, 420);
   const width = requestedWidth ?? responsiveWidth;
-  const source = require('../assets/match-flow-icon.png');
+  const source = require('../assets/match-flow-icon.webp');
   const height = width / BANNER_ASPECT;
 
   return (
@@ -101,7 +101,7 @@ export function MatchFlowIcon({
 /** Framework title lockup with unused vertical artboard padding clipped away. */
 export function MatchFrameworkTitle({ className }: { className?: string }) {
   const width = useArtWidth(48, 520);
-  const source = require('../assets/match-framework-title.png');
+  const source = require('../assets/match-framework-title.webp');
   const fullHeight = width * (666 / 2000);
   const height = fullHeight * 0.54;
 
@@ -128,11 +128,11 @@ export function MatchFrameworkTitle({ className }: { className?: string }) {
  * on a shared canvas so every tile renders at the same footprint.
  */
 const PIECE_SOURCE: Record<PieceKey, number> = {
-  M: require('../assets/match-piece-m.png'),
-  A: require('../assets/match-piece-a.png'),
-  T: require('../assets/match-piece-t.png'),
-  C: require('../assets/match-piece-c.png'),
-  H: require('../assets/match-piece-h.png'),
+  M: require('../assets/match-piece-m.webp'),
+  A: require('../assets/match-piece-a.webp'),
+  T: require('../assets/match-piece-t.webp'),
+  C: require('../assets/match-piece-c.webp'),
+  H: require('../assets/match-piece-h.webp'),
 };
 
 const PIECE_LABEL: Record<PieceKey, string> = {
@@ -190,7 +190,7 @@ export function MatchWordmark({ width, className }: { width?: number; className?
       style={{ width: artWidth, height: artHeight }}
     >
       <Image
-        source={require('../assets/match-puzzle-wordmark.png')}
+        source={require('../assets/match-puzzle-wordmark.webp')}
         style={{
           position: 'absolute',
           left: -fullWidth * PUZZLE_CONTENT_LEFT,

@@ -1,7 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
-import { Button } from 'heroui-native';
-import { ExternalLink } from 'lucide-react-native';
+import { Button } from 'heroui-native/button';
+import { ExternalLink } from '@/lib/icons';
 import { useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
 

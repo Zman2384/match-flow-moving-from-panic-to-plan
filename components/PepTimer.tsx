@@ -1,13 +1,5 @@
 import { router } from 'expo-router';
-import {
-  MapPin,
-  MessageSquareQuote,
-  Minus,
-  Navigation,
-  Plus,
-  Timer,
-  Trash2,
-} from 'lucide-react-native';
+import { MapPin, MessageSquareQuote, Minus, Navigation, Plus, Timer, Trash2 } from '@/lib/icons';
 import { type ReactNode, useEffect, useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
 

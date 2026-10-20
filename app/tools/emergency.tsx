@@ -1,4 +1,4 @@
-import { Clock, Phone } from 'lucide-react-native';
+import { Clock, Phone } from '@/lib/icons';
 import { useState } from 'react';
 import { Linking, Platform, Pressable, Text, View } from 'react-native';
 

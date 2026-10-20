@@ -1,7 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { router, useLocalSearchParams } from 'expo-router';
-import { Button } from 'heroui-native';
-import { BookOpen } from 'lucide-react-native';
+import { Button } from 'heroui-native/button';
+import { BookOpen } from '@/lib/icons';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Text, TextInput, View } from 'react-native';
 

@@ -1,4 +1,4 @@
-import { Phone, X } from 'lucide-react-native';
+import { Phone, X } from '@/lib/icons';
 import { useState } from 'react';
 import { Linking, Modal, Platform, Pressable, Text, View } from 'react-native';
 

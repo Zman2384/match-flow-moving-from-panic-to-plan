@@ -3,7 +3,7 @@ import { Platform, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Text } from 'heroui-native';
+import { Text } from 'heroui-native/text';
 
 /**
  * Install affordance for the PWA, web only:

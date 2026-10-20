@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { BellRing, Check, ShieldAlert } from 'lucide-react-native';
+import { BellRing, Check, ShieldAlert } from '@/lib/icons';
 import { Linking, Platform, Pressable, Switch, Text, View } from 'react-native';
 
 import { MatchPiece } from '@/components/BrandArt';

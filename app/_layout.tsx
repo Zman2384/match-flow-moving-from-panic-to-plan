@@ -27,6 +27,7 @@ import {
 } from 'expo-router';
 
 import { addNudgeTapListener, NOTIFICATIONS_SUPPORTED, syncReminders } from '@/lib/notifications';
+import { hideBootSplash } from '@/lib/bootSplash';
 import { initPostHog } from '@/lib/posthog';
 import { NAVY } from '@/lib/palette';
 import { registerServiceWorker } from '@/lib/registerServiceWorker';
@@ -165,6 +166,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded || error) {
       void SplashScreen.hideAsync();
+      hideBootSplash();
     }
   }, [loaded, error]);
 

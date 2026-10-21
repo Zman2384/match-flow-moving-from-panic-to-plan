@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react-native';
+import { Star } from '@/lib/icons';
 import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';

@@ -16,7 +16,7 @@ import {
   Sparkles,
   Users,
   Workflow,
-} from 'lucide-react-native';
+} from '@/lib/icons';
 import { Pressable, Text, View } from 'react-native';
 
 import { BodyText } from '@/components/ScreenShell';

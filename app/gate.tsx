@@ -76,7 +76,7 @@ export default function GateScreen() {
 
         <MatchFrameworkTitle className="mt-6" />
         <Image
-          source={require('../assets/match-framework-shield-pieces.png')}
+          source={require('../assets/match-framework-shield-pieces.webp')}
           className="mt-3 self-center"
           style={{ width: shieldWidth, height: shieldWidth * (1030 / 1830) }}
           resizeMode="contain"

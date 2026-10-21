@@ -1,4 +1,4 @@
-import { Surface } from 'heroui-native';
+import { Surface } from 'heroui-native/surface';
 import type { LucideIcon } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 

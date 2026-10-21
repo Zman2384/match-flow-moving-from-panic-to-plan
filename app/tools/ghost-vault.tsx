@@ -1,5 +1,5 @@
 import { Link, router } from 'expo-router';
-import { Ghost, Lock, Plus, ShieldCheck, Sparkles, Trash2 } from 'lucide-react-native';
+import { Ghost, Lock, Plus, ShieldCheck, Sparkles, Trash2 } from '@/lib/icons';
 import { useMemo, useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 

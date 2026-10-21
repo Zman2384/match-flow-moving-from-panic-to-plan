@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { Ghost } from 'lucide-react-native';
+import { Ghost } from '@/lib/icons';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 

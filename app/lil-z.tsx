@@ -1,6 +1,6 @@
 import * as Haptics from 'expo-haptics';
 import { router, useFocusEffect } from 'expo-router';
-import { Brain, Send, Trash2, X } from 'lucide-react-native';
+import { Brain, Send, Trash2, X } from '@/lib/icons';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,

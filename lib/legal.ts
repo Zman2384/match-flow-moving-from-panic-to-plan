@@ -38,8 +38,8 @@ export const LEGAL_CONTACT_EMAIL = 'email@theharnessproject.org';
 export const LEGAL_PRIVACY_EMAIL = 'email@theharnessproject.org';
 export const LEGAL_ACCESSIBILITY_EMAIL = 'email@theharnessproject.org';
 export const LEGAL_GOVERNING_LAW = 'the State of Texas, United States';
-export const LEGAL_LAST_UPDATED = 'October 14, 2026';
-export const LEGAL_VERSION = '1.0';
+export const LEGAL_LAST_UPDATED = 'October 22, 2026';
+export const LEGAL_VERSION = '1.1';
 
 export const LEGAL_DOCUMENTS: LegalDocument[] = [
   {
@@ -191,11 +191,11 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: 'Device permissions',
-        body: 'Where the App asks for a permission, it is used for the feature you choose. Clinic searches send the location described below; local reminders do not.',
+        body: 'Where the App asks for a permission, it is used for the feature you choose. Clinic Finder uses location only as described below; local reminders do not.',
         bullets: [
           'Phone dialler — to place a call you tap in the emergency sheet. We do not read your call log.',
           'Notifications — to show local reminders scheduled on your device. Reminder content never leaves the device.',
-          'Location — accessed only when you tap Use current location in Clinic Finder. Coordinates are sent through our search service to Google Maps to find nearby care. Alternatively, a ZIP code or address you enter is sent for that search. The app does not save your location or search history, and the search function does not log request content. Service infrastructure and Google may process technical request data under their own policies.',
+          'Location — accessed only when you tap Use current location in Clinic Finder. Your position is turned into the nearest ZIP code on your device; the coordinates are never sent anywhere or saved. The App does not save your ZIP, address or search history.',
         ],
       },
       {
@@ -203,14 +203,14 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         body: 'Outside services receive only the requests needed for features you choose. Optional live AI is the exception to on-device chat processing described above.',
         bullets: [
           'Platform stores (Apple, Google) handle distribution, crash reporting you opt into at the OS level, and any purchase. Their own privacy policies apply to those interactions.',
-          'Google Maps provides live Clinic Finder results. Your chosen location and care type are sent for the search; your plans, Ghost Audits and notes are not. Google’s Terms of Service (https://policies.google.com/terms) and Privacy Policy (https://policies.google.com/privacy) apply. Directions open an external maps service only when you tap them.',
+          'Clinic Finder links to official locators and to Google Maps. Only when you tap Open map search does the App send your ZIP or typed address and the type of care to Google Maps; your plans, Ghost Audits and notes are never sent. Google’s Terms of Service (https://policies.google.com/terms) and Privacy Policy (https://policies.google.com/privacy) apply. Official finders open in your browser under their own policies.',
           'Fonts are loaded from a public font CDN on the web build, which sees a standard web request.',
           'Product analytics are not enabled in released builds. Anonymous, non-identifying usage counters may run only inside our internal development preview and are never linked to a person or to any content you enter.',
         ],
       },
       {
         heading: 'Legal bases (GDPR / UK GDPR)',
-        body: 'Local planning does not send your records to our systems. Optional live AI processing starts only after you enable it and can be stopped for future messages. Clinic searches start only when you submit a location or choose current location. Search and font requests also involve technical data. Privacy questions and requests about live processing can be sent to our privacy contact; provider handling is subject to the applicable provider policy.',
+        body: 'Local planning does not send your records to our systems. Optional live AI processing starts only after you enable it and can be stopped for future messages. Clinic Finder sends nothing until you open a map search or finder link. Link and font requests also involve technical data. Privacy questions and requests about live processing can be sent to our privacy contact; provider handling is subject to the applicable provider policy.',
       },
       {
         heading: 'Your rights under GDPR',
@@ -419,7 +419,6 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         heading: 'Known limitations',
         body: 'We would rather name gaps than claim conformance we have not earned. Currently:',
         bullets: [
-          'The clinic map is a visual component; the clinic list beside it is the accessible equivalent and is the recommended route for screen-reader users.',
           'Some analytics charts convey trend visually; the underlying numbers are shown as text, but a full data-table alternative is still outstanding.',
           'The MATCH puzzle artwork is decorative where a text label already names the same piece, and is marked accordingly.',
           'A small number of legend labels use type below 11 points; we are raising these as screens are revised.',

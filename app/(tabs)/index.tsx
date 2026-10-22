@@ -7,6 +7,7 @@ import { MatchFlowBanner } from '@/components/BrandArt';
 import { BackChip } from '@/components/BackChip';
 import { HexScore, PieceHex } from '@/components/HexScore';
 import { HudBackdrop } from '@/components/HudBackdrop';
+import { IntroCard } from '@/components/IntroCard';
 import { LilZAvatar, LilZDock } from '@/components/LilZ';
 import { PanicButton } from '@/components/PanicButton';
 import { BodyText, BrandFooter } from '@/components/ScreenShell';
@@ -66,6 +67,8 @@ export default function CommandCenter() {
             </View>
           </Link>
         </View>
+
+        <IntroCard className="mx-5 mt-5" />
 
         <View className="mt-5 items-center">
           <HexScore score={score} label={tier.label} color={tier.color} />

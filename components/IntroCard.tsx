@@ -84,6 +84,7 @@ export function IntroCard({ className = '' }: { className?: string }) {
           <Link key={id} href={href} asChild>
             <Pressable
               accessibilityRole="link"
+              accessibilityLabel={title}
               className="flex-row items-start gap-3 rounded-xl border p-3 active:opacity-70"
               style={{ borderColor: `${accent}40`, backgroundColor: `${accent}10` }}
             >

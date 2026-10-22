@@ -1,7 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { router, useFocusEffect } from 'expo-router';
 import { Brain, Send, Trash2, X } from '@/lib/icons';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -25,6 +25,7 @@ import {
   LILZ_GREETING,
   type LilZMessage,
   QUICK_PROMPTS,
+  checkLiveAvailable,
   targetFor,
 } from '@/lib/lilz';
 import { INK_ON_SIGNAL, HUD, HUD_DIM, LINE, STEEL } from '@/lib/palette';
@@ -46,12 +47,31 @@ export default function LilZScreen() {
   const [memoryOpen, setMemoryOpen] = useState(false);
   // A fresh visit starts private; live processing is never silently remembered.
   const [liveEnabled, setLiveEnabled] = useState(false);
+  // The Live AI switch only appears once the server confirms it is set up.
+  const [liveAvailable, setLiveAvailable] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void checkLiveAvailable().then((available) => {
+      if (active) setLiveAvailable(available);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const messages = useMatchStore((s) => s.lilzMessages);
   const previousMessageCount = useRef(messages.length);
+  /**
+   * Bumped when the chat is cleared or the screen loses focus, so a reply that
+   * arrives afterwards is dropped instead of refilling a cleared conversation.
+   */
+  const generation = useRef(0);
   useFocusEffect(
     useCallback(() => {
       setLiveEnabled(false);
+      return () => {
+        generation.current += 1;
+      };
     }, []),
   );
   const memories = useMatchStore((s) => s.lilzMemories);
@@ -74,6 +94,7 @@ export default function LilZScreen() {
 
       setDraft('');
       setPending(true);
+      const requestGeneration = generation.current;
       const crisis = crisisCard(text);
       addLilzMessage({ role: 'user', text, crisis: Boolean(crisis) });
 
@@ -86,7 +107,7 @@ export default function LilZScreen() {
       const state = useMatchStore.getState();
       const ghosts = Object.values(state.ghostRecords);
       const reply = await askLilZ({
-        liveAllowed: liveEnabled,
+        liveAllowed: liveAvailable && liveEnabled,
         messages: state.lilzMessages,
         planContext: buildPlanContext({
           armed: state.armed,
@@ -101,6 +122,11 @@ export default function LilZScreen() {
         memories: state.lilzMemoryEnabled ? state.lilzMemories.map((memory) => memory.text) : [],
       });
 
+      if (requestGeneration !== generation.current) {
+        setPending(false);
+        return;
+      }
+
       addLilzMessage({
         role: 'guide',
         text: reply.reply,
@@ -112,7 +138,7 @@ export default function LilZScreen() {
       setPending(false);
       if (reply.notice) void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     },
-    [addLilzMessage, liveEnabled, pending, rememberLilz],
+    [addLilzMessage, liveAvailable, liveEnabled, pending, rememberLilz],
   );
 
   const transcript = messages.length > 0 ? messages : [greeting];
@@ -149,7 +175,10 @@ export default function LilZScreen() {
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Clear this conversation"
-                onPress={clearLilzChat}
+                onPress={() => {
+                  generation.current += 1;
+                  clearLilzChat();
+                }}
                 className="border-border/60 h-9 w-9 items-center justify-center rounded-full border active:opacity-70"
               >
                 <Trash2 size={16} color={STEEL} />
@@ -223,30 +252,32 @@ export default function LilZScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <View className="border-hud/25 bg-panel-deep/80 rounded-2xl border p-4">
-            <View className="flex-row items-center gap-3">
-              <Text className="text-foreground flex-1 text-base font-semibold">
-                Live AI replies
-              </Text>
-              <Switch
-                accessibilityLabel="Allow live AI processing for this visit"
-                value={liveEnabled}
-                disabled={pending}
-                onValueChange={(enabled) => {
-                  setLiveEnabled(enabled);
-                  void Haptics.selectionAsync();
-                }}
-                thumbColor={liveEnabled ? CYAN : STEEL}
-                trackColor={{ false: TRACK_OFF, true: HUD_DIM }}
-              />
+          {liveAvailable ? (
+            <View className="border-hud/25 bg-panel-deep/80 rounded-2xl border p-4">
+              <View className="flex-row items-center gap-3">
+                <Text className="text-foreground flex-1 text-base font-semibold">
+                  Live AI replies
+                </Text>
+                <Switch
+                  accessibilityLabel="Allow live AI processing for this visit"
+                  value={liveEnabled}
+                  disabled={pending}
+                  onValueChange={(enabled) => {
+                    setLiveEnabled(enabled);
+                    void Haptics.selectionAsync();
+                  }}
+                  thumbColor={liveEnabled ? CYAN : STEEL}
+                  trackColor={{ false: TRACK_OFF, true: HUD_DIM }}
+                />
+              </View>
+              <BodyText className="text-foreground/80 mt-2">
+                Off by default. Turning this on sends recent chat messages, a MATCH plan summary and
+                saved memories through our AI service to Anthropic (Claude). Avoid names or
+                identifying details. Turning it off stops future sends; it cannot recall anything
+                already sent.
+              </BodyText>
             </View>
-            <BodyText className="text-foreground/80 mt-2">
-              Off by default. Turning this on sends recent chat messages, a MATCH plan summary and
-              saved memories through our AI service to Anthropic (Claude). Avoid names or
-              identifying details. Turning it off stops future sends; it cannot recall anything
-              already sent.
-            </BodyText>
-          </View>
+          ) : null}
           {transcript.map((message) => (
             <Bubble key={message.id} message={message} />
           ))}
@@ -311,7 +342,7 @@ export default function LilZScreen() {
           </View>
 
           <Text className="font-body text-muted/70 mt-2 text-center text-[13px]">
-            {liveEnabled
+            {liveAvailable && liveEnabled
               ? 'Live AI on — chat context is sent for replies.'
               : 'On-device briefing — no chat is sent.'}
           </Text>

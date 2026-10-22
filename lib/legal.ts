@@ -177,7 +177,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: 'Optional live Lil Z replies',
-        body: 'Lil Z starts with on-device briefings. If you turn on Live AI replies, the app sends up to 14 recent non-crisis chat turns, a structured MATCH plan summary, activity counts, and saved memories (when memory is enabled) through our AI service at theharnessproject.org to Anthropic, which runs the Claude model that writes Lil Z’s replies. Our service passes the request through and does not store or log your messages. Your chat can contain sensitive information if you type it. Do not include names, partner identifiers or other details you do not want processed outside your device.',
+        body: 'Lil Z starts with on-device briefings. If you turn on Live AI replies, the app sends up to 14 recent non-crisis chat turns, a structured MATCH plan summary, activity counts, and saved memories (when memory is enabled) through our AI service at theharnessproject.org to Anthropic, which runs the Claude model that writes Lil Z’s replies. Our service passes the request through; its code does not store or log your messages. Cloudflare, which hosts the service, processes each request to deliver it under its own privacy policy. Your chat can contain sensitive information if you type it. Do not include names, partner identifiers or other details you do not want processed outside your device.',
         bullets: [
           'Live AI permission is not saved between visits. Turning it off stops future requests, not processing of an earlier request.',
           'Detected immediate-danger and self-harm messages receive an on-device crisis card and are excluded from live requests. Detection cannot identify every possible crisis phrase.',

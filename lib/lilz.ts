@@ -376,6 +376,25 @@ const FUNCTION_URL = process.env.EXPO_PUBLIC_LILZ_URL || 'https://theharnessproj
 /** A live reply that takes longer than this falls back to the on-device briefing. */
 const LIVE_TIMEOUT_MS = 30000;
 
+/**
+ * Whether the live guide is set up (the server has its AI key). The app shows the
+ * Live AI switch only when this is true, so nobody meets a half-working feature.
+ * Any failure counts as "not available".
+ */
+export async function checkLiveAvailable(): Promise<boolean> {
+  try {
+    const response = await fetch(FUNCTION_URL, {
+      method: 'GET',
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!response.ok) return false;
+    const payload: unknown = await response.json().catch(() => null);
+    return isRecord(payload) && payload.live === true;
+  } catch {
+    return false;
+  }
+}
+
 const NOTICE: Record<string, string> = {
   no_model: 'Live guidance is not configured yet, so this came from my on-device briefing.',
   bad_key: 'My model key was rejected, so this came from my on-device briefing.',

@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { ArrowRight, FlaskConical, MessageSquareQuote, Radar, ShieldHalf, X } from '@/lib/icons';
 import { Pressable, Text, View } from 'react-native';
 
@@ -81,26 +81,29 @@ export function IntroCard({ className = '' }: { className?: string }) {
 
       <View className="mt-4 gap-2.5">
         {FEATURES.map(({ id, title, blurb, href, Icon, accent }) => (
-          <Pressable
-            key={id}
-            onPress={() => router.push(href)}
-            accessibilityRole="link"
-            accessibilityLabel={title}
-            className="flex-row items-start gap-3 rounded-xl border p-3 active:opacity-70"
-            style={{ borderColor: `${accent}40`, backgroundColor: `${accent}10` }}
-          >
-            <View
-              className="h-9 w-9 items-center justify-center rounded-lg"
-              style={{ backgroundColor: `${accent}22`, borderWidth: 1, borderColor: `${accent}55` }}
+          <Link key={id} href={href} asChild>
+            <Pressable
+              accessibilityRole="link"
+              className="flex-row items-start gap-3 rounded-xl border p-3 active:opacity-70"
+              style={{ borderColor: `${accent}40`, backgroundColor: `${accent}10` }}
             >
-              <Icon size={18} color={accent} />
-            </View>
-            <View className="flex-1">
-              <Text className="text-foreground text-[15px] font-bold">{title}</Text>
-              <BodyText className="text-muted mt-0.5">{blurb}</BodyText>
-            </View>
-            <ArrowRight size={16} color={accent} />
-          </Pressable>
+              <View
+                className="h-9 w-9 items-center justify-center rounded-lg"
+                style={{
+                  backgroundColor: `${accent}22`,
+                  borderWidth: 1,
+                  borderColor: `${accent}55`,
+                }}
+              >
+                <Icon size={18} color={accent} />
+              </View>
+              <View className="flex-1">
+                <Text className="text-foreground text-[15px] font-bold">{title}</Text>
+                <BodyText className="text-muted mt-0.5">{blurb}</BodyText>
+              </View>
+              <ArrowRight size={16} color={accent} />
+            </Pressable>
+          </Link>
         ))}
       </View>
 

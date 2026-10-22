@@ -82,6 +82,8 @@ interface MatchState {
   setCurriculumNote: (key: string, value: string) => void;
   toggleChallengeAction: (index: number) => void;
   ageConfirmed: boolean;
+  /** First-run "what MATCH Flow does" card on the Command Center. */
+  introDismissed: boolean;
   statusConfirmed: boolean;
   armed: Record<string, boolean>;
   planUpdatedAt: string | null;
@@ -113,6 +115,7 @@ interface MatchState {
   pepExposureAt: string | null;
 
   confirmAge: () => void;
+  dismissIntro: () => void;
   confirmStatus: () => void;
   toggleOption: (id: string) => void;
   resetPlan: () => void;
@@ -160,6 +163,7 @@ const initial = {
   curriculumNotes: {} as Record<string, string>,
   challengeCompleted: [] as number[],
   ageConfirmed: false,
+  introDismissed: false,
   statusConfirmed: false,
   armed: {} as Record<string, boolean>,
   planUpdatedAt: null as string | null,
@@ -208,6 +212,7 @@ export const useMatchStore = create<MatchState>()(
         })),
 
       confirmAge: () => set({ ageConfirmed: true }),
+      dismissIntro: () => set({ introDismissed: true }),
       confirmStatus: () => set({ statusConfirmed: true }),
 
       toggleOption: (id) =>

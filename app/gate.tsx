@@ -62,8 +62,8 @@ export default function GateScreen() {
           </View>
           <MatchFlowHero />
           <BodyText className="text-foreground mt-5 text-center">
-            MATCH Flow follows MATCH Your Protection, 6 modules, 19 chapters. It is not the youth
-            app. CAPE Flow is the grades 6–12 surface.
+            Build your protection plan, stress-test it, and practice the words — before the moment,
+            not during it.
           </BodyText>
           <Text className="text-hud mt-5 font-mono text-[11px] tracking-[3px] uppercase">
             Layered protection system

@@ -242,8 +242,9 @@ export default function LilZScreen() {
             </View>
             <BodyText className="text-foreground/80 mt-2">
               Off by default. Turning this on sends recent chat messages, a MATCH plan summary and
-              saved memories through our AI service to OpenAI. Avoid names or identifying details.
-              Turning it off stops future sends; it cannot recall anything already sent.
+              saved memories through our AI service to Anthropic (Claude). Avoid names or
+              identifying details. Turning it off stops future sends; it cannot recall anything
+              already sent.
             </BodyText>
           </View>
           {transcript.map((message) => (

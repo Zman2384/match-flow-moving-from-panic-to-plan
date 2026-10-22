@@ -1,8 +1,9 @@
 /**
  * Lil Z — Christopher Zacharie's digital avatar and the MATCH Flow sexual health guide.
  *
- * The persona and the clinical rules live in the `lil-z` bilt-cloud function, not here,
- * so the app bundle carries no prompt and no model key. This module owns the client
+ * The persona and the clinical rules live in the Lil Z function on the website
+ * (theharnessproject.org/api/lil-z, a Cloudflare Pages Function in the website repo),
+ * not here, so the app bundle carries no prompt and no model key. This module owns the client
  * contract: message shapes, the screens Lil Z is allowed to hand you off to, the plan
  * context that gets attached to a turn, crisis interception, and the offline briefing
  * engine that answers the core clinical questions with no network at all.
@@ -369,11 +370,11 @@ export function offlineBriefing(question: string): { reply: string; actions: Lil
  * Live model call
  * ------------------------------------------------------------------ */
 
-const FUNCTION_URL = process.env.EXPO_PUBLIC_BILT_URL
-  ? `${process.env.EXPO_PUBLIC_BILT_URL}/functions/v1/lil-z`
-  : null;
+/** Lil Z's live endpoint. EXPO_PUBLIC_LILZ_URL overrides it for testing. */
+const FUNCTION_URL = process.env.EXPO_PUBLIC_LILZ_URL || 'https://theharnessproject.org/api/lil-z';
 
-const ANON_KEY = process.env.EXPO_PUBLIC_BILT_ANON_KEY ?? '';
+/** A live reply that takes longer than this falls back to the on-device briefing. */
+const LIVE_TIMEOUT_MS = 30000;
 
 const NOTICE: Record<string, string> = {
   no_model: 'Live guidance is not configured yet, so this came from my on-device briefing.',
@@ -438,16 +439,11 @@ export async function askLilZ({
   if (crisis) return { reply: crisis, actions: [], remember: [], offline: true };
   if (!liveAllowed) return { ...offlineBriefing(question), remember: [], offline: true };
 
-  if (!FUNCTION_URL) return fallback(question, 'network');
-
   try {
     const response = await fetch(FUNCTION_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: ANON_KEY,
-        Authorization: `Bearer ${ANON_KEY}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
+      signal: AbortSignal.timeout(LIVE_TIMEOUT_MS),
       body: JSON.stringify({
         messages: messages
           .filter(

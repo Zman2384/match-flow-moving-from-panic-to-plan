@@ -5,7 +5,7 @@ import { Input } from 'heroui-native/input';
 import { Label } from 'heroui-native/label';
 import { Spinner } from 'heroui-native/spinner';
 import { ExternalLink, LocateFixed, MapPin, Navigation, Search } from '@/lib/icons';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -29,6 +29,25 @@ import {
 import { nearestZip } from '@/lib/nearestZip';
 import { HUD, INK_ON_SIGNAL, SILVER } from '@/lib/palette';
 
+/** A stalled GPS request gives up after this long and asks for a ZIP instead. */
+const LOCATION_TIMEOUT_MS = 15000;
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('Location request timed out')), ms);
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (cause: unknown) => {
+        clearTimeout(timer);
+        reject(cause);
+      },
+    );
+  });
+}
+
 export default function ClinicsScreen() {
   const [address, setAddress] = useState('');
   const [place, setPlace] = useState<string | null>(null);
@@ -36,6 +55,8 @@ export default function ClinicsScreen() {
   const [kind, setKind] = useState<ClinicSearchKind>('clinic');
   const [locating, setLocating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  /** Bumped by a typed search so a late GPS result cannot overwrite it. */
+  const searchId = useRef(0);
 
   function showError(message: string) {
     setError(message);
@@ -49,6 +70,8 @@ export default function ClinicsScreen() {
       return;
     }
     Keyboard.dismiss();
+    searchId.current += 1;
+    setLocating(false);
     setError(null);
     setFromGps(false);
     setPlace(value);
@@ -62,6 +85,7 @@ export default function ClinicsScreen() {
   async function locate() {
     if (locating) return;
     Keyboard.dismiss();
+    const id = (searchId.current += 1);
     setLocating(true);
     setError(null);
     try {
@@ -69,10 +93,12 @@ export default function ClinicsScreen() {
       if (permission.status !== Location.PermissionStatus.GRANTED) {
         throw new Error('Location access is off. Enter a ZIP code or address instead.');
       }
-      const position = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Balanced,
-      });
+      const position = await withTimeout(
+        Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+        LOCATION_TIMEOUT_MS,
+      );
       const zip = await nearestZip(position.coords);
+      if (id !== searchId.current) return;
       if (!zip)
         throw new Error('No US ZIP code found near you. Enter a ZIP code or address instead.');
       setAddress(zip);
@@ -80,6 +106,7 @@ export default function ClinicsScreen() {
       setFromGps(true);
       void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } catch (cause) {
+      if (id !== searchId.current) return;
       const message = cause instanceof Error ? cause.message : '';
       showError(
         message.endsWith('instead.')
@@ -87,7 +114,7 @@ export default function ClinicsScreen() {
           : 'Could not get your location. Enter a ZIP code or address, or try again.',
       );
     } finally {
-      setLocating(false);
+      if (id === searchId.current) setLocating(false);
     }
   }
 
@@ -131,7 +158,6 @@ export default function ClinicsScreen() {
               className="font-body border-border bg-panel-deep text-foreground min-h-12 rounded-xl border text-base"
               placeholder="ZIP code or street, city, state"
               value={address}
-              editable={!locating}
               autoComplete="off"
               autoCorrect={false}
               returnKeyType="search"
@@ -141,7 +167,7 @@ export default function ClinicsScreen() {
                 setError(null);
               }}
             />
-            <Button className="bg-hud rounded-xl" isDisabled={locating} onPress={searchTyped}>
+            <Button className="bg-hud rounded-xl" onPress={searchTyped}>
               <Search size={18} color={INK_ON_SIGNAL} />
               <Button.Label className="font-body text-background text-base">
                 Find nearby care

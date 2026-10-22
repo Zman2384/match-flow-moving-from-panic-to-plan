@@ -203,7 +203,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         body: 'Outside services receive only the requests needed for features you choose. Optional live AI is the exception to on-device chat processing described above.',
         bullets: [
           'Platform stores (Apple, Google) handle distribution, crash reporting you opt into at the OS level, and any purchase. Their own privacy policies apply to those interactions.',
-          'Clinic Finder links to official locators and to Google Maps. Only when you tap Open map search does the App send your ZIP or typed address and the type of care to Google Maps; your plans, Ghost Audits and notes are never sent. Google’s Terms of Service (https://policies.google.com/terms) and Privacy Policy (https://policies.google.com/privacy) apply. Official finders open in your browser under their own policies.',
+          'Clinic Finder links to official locators and to Google Maps. Only when you tap Open map search does the App send your ZIP or typed address and the type of care to Google Maps; your plans, Ghost Audits and notes are never sent. Google’s Terms of Service (https://policies.google.com/terms) and Privacy Policy (https://policies.google.com/privacy) apply. When you tap Open finder after entering a ZIP, that ZIP may be included in the official finder’s link (for example, HRSA Find a Health Center). Official finders open in your browser under their own policies.',
           'Fonts are loaded from a public font CDN on the web build, which sees a standard web request.',
           'Product analytics are not enabled in released builds. Anonymous, non-identifying usage counters may run only inside our internal development preview and are never linked to a person or to any content you enter.',
         ],

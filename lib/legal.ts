@@ -177,12 +177,12 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: 'Optional live Lil Z replies',
-        body: 'Lil Z starts with on-device briefings. If you turn on Live AI replies, the app sends up to 14 recent non-crisis chat turns, a structured MATCH plan summary, activity counts, and saved memories (when memory is enabled) through our AI service to OpenAI. Your chat can contain sensitive information if you type it. Do not include names, partner identifiers or other details you do not want processed outside your device.',
+        body: 'Lil Z starts with on-device briefings. If you turn on Live AI replies, the app sends up to 14 recent non-crisis chat turns, a structured MATCH plan summary, activity counts, and saved memories (when memory is enabled) through our AI service at theharnessproject.org to Anthropic, which runs the Claude model that writes Lil Z’s replies. Our service passes the request through and does not store or log your messages. Your chat can contain sensitive information if you type it. Do not include names, partner identifiers or other details you do not want processed outside your device.',
         bullets: [
           'Live AI permission is not saved between visits. Turning it off stops future requests, not processing of an earlier request.',
           'Detected immediate-danger and self-harm messages receive an on-device crisis card and are excluded from live requests. Detection cannot identify every possible crisis phrase.',
           'Clear conversation deletes local chat history. Turn memory off or remove individual memories to delete saved facts. These controls cannot delete information already sent to an AI provider.',
-          'OpenAI’s privacy and retention policies apply to live processing. We do not promise zero retention or that every provider copy can be erased through this app.',
+          'Anthropic’s commercial terms and privacy policy (https://www.anthropic.com/legal/privacy) apply to live processing. We do not promise zero retention or that every provider copy can be erased through this app.',
         ],
       },
       {

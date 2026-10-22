@@ -3,12 +3,10 @@ import * as Location from 'expo-location';
 import { Button } from 'heroui-native/button';
 import { Input } from 'heroui-native/input';
 import { Label } from 'heroui-native/label';
-import { Skeleton } from 'heroui-native/skeleton';
 import { Spinner } from 'heroui-native/spinner';
-import { LocateFixed, MapPin, Navigation, Phone, Search } from '@/lib/icons';
+import { ExternalLink, LocateFixed, MapPin, Navigation, Search } from '@/lib/icons';
 import { useRef, useState } from 'react';
 import {
-  FlatList,
   Keyboard,
   KeyboardAvoidingView,
   Linking,
@@ -20,85 +18,110 @@ import {
 
 import { BodyText, ScreenShell } from '@/components/ScreenShell';
 import {
-  checkClinicSearch,
   CLINIC_SEARCH_KINDS,
-  searchClinics,
+  findersFor,
+  finderUrl,
+  mapsSearchUrl,
+  zipFrom,
   type ClinicSearchKind,
-  type ClinicSearchOrigin,
-  type ClinicSearchResults,
-  type NearbyClinic,
+  type OfficialFinder,
 } from '@/lib/clinics';
+import { nearestZip } from '@/lib/nearestZip';
 import { HUD, INK_ON_SIGNAL, SILVER } from '@/lib/palette';
+
+/** A stalled GPS request gives up after this long and asks for a ZIP instead. */
+const LOCATION_TIMEOUT_MS = 15000;
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('Location request timed out')), ms);
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (cause: unknown) => {
+        clearTimeout(timer);
+        reject(cause);
+      },
+    );
+  });
+}
 
 export default function ClinicsScreen() {
   const [address, setAddress] = useState('');
+  const [place, setPlace] = useState<string | null>(null);
+  const [fromGps, setFromGps] = useState(false);
   const [kind, setKind] = useState<ClinicSearchKind>('clinic');
-  const [results, setResults] = useState<ClinicSearchResults | null>(null);
-  const [pending, setPending] = useState<'address' | 'location' | null>(null);
+  const [locating, setLocating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const originRef = useRef<ClinicSearchOrigin | null>(null);
-  const retryRef = useRef<'address' | 'location'>('address');
+  /** Bumped by a typed search so a late GPS result cannot overwrite it. */
+  const searchId = useRef(0);
 
   function showError(message: string) {
     setError(message);
     void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
   }
 
-  async function find(
-    mode: 'address' | 'location',
-    nextKind = kind,
-    existingOrigin?: ClinicSearchOrigin,
-  ) {
-    if (pending) return;
-    retryRef.current = mode;
-    if (!existingOrigin && mode === 'address' && !address.trim()) {
-      showError('Enter a ZIP code or address to find nearby clinics.');
+  function searchTyped() {
+    const value = address.trim();
+    if (!value) {
+      showError('Enter a ZIP code or address to find nearby care.');
       return;
     }
     Keyboard.dismiss();
-    setPending(mode);
+    searchId.current += 1;
+    setLocating(false);
     setError(null);
-    setResults(null);
+    setFromGps(false);
+    setPlace(value);
+    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+  }
+
+  /**
+   * GPS → nearest ZIP, entirely on the device. The coordinates are dropped as
+   * soon as the ZIP is found: never saved, never sent anywhere.
+   */
+  async function locate() {
+    if (locating) return;
+    Keyboard.dismiss();
+    const id = (searchId.current += 1);
+    setLocating(true);
+    setError(null);
     try {
-      let origin = existingOrigin;
-      if (!origin && mode === 'location') {
-        // Check availability before requesting permission or accessing location.
-        await checkClinicSearch();
-        const permission = await Location.requestForegroundPermissionsAsync();
-        if (permission.status !== Location.PermissionStatus.GRANTED) {
-          throw new Error('Location access is off. Enter a ZIP code or address instead.');
-        }
-        const position = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.Balanced,
-        });
-        origin = {
-          coordinate: { latitude: position.coords.latitude, longitude: position.coords.longitude },
-        };
+      const permission = await Location.requestForegroundPermissionsAsync();
+      if (permission.status !== Location.PermissionStatus.GRANTED) {
+        throw new Error('Location access is off. Enter a ZIP code or address instead.');
       }
-      origin ??= { address: address.trim() };
-      const data = await searchClinics(origin, nextKind);
-      originRef.current = origin;
-      setResults(data);
+      const position = await withTimeout(
+        Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+        LOCATION_TIMEOUT_MS,
+      );
+      const zip = await nearestZip(position.coords);
+      if (id !== searchId.current) return;
+      if (!zip)
+        throw new Error('No US ZIP code found near you. Enter a ZIP code or address instead.');
+      setAddress(zip);
+      setPlace(zip);
+      setFromGps(true);
       void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } catch (cause) {
-      const message =
-        cause instanceof Error ? cause.message : 'Could not find nearby clinics. Please try again.';
+      if (id !== searchId.current) return;
+      const message = cause instanceof Error ? cause.message : '';
       showError(
-        mode === 'location' && /location.*(unavailable|timeout)|position/i.test(message)
-          ? 'Could not get your location. Enter a ZIP code or address, or try again.'
-          : message,
+        message.endsWith('instead.')
+          ? message
+          : 'Could not get your location. Enter a ZIP code or address, or try again.',
       );
     } finally {
-      setPending(null);
+      if (id === searchId.current) setLocating(false);
     }
   }
 
   function selectKind(next: ClinicSearchKind) {
-    if (next === kind || pending) return;
+    if (next === kind) return;
     setKind(next);
-    setError(null);
     void Haptics.selectionAsync();
-    if (originRef.current) void find(retryRef.current, next, originRef.current);
   }
 
   async function openLink(url: string) {
@@ -109,238 +132,187 @@ export default function ClinicsScreen() {
     }
   }
 
-  const header = (
-    <View className="gap-4 pb-4">
-      <View className="border-hud/30 bg-panel/80 gap-3 rounded-3xl border p-4">
-        <View className="flex-row items-center gap-2">
-          <MapPin size={22} color={HUD} />
-          <Text className="text-foreground flex-1 text-xl font-bold">Find care near you</Text>
-        </View>
-        <Label>
-          <Label.Text className="font-body text-foreground text-base">
-            ZIP code or address
-          </Label.Text>
-        </Label>
-        <Input
-          accessibilityLabel="ZIP code or address"
-          className="font-body border-border bg-panel-deep text-foreground min-h-12 rounded-xl border text-base"
-          placeholder="ZIP code or street, city, state"
-          value={address}
-          editable={!pending}
-          autoComplete="off"
-          autoCorrect={false}
-          returnKeyType="search"
-          onSubmitEditing={() => void find('address')}
-          onChangeText={(value) => {
-            setAddress(value);
-            setResults(null);
-            setError(null);
-            originRef.current = null;
-          }}
-        />
-        <Button
-          className="bg-hud rounded-xl"
-          isDisabled={!!pending}
-          onPress={() => void find('address')}
-        >
-          {pending === 'address' ? (
-            <Spinner size="sm" />
-          ) : (
-            <Search size={18} color={INK_ON_SIGNAL} />
-          )}
-          <Button.Label className="font-body text-background text-base">
-            {pending === 'address' ? 'Finding care…' : 'Find nearby clinics'}
-          </Button.Label>
-        </Button>
-        <Text className="font-body text-muted text-center text-base">or</Text>
-        <Button
-          variant="tertiary"
-          feedbackVariant="scale"
-          className="bg-panel-deep border-hud/40 rounded-xl border"
-          isDisabled={!!pending}
-          onPress={() => void find('location')}
-        >
-          {pending === 'location' ? <Spinner size="sm" /> : <LocateFixed size={18} color={HUD} />}
-          <Button.Label className="font-body text-hud text-base">
-            {pending === 'location' ? 'Finding your location…' : 'Use current location'}
-          </Button.Label>
-        </Button>
-        <BodyText className="text-muted">
-          Searching sends your location to Google Maps through our search service. MATCH Flow does
-          not save it. No account needed.
-        </BodyText>
-      </View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 8 }}
-      >
-        {CLINIC_SEARCH_KINDS.map((item) => (
-          <Button
-            key={item.id}
-            variant="tertiary"
-            feedbackVariant="scale"
-            size="sm"
-            isDisabled={!!pending}
-            onPress={() => selectKind(item.id)}
-            accessibilityState={{ selected: kind === item.id }}
-            className={`rounded-full border ${kind === item.id ? 'border-hud bg-hud/15' : 'border-border bg-panel/60'}`}
-          >
-            <Button.Label
-              numberOfLines={1}
-              className={`font-body text-base ${kind === item.id ? 'text-hud' : 'text-foreground'}`}
-            >
-              {item.label}
-            </Button.Label>
-          </Button>
-        ))}
-      </ScrollView>
-      {kind === 'pep' ? (
-        <View className="border-caution-edge/50 bg-caution-edge/10 rounded-2xl border p-4">
-          <BodyText className="text-caution-soft">
-            For possible HIV exposure, go to the nearest emergency department now for urgent PEP
-            evaluation. Start as soon as possible, within 72 hours. Do not delay care to complete a
-            search.
-          </BodyText>
-        </View>
-      ) : null}
-      {error ? (
-        <View
-          accessibilityRole="alert"
-          className="border-caution-edge/50 bg-panel rounded-2xl border p-4"
-        >
-          <BodyText className="text-caution-soft">{error}</BodyText>
-          <Button
-            variant="tertiary"
-            feedbackVariant="scale"
-            className="bg-panel-deep border-hud/40 mt-3 border"
-            onPress={() => void find(retryRef.current)}
-          >
-            <Button.Label className="font-body text-hud text-base">Try again</Button.Label>
-          </Button>
-        </View>
-      ) : null}
-      {pending ? (
-        <View className="gap-3">
-          <Skeleton className="h-36 rounded-2xl" />
-          <Skeleton className="h-36 rounded-2xl" />
-        </View>
-      ) : null}
-      {results ? (
-        <View className="gap-2">
-          <Text className="text-foreground text-lg font-bold">Nearest results</Text>
-          <BodyText className="text-hud">{results.originLabel}</BodyText>
-          <BodyText className="text-muted">
-            Up to 20 matches within 31 miles, sorted by straight-line distance. Confirm hours and
-            services before you travel.
-          </BodyText>
-          <Text className="text-foreground text-base font-medium">Google Maps</Text>
-        </View>
-      ) : null}
-    </View>
-  );
+  const kindInfo = CLINIC_SEARCH_KINDS.find((k) => k.id === kind) ?? CLINIC_SEARCH_KINDS[0];
+  const finders = findersFor(kind);
+  const placeZip = place ? zipFrom(place) : null;
 
   return (
     <KeyboardAvoidingView
       className="flex-1"
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <ScreenShell title="Clinic Finder" showGuide={false} plain>
-        <FlatList
-          data={results?.clinics ?? []}
-          keyExtractor={(clinic) => clinic.id}
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 24 }}
-          ListHeaderComponent={header}
-          renderItem={({ item }) => <ClinicCard clinic={item} openLink={openLink} />}
-          ListEmptyComponent={
-            results && !pending ? (
-              <View className="border-border bg-panel/60 items-center gap-3 rounded-2xl border p-5">
-                <MapPin size={30} color={HUD} />
-                <BodyText className="text-foreground text-center">
-                  No nearby matches. Try another location or care type.
-                </BodyText>
-                <Button
-                  variant="tertiary"
-                  feedbackVariant="scale"
-                  onPress={() => {
-                    setResults(null);
-                    setAddress('');
-                    originRef.current = null;
-                  }}
+      <ScreenShell title="Clinic Finder" showGuide={false}>
+        <View className="gap-4">
+          <View className="border-hud/30 bg-panel/80 gap-3 rounded-3xl border p-4">
+            <View className="flex-row items-center gap-2">
+              <MapPin size={22} color={HUD} />
+              <Text className="text-foreground flex-1 text-xl font-bold">Find care near you</Text>
+            </View>
+            <Label>
+              <Label.Text className="font-body text-foreground text-base">
+                ZIP code or address
+              </Label.Text>
+            </Label>
+            <Input
+              accessibilityLabel="ZIP code or address"
+              className="font-body border-border bg-panel-deep text-foreground min-h-12 rounded-xl border text-base"
+              placeholder="ZIP code or street, city, state"
+              value={address}
+              autoComplete="off"
+              autoCorrect={false}
+              returnKeyType="search"
+              onSubmitEditing={searchTyped}
+              onChangeText={(value) => {
+                setAddress(value);
+                setError(null);
+              }}
+            />
+            <Button className="bg-hud rounded-xl" onPress={searchTyped}>
+              <Search size={18} color={INK_ON_SIGNAL} />
+              <Button.Label className="font-body text-background text-base">
+                Find nearby care
+              </Button.Label>
+            </Button>
+            <Text className="font-body text-muted text-center text-base">or</Text>
+            <Button
+              variant="tertiary"
+              feedbackVariant="scale"
+              className="bg-panel-deep border-hud/40 rounded-xl border"
+              isDisabled={locating}
+              onPress={() => void locate()}
+            >
+              {locating ? <Spinner size="sm" /> : <LocateFixed size={18} color={HUD} />}
+              <Button.Label className="font-body text-hud text-base">
+                {locating ? 'Finding your ZIP…' : 'Use current location'}
+              </Button.Label>
+            </Button>
+            <BodyText className="text-muted">
+              Your location is turned into a ZIP code on this phone. Your exact location never
+              leaves the phone, and nothing you search is saved. No account needed.
+            </BodyText>
+          </View>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ gap: 8 }}
+          >
+            {CLINIC_SEARCH_KINDS.map((item) => (
+              <Button
+                key={item.id}
+                variant="tertiary"
+                feedbackVariant="scale"
+                size="sm"
+                onPress={() => selectKind(item.id)}
+                accessibilityState={{ selected: kind === item.id }}
+                className={`rounded-full border ${kind === item.id ? 'border-hud bg-hud/15' : 'border-border bg-panel/60'}`}
+              >
+                <Button.Label
+                  numberOfLines={1}
+                  className={`font-body text-base ${kind === item.id ? 'text-hud' : 'text-foreground'}`}
                 >
-                  <Button.Label className="font-body text-hud text-base">
-                    Change location
-                  </Button.Label>
-                </Button>
-              </View>
-            ) : null
-          }
-        />
+                  {item.label}
+                </Button.Label>
+              </Button>
+            ))}
+          </ScrollView>
+
+          {kind === 'pep' ? (
+            <View className="border-caution-edge/50 bg-caution-edge/10 rounded-2xl border p-4">
+              <BodyText className="text-caution-soft">
+                For possible HIV exposure, go to the nearest emergency department now for urgent PEP
+                evaluation. Start as soon as possible, within 72 hours. Do not delay care to
+                complete a search.
+              </BodyText>
+            </View>
+          ) : null}
+
+          {error ? (
+            <View
+              accessibilityRole="alert"
+              className="border-caution-edge/50 bg-panel rounded-2xl border p-4"
+            >
+              <BodyText className="text-caution-soft">{error}</BodyText>
+            </View>
+          ) : null}
+
+          {place ? (
+            <View className="border-hud/35 bg-hud/[0.08] gap-3 rounded-2xl border p-4">
+              <Text className="text-hud font-mono text-[11px] tracking-[2px] uppercase">
+                Near {place}
+              </Text>
+              {fromGps ? (
+                <BodyText className="text-foreground">
+                  Using ZIP {place}, the closest one to where you are.
+                </BodyText>
+              ) : null}
+              <BodyText className="text-muted">
+                See {kindInfo.plural} on Google Maps near {place}. Map results are not checked by
+                MATCH Flow — call ahead to confirm hours and services.
+              </BodyText>
+              <Button
+                className="bg-hud rounded-xl"
+                onPress={() => void openLink(mapsSearchUrl(kind, place))}
+              >
+                <Navigation size={18} color={INK_ON_SIGNAL} />
+                <Button.Label className="font-body text-background text-base">
+                  Open map search
+                </Button.Label>
+              </Button>
+            </View>
+          ) : null}
+
+          {finders.length > 0 ? (
+            <View className="gap-3">
+              <Text className="text-hud/70 font-mono text-[11px] tracking-[2px] uppercase">
+                Official finders
+              </Text>
+              {finders.map((finder) => (
+                <FinderCard
+                  key={finder.id}
+                  finder={finder}
+                  place={place}
+                  placeZip={placeZip}
+                  openLink={openLink}
+                />
+              ))}
+            </View>
+          ) : null}
+        </View>
       </ScreenShell>
     </KeyboardAvoidingView>
   );
 }
 
-function ClinicCard({
-  clinic,
+function FinderCard({
+  finder,
+  place,
+  placeZip,
   openLink,
 }: {
-  clinic: NearbyClinic;
+  finder: OfficialFinder;
+  place: string | null;
+  placeZip: string | null;
   openLink: (url: string) => Promise<void>;
 }) {
+  const prefilled = !!(finder.zipUrl && placeZip);
   return (
-    <View className="border-border bg-panel/80 mb-3 gap-2 rounded-2xl border p-4">
-      <Text className="text-foreground text-lg font-bold">{clinic.name}</Text>
-      <BodyText className="text-hud">
-        {clinic.distanceMiles.toFixed(1)} mi away
-        {clinic.openNow === null ? '' : clinic.openNow ? ' · Open now' : ' · Closed now'}
-      </BodyText>
-      <BodyText className="text-muted">{clinic.address}</BodyText>
-      <View className="mt-2 flex-row gap-2">
-        {clinic.phone ? (
-          <Button
-            variant="tertiary"
-            feedbackVariant="scale"
-            className="bg-panel-deep border-hud/40 flex-1 rounded-xl border"
-            onPress={() => void openLink(`tel:${clinic.phone!.replace(/[^\d+]/g, '')}`)}
-          >
-            <Phone size={16} color={HUD} />
-            <Button.Label className="font-body text-hud text-base">Call</Button.Label>
-          </Button>
-        ) : null}
-        <Button
-          variant="tertiary"
-          feedbackVariant="scale"
-          className="bg-panel-deep border-border flex-1 rounded-xl border"
-          onPress={() => void openLink(clinic.mapsUrl)}
-        >
-          <Navigation size={16} color={SILVER} />
-          <Button.Label className="font-body text-foreground text-base">Directions</Button.Label>
-        </Button>
-      </View>
-      {clinic.attributions.map((attribution) =>
-        attribution.uri ? (
-          <Button
-            key={JSON.stringify([attribution.provider, attribution.uri])}
-            variant="tertiary"
-            feedbackVariant="scale"
-            className="bg-transparent"
-            onPress={() => void openLink(attribution.uri!)}
-          >
-            <Button.Label numberOfLines={1} className="text-muted">
-              {attribution.provider}
-            </Button.Label>
-          </Button>
-        ) : (
-          <BodyText
-            key={JSON.stringify([attribution.provider, attribution.uri])}
-            className="text-muted"
-          >
-            {attribution.provider}
-          </BodyText>
-        ),
-      )}
+    <View className="border-border bg-panel/80 gap-2 rounded-2xl border p-4">
+      <Text className="text-foreground text-lg font-bold">{finder.name}</Text>
+      <BodyText className="text-muted">{finder.operator}</BodyText>
+      <BodyText className="text-foreground">{finder.detail}</BodyText>
+      {place && !prefilled ? (
+        <BodyText className="text-hud">Enter {placeZip ?? place} when the finder asks.</BodyText>
+      ) : null}
+      <Button
+        variant="tertiary"
+        feedbackVariant="scale"
+        className="bg-panel-deep border-border mt-1 rounded-xl border"
+        onPress={() => void openLink(place ? finderUrl(finder, place) : finder.url)}
+      >
+        <ExternalLink size={16} color={SILVER} />
+        <Button.Label className="font-body text-foreground text-base">Open finder</Button.Label>
+      </Button>
     </View>
   );
 }

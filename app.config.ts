@@ -72,7 +72,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         'expo-location',
         {
           locationWhenInUsePermission:
-            'Allow MATCH Flow to find clinics near you when you choose current location.',
+            'MATCH Flow uses your location only when you tap Use current location, to find your ZIP code on this device. It is never saved or sent.',
         },
       ],
       ...nativePlugins,

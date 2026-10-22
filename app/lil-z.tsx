@@ -61,9 +61,17 @@ export default function LilZScreen() {
 
   const messages = useMatchStore((s) => s.lilzMessages);
   const previousMessageCount = useRef(messages.length);
+  /**
+   * Bumped when the chat is cleared or the screen loses focus, so a reply that
+   * arrives afterwards is dropped instead of refilling a cleared conversation.
+   */
+  const generation = useRef(0);
   useFocusEffect(
     useCallback(() => {
       setLiveEnabled(false);
+      return () => {
+        generation.current += 1;
+      };
     }, []),
   );
   const memories = useMatchStore((s) => s.lilzMemories);
@@ -86,6 +94,7 @@ export default function LilZScreen() {
 
       setDraft('');
       setPending(true);
+      const requestGeneration = generation.current;
       const crisis = crisisCard(text);
       addLilzMessage({ role: 'user', text, crisis: Boolean(crisis) });
 
@@ -112,6 +121,11 @@ export default function LilZScreen() {
         }),
         memories: state.lilzMemoryEnabled ? state.lilzMemories.map((memory) => memory.text) : [],
       });
+
+      if (requestGeneration !== generation.current) {
+        setPending(false);
+        return;
+      }
 
       addLilzMessage({
         role: 'guide',
@@ -161,7 +175,10 @@ export default function LilZScreen() {
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Clear this conversation"
-                onPress={clearLilzChat}
+                onPress={() => {
+                  generation.current += 1;
+                  clearLilzChat();
+                }}
                 className="border-border/60 h-9 w-9 items-center justify-center rounded-full border active:opacity-70"
               >
                 <Trash2 size={16} color={STEEL} />

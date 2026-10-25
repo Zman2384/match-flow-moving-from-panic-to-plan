@@ -327,7 +327,7 @@ export const SCRIPT_SITUATIONS: ScriptSituation[] = [
       {
         id: 'cp-3',
         goal: 'Handle a cost objection',
-        text: 'If cost is the barrier, which assistance programme does this clinic work with?',
+        text: 'If cost is the barrier, which assistance program does this clinic work with?',
       },
     ],
   },
@@ -539,7 +539,7 @@ export const EMERGENCY_PROTOCOLS: EmergencyProtocol[] = [
     steps: [
       'Do not substitute improvised barriers or oil-based lubricants with latex.',
       'Check 24-hour pharmacies, corner shops, and vending machines nearby.',
-      'Many clinics and community organisations hand out free supplies.',
+      'Many clinics and community organizations hand out free supplies.',
       'If nothing is available, shift to activities that do not need a barrier.',
       'Restock tomorrow and set a recurring reminder so this does not repeat.',
     ],
@@ -569,7 +569,7 @@ export const HOTLINES: HotlineEntry[] = [
   {
     label: 'Crisis Text Line',
     value: 'Text HOME to 741741',
-    note: 'Text with a crisis counsellor, 24/7 (US)',
+    note: 'Text with a crisis counselor, 24/7 (US)',
     text: { to: '741741', body: 'HOME' },
   },
   {
@@ -776,7 +776,7 @@ export const STRESS_SCENARIOS: StressScenario[] = [
   {
     id: 's2',
     title: 'Two missed doses',
-    setup: 'You realise you have skipped your last two doses and a planned encounter is tonight.',
+    setup: 'You realize you have skipped your last two doses and a planned encounter is tonight.',
     compensators: ['T', 'C', 'H'],
     critical: ['T'],
     fallback: 'When medication coverage drops, barriers and a clear conversation carry the night.',

@@ -185,7 +185,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
     chapters: [
       {
         number: 16,
-        title: 'The Ghost Catalogue',
+        title: 'The Ghost Catalogueue',
         focus: 'Sixteen ghosts, each with a named shield, a MATCH letter and a move for this week.',
         tool: { label: 'Open the Ghost Vault', href: '/tools/ghost-vault' },
       },
@@ -193,7 +193,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
         number: 17,
         title: 'Stress-Test Dossiers',
         focus: 'Eight canonical drills connect disruptions to backup layers.',
-        tool: { label: 'Practise in the Stress Test Lab', href: '/tools/stress-test' },
+        tool: { label: 'Practice in the Stress Test Lab', href: '/tools/stress-test' },
       },
       {
         number: 18,

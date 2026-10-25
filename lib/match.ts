@@ -115,7 +115,7 @@ export const MATCH_PIECES: MatchPiece[] = [
         id: 'symptom-literacy',
         label: 'I know what symptoms to watch for',
         points: 1,
-        detail: 'Recognise and act on early signs.',
+        detail: 'Recognize and act on early signs.',
       },
     ],
   },

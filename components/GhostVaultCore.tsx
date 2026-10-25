@@ -217,11 +217,21 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
         </Svg>
 
         <View pointerEvents="none" className="absolute inset-0 items-center justify-center">
-          <Text className="text-foreground font-display mt-14 text-3xl tracking-wide">
-            {disarmed}
-            <Text className="text-muted text-base font-semibold"> / {named}</Text>
-          </Text>
-          <Text className="text-hud font-mono text-[9px] tracking-[2px] uppercase">disarmed</Text>
+          {named === 0 ? (
+            <Text className="text-muted mt-14 px-10 text-center text-[13px] font-semibold">
+              Name your first ghost to start.
+            </Text>
+          ) : (
+            <>
+              <Text className="text-foreground font-display mt-14 text-3xl tracking-wide">
+                {disarmed}
+                <Text className="text-muted text-base font-semibold"> / {named}</Text>
+              </Text>
+              <Text className="text-hud font-mono text-[9px] tracking-[2px] uppercase">
+                disarmed
+              </Text>
+            </>
+          )}
         </View>
       </View>
     </View>
@@ -230,14 +240,14 @@ export function VaultCore({ charge, named, disarmed, size = 220 }: VaultCoreProp
 
 interface GlitchLabelProps {
   text: string;
-  /** Ghost grid colour for the offset channel. */
+  /** Ghost grid color for the offset channel. */
   color: string;
   /** Stagger so a list of ghosts does not pulse in unison. */
   delay?: number;
 }
 
 /**
- * Unprocessed fear: the label with two offset colour channels that drift in and
+ * Unprocessed fear: the label with two offset color channels that drift in and
  * out, the way an unstable signal does.
  */
 export function GlitchLabel({ text, color, delay = 0 }: GlitchLabelProps) {

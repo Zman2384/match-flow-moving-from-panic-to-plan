@@ -56,11 +56,11 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         body: 'The App is intended for adults only. You must be at least 18 years old, or the age of majority where you live if that is higher. The App discusses adult sexual health in explicit, clinical language. The consent gate you complete on first launch records your confirmation of age and of the educational nature of the App; that confirmation is stored only on your device.',
       },
       {
-        heading: '2. Licence grant',
-        body: 'We grant you a personal, limited, revocable, non-exclusive, non-transferable, non-sublicensable licence to install and use one copy of the App on devices you own or control, for your own non-commercial use. All rights not expressly granted are reserved.',
+        heading: '2. License grant',
+        body: 'We grant you a personal, limited, revocable, non-exclusive, non-transferable, non-sublicensable license to install and use one copy of the App on devices you own or control, for your own non-commercial use. All rights not expressly granted are reserved.',
       },
       {
-        heading: '3. Licence restrictions',
+        heading: '3. License restrictions',
         body: 'You may not:',
         bullets: [
           'copy, modify, translate, or create derivative works of the App except as permitted by applicable law;',
@@ -73,7 +73,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: '4. What the App is, and is not',
-        body: 'The App is an educational and organisational tool. It helps you plan, rehearse, and record your own sexual-health practices across five layers — Medications, Awareness, Tools, Communication, Habits. It is not a medical device, not a diagnostic tool, not a source of medical advice, and not a substitute for a clinician, a laboratory test, or emergency services. Using the App creates no clinician-patient, counsellor-client, or professional relationship of any kind. See the Medical Disclaimer for full detail.',
+        body: 'The App is an educational and organizational tool. It helps you plan, rehearse, and record your own sexual-health practices across five layers — Medications, Awareness, Tools, Communication, Habits. It is not a medical device, not a diagnostic tool, not a source of medical advice, and not a substitute for a clinician, a laboratory test, or emergency services. Using the App creates no clinician-patient, counselor-client, or professional relationship of any kind. See the Medical Disclaimer for full detail.',
       },
       {
         heading: '5. Prohibited conduct',
@@ -97,7 +97,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: '8. Intellectual property',
-        body: 'The App, its interface, its written educational content, its artwork including the MATCH puzzle lockup, and its name and marks are owned by us or our licensors and are protected by copyright, trademark, and other laws. Third-party medical guidance summarised in the App remains the property of its authors and is used for reference and education only.',
+        body: 'The App, its interface, its written educational content, its artwork including the MATCH puzzle lockup, and its name and marks are owned by us or our licensors and are protected by copyright, trademark, and other laws. Third-party medical guidance summarized in the App remains the property of its authors and is used for reference and education only.',
       },
       {
         heading: '9. Changes to the App and to these Terms',
@@ -105,7 +105,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: '10. Termination',
-        body: 'This licence ends automatically if you breach these Terms, and ends whenever you delete the App. On termination you must stop using the App. Sections 8, 11, 12, 13, and 15 survive termination.',
+        body: 'This license ends automatically if you breach these Terms, and ends whenever you delete the App. On termination you must stop using the App. Sections 8, 11, 12, 13, and 15 survive termination.',
       },
       {
         heading: '11. Disclaimer of warranties',
@@ -152,7 +152,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
           'No account creation, email address, phone number, or password.',
           'No advertising identifiers, ad SDKs, or data brokers.',
           'No sale or rental of personal information. Optional live AI shares context for response processing.',
-          'No behavioural profiling, cross-app tracking, or lookalike audiences.',
+          'No behavioral profiling, cross-app tracking, or lookalike audiences.',
           'No requirement that you identify yourself to use any feature.',
         ],
       },
@@ -221,7 +221,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         body: 'For California residents:',
         bullets: [
           'We do not sell personal information and have not in the preceding 12 months.',
-          'We do not share personal information for cross-context behavioural advertising.',
+          'We do not share personal information for cross-context behavioral advertising.',
           'Live AI may process sensitive information you choose to send. Turn it off to keep future chat messages on-device, and contact us about processing-related privacy requests.',
           'Your rights to know, correct, delete, and limit use of sensitive information are satisfied by the on-device controls described above, and you may also contact us to make a formal request.',
           'We will never discriminate against you for exercising a privacy right.',
@@ -303,11 +303,11 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
     summary: 'Governance for facilitated & institutional use',
     icon: 'shield',
     accent: MATCH_COLOR.M,
-    intro: `${LEGAL_ENTITY} was designed for private, individual use. When it is used in a facilitated setting — a clinic, a classroom, a harm-reduction programme, a peer group — additional rules apply. These protocols are binding on any facilitator or institution that deploys the App with other people.`,
+    intro: `${LEGAL_ENTITY} was designed for private, individual use. When it is used in a facilitated setting — a clinic, a classroom, a harm-reduction program, a peer group — additional rules apply. These protocols are binding on any facilitator or institution that deploys the App with other people.`,
     sections: [
       {
         heading: 'Who this applies to',
-        body: 'Anyone who introduces the App to another person in a professional, educational, clinical, peer-support, custodial, or organisational context. That includes clinicians, health educators, outreach and harm-reduction workers, peer facilitators, counsellors, researchers, and institutional IT deployers.',
+        body: 'Anyone who introduces the App to another person in a professional, educational, clinical, peer-support, custodial, or organizational context. That includes clinicians, health educators, outreach and harm-reduction workers, peer facilitators, counselors, researchers, and institutional IT deployers.',
       },
       {
         heading: 'Core principles',
@@ -325,7 +325,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         bullets: [
           'state that the App is educational and not medical advice, and that it cannot call for help;',
           'state that entries stay on the device being used, and who else can access that device;',
-          'state that no one will read the participant’s entries, and then honour that;',
+          'state that no one will read the participant’s entries, and then honor that;',
           'confirm participants are at least 18, or the age of majority where they live if higher. MATCH Flow is adult-only; guardian consent does not open a youth track;',
           'offer an opt-out that carries no penalty;',
           'give participants the emergency numbers relevant to the region, on paper or verbally, independently of the App.',
@@ -358,7 +358,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         body: 'Facilitated sessions surface disclosures. Prepare for them before you start.',
         bullets: [
           'Know your jurisdiction’s mandatory reporting duties and disclose those limits to participants at the start, not after a disclosure.',
-          'If a participant discloses abuse, coercion, trafficking, assault, or risk of self-harm, stop the App activity and follow your organisation’s safeguarding procedure and local law.',
+          'If a participant discloses abuse, coercion, trafficking, assault, or risk of self-harm, stop the App activity and follow your organization’s safeguarding procedure and local law.',
           'Have current referral routes on hand: emergency services, sexual assault services, crisis lines, and a named clinical contact.',
           'Do not record the disclosure in the App. The App is not a case-management or clinical record system and must not be used as one.',
         ],
@@ -375,11 +375,11 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: 'Incidents',
-        body: `Report a safety incident, a protocol breach, or a participant complaint to your organisation’s safeguarding lead first, and to us at ${LEGAL_CONTACT_EMAIL} where the App itself is implicated. We may withdraw permission to use the App in a facilitated setting where these protocols are breached.`,
+        body: `Report a safety incident, a protocol breach, or a participant complaint to your organization’s safeguarding lead first, and to us at ${LEGAL_CONTACT_EMAIL} where the App itself is implicated. We may withdraw permission to use the App in a facilitated setting where these protocols are breached.`,
       },
       {
         heading: 'Review',
-        body: 'Facilitators should re-read these protocols before each programme cycle and whenever the App is updated. Nothing here replaces your own professional obligations, licensure conditions, or organisational policy — where they are stricter, they win.',
+        body: 'Facilitators should re-read these protocols before each program cycle and whenever the App is updated. Nothing here replaces your own professional obligations, licensure conditions, or organizational policy — where they are stricter, they win.',
       },
     ],
   },
@@ -400,7 +400,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         bullets: [
           'A dark, high-contrast interface with body and label text kept above the AA contrast ratio against its background.',
           'Interactive controls sized to at least the platform minimum touch target, with extra hit area on small chips and icons.',
-          'Meaning is never carried by colour alone — status is also stated in text or with a label.',
+          'Meaning is never carried by color alone — status is also stated in text or with a label.',
           'Screen-reader labels and roles on buttons, toggles, and score elements, including the MATCH piece tiles, so each announces its letter and state.',
           'A logical reading and focus order that follows the visual layout, with scrollable content on every screen that can overflow.',
           'Layouts that reflow at larger system text sizes rather than clipping.',

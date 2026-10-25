@@ -29,7 +29,7 @@ const NEAREST_ER_MAPS =
     ? 'https://maps.apple.com/?q=emergency+room'
     : 'https://www.google.com/maps/search/?api=1&query=emergency+room+near+me';
 
-/** Final hours use the brand alarm colour; a passed window drops to steel. */
+/** Final hours use the brand alarm color; a passed window drops to steel. */
 const FINAL = STATE_FAIL;
 const PASSED = STEEL_SOFT;
 

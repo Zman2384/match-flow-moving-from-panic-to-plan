@@ -36,7 +36,7 @@ export const TOOLS: ToolEntry[] = [
   {
     id: 'curriculum',
     title: 'HARNESS Curriculum',
-    blurb: 'Adult track: 6 modules, 19 chapters, 19 lessons.',
+    blurb: 'Adult track: 6 modules · 19 lessons.',
     href: '/tools/curriculum',
     icon: 'book',
     accent: HUD,
@@ -214,7 +214,7 @@ export const TOOL_CATEGORIES: ToolEntry['category'][] = [
 
 export const CATEGORY_BLURB: Record<ToolEntry['category'], string> = {
   Assess: 'Measure where your protection actually stands',
-  Rehearse: 'Practise the words and decisions before you need them',
+  Rehearse: 'Practice the words and decisions before you need them',
   Respond: 'What to do when something goes wrong',
   Sustain: 'Keep the plan alive week after week',
 };

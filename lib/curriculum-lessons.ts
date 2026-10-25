@@ -143,7 +143,7 @@ export const CANONICAL_GHOSTS: CanonicalGhost[] = [
     name: 'Needle',
     piece: 'C',
     shield: 'Tell the technician while sitting down: accommodations are part of care.',
-    move: 'Practise “I’m nervous about blood draws” before you reach the chair.',
+    move: 'Practice “I’m nervous about blood draws” before you reach the chair.',
   },
   {
     id: 'language',
@@ -171,7 +171,7 @@ export const CANONICAL_GHOSTS: CanonicalGhost[] = [
     name: 'Timing',
     piece: 'C',
     shield: 'There is no expiration on a boundary.',
-    move: 'Practise two words until automatic: “Hold on.”',
+    move: 'Practice two words until automatic: “Hold on.”',
   },
   {
     id: 'access',
@@ -286,8 +286,8 @@ export const CANONICAL_DOSSIERS: CanonicalDossier[] = [
 export const CHALLENGE_ACTIONS = [
   'Named a ghost out loud to someone I trust',
   'Ran the full Anxiety Audit on paper',
-  'Practised the Pre-Game script out loud',
-  'Practised the Gentle Hold',
+  'Practiced the Pre-Game script out loud',
+  'Practiced the Gentle Hold',
   'Said my Exit Line to a mirror or voice memo',
   'Checked every condom for date and damage',
   'Saved my nearest 24/7 PEP access point',
@@ -367,7 +367,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Rejection, Judgment and Mood-Killer are the ghosts that keep people quiet.',
       'Three opening scripts get the conversation started; the Gentle Hold and Exit Line keep it on track under pushback.',
       'Consent is a loop you keep checking — “Is this still good?” — not a box you tick once.',
-      'Practise out loud before the moment, using the Rehearsal Protocol below.',
+      'Practice out loud before the moment, using the Rehearsal Protocol below.',
     ],
     sections: [
       { title: 'Vocal armor', items: COMMUNICATION_SCRIPTS.map((s) => `${s.title}: “${s.text}”`) },
@@ -665,7 +665,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
     number: 15,
     keyPoints: [
       'Acute stress makes decisions harder; that is biology, not failure.',
-      'Pause · Pivot · Protect is a drill you practise before you need it.',
+      'Pause · Pivot · Protect is a drill you practice before you need it.',
       'After a spike, ask what is still true: a broken condom does not erase PrEP.',
       'Know which MATCH layer you turn to first when Tools fail.',
     ],
@@ -699,7 +699,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Rehearse eight named nights before you live them.',
       'Writing the script and pivot down beats imagining it.',
       'For each dossier: the scene, the friction, the pivot, the line you will say, your own words and what you need in place first.',
-      'Dossier H is for those it applies to, or for practising as an ally.',
+      'Dossier H is for those it applies to, or for practicing as an ally.',
     ],
     sections: [],
     takeaway: 'Rehearse the night before you live it.',

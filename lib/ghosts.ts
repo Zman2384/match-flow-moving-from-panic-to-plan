@@ -22,7 +22,7 @@ export interface GhostCategory {
   label: string;
   /** Full label used in headers. */
   fullLabel: string;
-  /** Ghost grid colour from the brand palette. */
+  /** Ghost grid color from the brand palette. */
   color: string;
   blurb: string;
 }
@@ -97,7 +97,7 @@ export const LEGACY_GHOSTS: GhostArchetype[] = [
     category: 'relational',
     fear: 'They will judge my testing history, my status, my number of partners, what I like.',
     disarm:
-      'Status is a lab value, not a character grade. Practise a flat, factual sentence about your history so it lands as data instead of a confession.',
+      'Status is a lab value, not a character grade. Practice a flat, factual sentence about your history so it lands as data instead of a confession.',
     pieces: ['C', 'A'],
     href: '/tools/scripts',
     hrefLabel: 'Rehearse in the Script Vault',
@@ -187,7 +187,7 @@ export const LEGACY_GHOSTS: GhostArchetype[] = [
     category: 'logistical',
     fear: 'I will be turned away — or shamed at the desk — because I cannot pay.',
     disarm:
-      'Cost is a gate with known keys: sliding-scale clinics, health-department programmes, and manufacturer assistance for PrEP and lenacapavir. Find the key before you need the door.',
+      'Cost is a gate with known keys: sliding-scale clinics, health-department programs, and manufacturer assistance for PrEP and lenacapavir. Find the key before you need the door.',
     pieces: ['M', 'A'],
     href: '/tools/clinics',
     hrefLabel: 'Find low-cost access',
@@ -321,7 +321,7 @@ export const LEGACY_GHOSTS: GhostArchetype[] = [
     category: 'clinical',
     fear: 'I feel disconnected from my own body and unsure what is normal for it.',
     disarm:
-      'Baseline first, judgement never. Learn what your normal looks and feels like so change registers early — that is awareness, not vanity.',
+      'Baseline first, judgment never. Learn what your normal looks and feels like so change registers early — that is awareness, not vanity.',
     pieces: ['H', 'A'],
     href: '/tools/checkin',
     hrefLabel: 'Start a weekly baseline',

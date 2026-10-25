@@ -40,6 +40,9 @@ export default function ResourcesScreen() {
                 void Haptics.selectionAsync();
                 setPiece(item.key);
               }}
+              accessibilityRole="tab"
+              accessibilityLabel={`${item.key} — ${item.name}`}
+              accessibilityState={{ selected: on }}
               className="flex-1 items-center rounded-xl border py-2.5 active:opacity-70"
               style={{
                 borderColor: on ? item.color : LINE,

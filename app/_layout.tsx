@@ -28,6 +28,7 @@ import { NAVY } from '@/lib/palette';
 import { registerServiceWorker } from '@/lib/registerServiceWorker';
 import { reportErrorToParent } from '@/lib/reportPreviewError';
 import { useMatchStore } from '@/lib/store';
+import { GateGuard } from '@/components/GateGuard';
 import { InstallPrompt } from '@/components/InstallPrompt';
 
 /**
@@ -201,6 +202,7 @@ export default function RootLayout() {
           <Stack.Screen name="tools/curriculum" />
           <Stack.Screen name="tools/lesson" />
         </Stack>
+        <GateGuard />
         <InstallPrompt />
       </HeroUINativeProvider>
     </GestureHandlerRootView>

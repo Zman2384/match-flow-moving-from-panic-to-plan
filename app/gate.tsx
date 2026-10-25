@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Image, Pressable, ScrollView, Text, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -34,11 +34,27 @@ export default function GateScreen() {
   const { width } = useWindowDimensions();
   const shieldWidth = Math.min(Math.max(width - 48, 0), 520);
   const confirmAge = useMatchStore((s) => s.confirmAge);
+  const revokeAge = useMatchStore((s) => s.revokeAge);
   const ageConfirmed = useMatchStore((s) => s.ageConfirmed);
+  // Boxes start unchecked. They show as checked only when this device has a completed gate on
+  // file (the user's own stored answers), never as a default.
   const [checked, setChecked] = useState<Record<string, boolean>>(() =>
     ageConfirmed ? Object.fromEntries(CHECKS.map((c) => [c.id, true])) : {},
   );
   const allChecked = CHECKS.every((c) => checked[c.id]);
+
+  // Stored consent can arrive after first render (storage hydrates async). Reflect it once it does.
+  useEffect(() => {
+    if (ageConfirmed) setChecked(Object.fromEntries(CHECKS.map((c) => [c.id, true])));
+  }, [ageConfirmed]);
+
+  const toggle = (id: string) => {
+    const next = !checked[id];
+    setChecked((prev) => ({ ...prev, [id]: next }));
+    // Unchecking any box withdraws consent: every route back into the app stays closed until
+    // the user completes the gate again (M-1).
+    if (!next && ageConfirmed) revokeAge();
+  };
 
   return (
     <View className="bg-background flex-1">
@@ -51,7 +67,7 @@ export default function GateScreen() {
         }}
         showsVerticalScrollIndicator={false}
       >
-        {ageConfirmed ? <BackChip className="mb-5" /> : null}
+        {ageConfirmed && allChecked ? <BackChip className="mb-5" /> : null}
 
         <View className="items-center">
           <View className="mb-4 w-full max-w-[520px] flex-row items-center gap-3 self-center">
@@ -91,7 +107,7 @@ export default function GateScreen() {
             return (
               <Pressable
                 key={check.id}
-                onPress={() => setChecked((prev) => ({ ...prev, [check.id]: !prev[check.id] }))}
+                onPress={() => toggle(check.id)}
                 accessibilityRole="checkbox"
                 accessibilityState={{ checked: on }}
                 accessibilityLabel={check.label}
@@ -141,6 +157,7 @@ export default function GateScreen() {
           disabled={!allChecked}
           accessibilityRole="button"
           accessibilityState={{ disabled: !allChecked }}
+          accessibilityHint={allChecked ? undefined : 'Confirm all three items to continue.'}
           onPress={() => {
             confirmAge();
             router.replace('/(tabs)');
@@ -157,6 +174,11 @@ export default function GateScreen() {
             {ageConfirmed ? 'Back to command center' : 'Enter command center'}
           </Text>
         </Pressable>
+        {allChecked ? null : (
+          <Text className="text-muted mt-2 text-center text-[12px]">
+            Confirm all three items to continue.
+          </Text>
+        )}
 
         <BodyText className="text-muted mt-6 text-center">
           In an emergency, call your local emergency number. If a possible HIV exposure is inside 72

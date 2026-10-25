@@ -115,6 +115,8 @@ interface MatchState {
   pepExposureAt: string | null;
 
   confirmAge: () => void;
+  /** Withdraw gate consent — any unchecked gate box sends the user back through the gate. */
+  revokeAge: () => void;
   dismissIntro: () => void;
   confirmStatus: () => void;
   toggleOption: (id: string) => void;
@@ -212,6 +214,7 @@ export const useMatchStore = create<MatchState>()(
         })),
 
       confirmAge: () => set({ ageConfirmed: true }),
+      revokeAge: () => set({ ageConfirmed: false }),
       dismissIntro: () => set({ introDismissed: true }),
       confirmStatus: () => set({ statusConfirmed: true }),
 

@@ -49,7 +49,7 @@ export const PLAN_STEPS = [
   {
     title: '[M] Medications',
     prompt:
-      'PrEP or the provider conversation · where to get PEP at any hour · Doxy-PEP prescription discussion · HPV, hepatitis B and mpox status · contraception and emergency contraception if pregnancy is possible. My medication layer in one sentence.',
+      'PrEP or the provider conversation · where to get PEP at any hour · Doxy-PEP prescription discussion · HPV, hepatitis A, hepatitis B and mpox status · contraception and emergency contraception if pregnancy is possible. My medication layer in one sentence.',
   },
   {
     title: '[A] Awareness',
@@ -143,7 +143,7 @@ export const CANONICAL_GHOSTS: CanonicalGhost[] = [
     name: 'Needle',
     piece: 'C',
     shield: 'Tell the technician while sitting down: accommodations are part of care.',
-    move: 'Practise “I’m nervous about blood draws” before you reach the chair.',
+    move: 'Practice “I’m nervous about blood draws” before you reach the chair.',
   },
   {
     id: 'language',
@@ -171,7 +171,7 @@ export const CANONICAL_GHOSTS: CanonicalGhost[] = [
     name: 'Timing',
     piece: 'C',
     shield: 'There is no expiration on a boundary.',
-    move: 'Practise two words until automatic: “Hold on.”',
+    move: 'Practice two words until automatic: “Hold on.”',
   },
   {
     id: 'access',
@@ -286,15 +286,15 @@ export const CANONICAL_DOSSIERS: CanonicalDossier[] = [
 export const CHALLENGE_ACTIONS = [
   'Named a ghost out loud to someone I trust',
   'Ran the full Anxiety Audit on paper',
-  'Practised the Pre-Game script out loud',
-  'Practised the Gentle Hold',
+  'Practiced the Pre-Game script out loud',
+  'Practiced the Gentle Hold',
   'Said my Exit Line to a mirror or voice memo',
   'Checked every condom for date and damage',
   'Saved my nearest 24/7 PEP access point',
   'Bookmarked a national locator',
   'Asked about PrEP',
   'Asked about a Doxy-PEP prescription on file',
-  'Checked HPV, hepatitis B and mpox status',
+  'Checked HPV, hepatitis A, hepatitis B and mpox status',
   'Asked for site-specific testing rather than urine only',
   'Told a partner my last test date without being asked',
   'Set a restock reminder that repeats',
@@ -367,7 +367,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Rejection, Judgment and Mood-Killer are the ghosts that keep people quiet.',
       'Three opening scripts get the conversation started; the Gentle Hold and Exit Line keep it on track under pushback.',
       'Consent is a loop you keep checking — “Is this still good?” — not a box you tick once.',
-      'Practise out loud before the moment, using the Rehearsal Protocol below.',
+      'Practice out loud before the moment, using the Rehearsal Protocol below.',
     ],
     sections: [
       { title: 'Vocal armor', items: COMMUNICATION_SCRIPTS.map((s) => `${s.title}: “${s.text}”`) },
@@ -483,7 +483,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
         items: [
           'Daily oral: discuss Truvada or Descovy; Descovy is not indicated for receptive vaginal exposure.',
           'Cabotegravir (Apretude): every two months after the initiation schedule.',
-          'Lenacapavir (Yeztugo): twice-yearly maintenance after the required initiation regimen. Separate evidence; do not transfer the oral 99% figure.',
+          'Lenacapavir (Yeztugo): FDA-approved June 2025, CDC-recommended. Twice-yearly maintenance after the required initiation regimen. Separate evidence; do not transfer the oral 99% figure.',
         ],
       },
       {
@@ -526,7 +526,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
     number: 9,
     keyPoints: [
       'Doxy-PEP is prescription doxycycline: 200 mg within 72 hours after sex, ideally sooner, and no more than 200 mg in 24 hours.',
-      'Studies report reductions of about 80–87% for syphilis, 87–88% for chlamydia and only 50–55% for gonorrhea (CDC, 2024). These are study estimates, not guarantees.',
+      'Studies report reductions of about 80–87% for syphilis and 87–88% for chlamydia (CDC, 2024). Early studies showed partial protection against gonorrhea; more recent data suggest that benefit has faded as resistance spreads. Protection against chlamydia and syphilis has held. These are study estimates, not guarantees; keep testing every 3–6 months.',
       'It does not prevent HIV, herpes or HPV.',
       'It is a backup layer, not a replacement for Tools or Communication.',
       'Ask a provider about eligibility and a prescription before you need it: “Based on my life right now, can we get a prescription on file for me just in case?”',
@@ -567,7 +567,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
   {
     number: 11,
     keyPoints: [
-      'Ask a provider about HPV, hepatitis B and mpox vaccines.',
+      'Ask a provider about HPV, hepatitis A, hepatitis B and mpox vaccines.',
       'Hepatitis C has no vaccine; ask for the test by name.',
       'Set a testing schedule that fits your exposures and prevention plan; every three to six months is common when appropriate.',
       'Each test has its own window period. An early negative may need a retest.',
@@ -665,7 +665,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
     number: 15,
     keyPoints: [
       'Acute stress makes decisions harder; that is biology, not failure.',
-      'Pause · Pivot · Protect is a drill you practise before you need it.',
+      'Pause · Pivot · Protect is a drill you practice before you need it.',
       'After a spike, ask what is still true: a broken condom does not erase PrEP.',
       'Know which MATCH layer you turn to first when Tools fail.',
     ],
@@ -699,7 +699,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
       'Rehearse eight named nights before you live them.',
       'Writing the script and pivot down beats imagining it.',
       'For each dossier: the scene, the friction, the pivot, the line you will say, your own words and what you need in place first.',
-      'Dossier H is for those it applies to, or for practising as an ally.',
+      'Dossier H is for those it applies to, or for practicing as an ally.',
     ],
     sections: [],
     takeaway: 'Rehearse the night before you live it.',

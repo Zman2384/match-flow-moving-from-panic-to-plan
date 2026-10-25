@@ -47,6 +47,8 @@ export default function LilZScreen() {
   const [memoryOpen, setMemoryOpen] = useState(false);
   // A fresh visit starts private; live processing is never silently remembered.
   const [liveEnabled, setLiveEnabled] = useState(false);
+  // Turning live AI on is a two-step choice: the disclosure must be confirmed first (M-7).
+  const [liveConfirming, setLiveConfirming] = useState(false);
   // The Live AI switch only appears once the server confirms it is set up.
   const [liveAvailable, setLiveAvailable] = useState(false);
   useEffect(() => {
@@ -69,6 +71,7 @@ export default function LilZScreen() {
   useFocusEffect(
     useCallback(() => {
       setLiveEnabled(false);
+      setLiveConfirming(false);
       return () => {
         generation.current += 1;
       };
@@ -153,6 +156,16 @@ export default function LilZScreen() {
         <View className="border-hud/15 border-b px-5 pt-2 pb-3">
           <View className="mb-3 flex-row flex-wrap items-center gap-2">
             <BackChip label="Command Center" href="/(tabs)" />
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Privacy and memory: what Lil Z remembers"
+              accessibilityState={{ expanded: memoryOpen }}
+              onPress={() => setMemoryOpen((open) => !open)}
+              className="border-hud/30 bg-hud/10 ml-auto h-8 flex-row items-center gap-1.5 rounded-full border px-3 active:opacity-70"
+            >
+              <Brain size={16} color={CYAN} />
+              <Text className="text-hud text-[11px] font-semibold">Privacy & memory</Text>
+            </Pressable>
           </View>
 
           <View className="flex-row items-center gap-3">
@@ -163,14 +176,6 @@ export default function LilZScreen() {
                 Christopher Zacharie&apos;s digital avatar · your guide, not your doctor
               </BodyText>
             </View>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="What Lil Z remembers"
-              onPress={() => setMemoryOpen((open) => !open)}
-              className="border-hud/30 bg-hud/10 h-9 w-9 items-center justify-center rounded-full border active:opacity-70"
-            >
-              <Brain size={16} color={CYAN} />
-            </Pressable>
             {messages.length > 0 ? (
               <Pressable
                 accessibilityRole="button"
@@ -252,32 +257,72 @@ export default function LilZScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {liveAvailable ? (
-            <View className="border-hud/25 bg-panel-deep/80 rounded-2xl border p-4">
-              <View className="flex-row items-center gap-3">
-                <Text className="text-foreground flex-1 text-base font-semibold">
-                  Live AI replies
-                </Text>
-                <Switch
-                  accessibilityLabel="Allow live AI processing for this visit"
-                  value={liveEnabled}
-                  disabled={pending}
-                  onValueChange={(enabled) => {
-                    setLiveEnabled(enabled);
-                    void Haptics.selectionAsync();
-                  }}
-                  thumbColor={liveEnabled ? CYAN : STEEL}
-                  trackColor={{ false: TRACK_OFF, true: HUD_DIM }}
-                />
-              </View>
+          <View className="border-hud/25 bg-panel-deep/80 rounded-2xl border p-4">
+            <View className="flex-row items-center gap-3">
+              <Text className="text-foreground flex-1 text-base font-semibold">Live AI</Text>
+              <Text
+                className="font-mono text-[11px] font-bold tracking-widest uppercase"
+                style={{ color: liveAvailable && liveEnabled ? CYAN : STEEL }}
+              >
+                {liveAvailable && liveEnabled ? 'On' : 'Off'}
+              </Text>
+              <Switch
+                accessibilityLabel="Live AI replies"
+                accessibilityHint={
+                  liveAvailable
+                    ? 'Off by default. Turning on asks you to confirm what is sent first.'
+                    : 'Live AI is not available in this version of the app.'
+                }
+                value={liveAvailable && liveEnabled}
+                disabled={!liveAvailable || pending}
+                onValueChange={(enabled) => {
+                  void Haptics.selectionAsync();
+                  if (enabled) {
+                    setLiveConfirming(true);
+                  } else {
+                    setLiveConfirming(false);
+                    setLiveEnabled(false);
+                  }
+                }}
+                thumbColor={liveAvailable && liveEnabled ? CYAN : STEEL}
+                trackColor={{ false: TRACK_OFF, true: HUD_DIM }}
+              />
+            </View>
+            {liveAvailable ? (
               <BodyText className="text-foreground/80 mt-2">
                 Off by default. Turning this on sends recent chat messages, a MATCH plan summary and
-                saved memories through our AI service to Anthropic (Claude). Avoid names or
-                identifying details. Turning it off stops future sends; it cannot recall anything
-                already sent.
+                saved memories through our AI service to Anthropic (Claude). Zero retention is not
+                promised. Avoid names or identifying details. Turning it off stops future sends; it
+                cannot recall anything already sent.
               </BodyText>
-            </View>
-          ) : null}
+            ) : (
+              <BodyText className="text-muted mt-2">
+                Live AI is not available in this version. Lil Z answers from its on-device briefing,
+                and no chat leaves this device.
+              </BodyText>
+            )}
+            {liveAvailable && liveConfirming && !liveEnabled ? (
+              <View className="mt-3 flex-row gap-2">
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => {
+                    setLiveEnabled(true);
+                    setLiveConfirming(false);
+                  }}
+                  className="bg-hud flex-1 items-center rounded-xl py-2.5 active:opacity-80"
+                >
+                  <Text className="text-abyss text-[13px] font-bold">I understand — turn on</Text>
+                </Pressable>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => setLiveConfirming(false)}
+                  className="border-border flex-1 items-center rounded-xl border py-2.5 active:opacity-70"
+                >
+                  <Text className="text-muted text-[13px] font-semibold">Keep it off</Text>
+                </Pressable>
+              </View>
+            ) : null}
+          </View>
           {transcript.map((message) => (
             <Bubble key={message.id} message={message} />
           ))}

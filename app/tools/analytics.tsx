@@ -15,7 +15,7 @@ export default function AnalyticsScreen() {
   const scores = pieceScores(armed);
 
   const history = [...riskResults].toReversed().slice(-10);
-  const maxCheck = Math.max(1, ...checkIns.map((c) => c.total));
+  const maxCheck = checkIns.length === 0 ? 0 : Math.max(...checkIns.map((c) => c.total));
   const avgCheck =
     checkIns.length === 0
       ? 0
@@ -89,11 +89,20 @@ export default function AnalyticsScreen() {
       )}
 
       <SectionLabel>Maintenance</SectionLabel>
-      <View className="flex-row gap-3">
-        <Stat label="Check-ins logged" value={`${checkIns.length}`} />
-        <Stat label="Avg completion" value={`${avgCheck}%`} />
-        <Stat label="Items per sweep" value={`${maxCheck}`} />
-      </View>
+      {checkIns.length === 0 ? (
+        <BodyText className="text-muted">
+          Complete your first Weekly Check-In to see your stats.
+        </BodyText>
+      ) : (
+        <View className="flex-row gap-3">
+          <Stat label="Check-ins logged" value={`${checkIns.length}`} />
+          <Stat label="Avg completion" value={`${avgCheck}%`} />
+          <Stat
+            label={maxCheck === 1 ? 'Item per sweep' : 'Items per sweep'}
+            value={`${maxCheck}`}
+          />
+        </View>
+      )}
 
       <SectionLabel>Session contexts</SectionLabel>
       {sessions.length === 0 ? (

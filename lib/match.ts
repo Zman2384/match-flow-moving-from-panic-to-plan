@@ -73,7 +73,7 @@ export const MATCH_PIECES: MatchPiece[] = [
         id: 'vaccines',
         label: 'Vaccines current',
         points: 6,
-        detail: 'HPV, hepatitis B and mpox, as your provider advises.',
+        detail: 'HPV, hepatitis A, hepatitis B and mpox, as your provider advises.',
       },
       {
         id: 'pep-plan',

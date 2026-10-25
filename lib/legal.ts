@@ -39,14 +39,14 @@ export const LEGAL_CONTACT_EMAIL = 'email@theharnessproject.org';
 export const LEGAL_PRIVACY_EMAIL = 'email@theharnessproject.org';
 export const LEGAL_ACCESSIBILITY_EMAIL = 'email@theharnessproject.org';
 export const LEGAL_GOVERNING_LAW = 'the State of Texas, United States';
-export const LEGAL_LAST_UPDATED = 'October 22, 2026';
+export const LEGAL_LAST_UPDATED = 'October 25, 2026';
 export const LEGAL_VERSION = '1.1';
 
 export const LEGAL_DOCUMENTS: LegalDocument[] = [
   {
     id: 'terms',
     title: 'Terms of Service',
-    summary: 'EULA, license, prohibited conduct, purchases',
+    summary: 'EULA, license, prohibited conduct, free use',
     icon: 'document',
     accent: GHOST_COLOR.internal,
     intro: `These Terms of Service ("Terms") are a binding agreement between you and ${LEGAL_OPERATOR}, the publisher of ${LEGAL_ENTITY} ("we", "us") covering your use of the ${LEGAL_ENTITY} mobile and web application (the "App"). By installing, opening, or continuing to use the App you accept these Terms. If you do not accept them, delete the App.`,
@@ -65,7 +65,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         bullets: [
           'copy, modify, translate, or create derivative works of the App except as permitted by applicable law;',
           'reverse engineer, decompile, or disassemble the App, or attempt to extract its source code, except to the limited extent that this restriction is prohibited by law;',
-          'rent, lease, lend, sell, sublicense, or redistribute the App or your account credentials for any paid feature;',
+          'rent, lease, lend, sell, sublicense, or redistribute the App;',
           'remove or obscure any proprietary notice, watermark, or attribution;',
           'use the App to build a competing product or to train a machine-learning model on its content;',
           'circumvent any usage limit, paywall, or technical protection measure.',
@@ -92,16 +92,8 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         body: 'Everything you type into the App — plans, scripts, session logs, check-ins, contacts, notes — is written to your device’s local storage. We do not host it, back it up, or have any means of retrieving it. You are solely responsible for that content, for keeping your device secure, and for any backup you choose to make. Deleting the App, or using "Wipe all local data" in Settings, destroys that content permanently. We cannot restore it.',
       },
       {
-        heading: '7. Purchases and subscriptions',
-        body: 'Any paid feature is sold and billed through the platform store that distributed your copy of the App (Apple App Store or Google Play). We never see or store your payment card details.',
-        bullets: [
-          'Prices are shown in the store before you confirm and may vary by region and over time.',
-          'Subscriptions renew automatically for the same term until you cancel. Cancel at least 24 hours before the period ends to avoid the next charge.',
-          'Manage or cancel a subscription in your platform account settings, not in the App. We cannot cancel it for you.',
-          'Refunds are handled entirely by the platform store under its own policy. We have no ability to issue, deny, or expedite a store refund.',
-          'One-time purchases and any promotional credit have no cash value and are not transferable between platforms or accounts.',
-          'If a paid feature is discontinued, we will make a reasonable effort to give advance notice in the App.',
-        ],
+        heading: '7. Free to use',
+        body: 'MATCH Flow is free. There are no purchases, subscriptions, ads, or paywalls, and it never asks for payment details. If we ever add a paid feature, we will update these Terms and tell you in the App before it applies to you.',
       },
       {
         heading: '8. Intellectual property',

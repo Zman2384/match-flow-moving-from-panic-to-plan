@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { MapPin, MessageSquareQuote, Minus, Navigation, Plus, Timer, Trash2 } from '@/lib/icons';
 import { type ReactNode, useEffect, useState } from 'react';
-import { Linking, Pressable, Text, View } from 'react-native';
+import { Linking, Platform, Pressable, Text, View } from 'react-native';
 
 import { BodyText } from '@/components/ScreenShell';
 import {
@@ -20,8 +20,14 @@ const WINDOW_HOURS = 72;
 const MAX_HOURS_AGO = 96;
 const QUICK_HOURS = [0, 2, 6, 12, 24, 48];
 
-const BEN_TAUB_MAPS =
-  'https://www.google.com/maps/search/?api=1&query=Ben+Taub+Hospital+Emergency+Center+Houston+TX';
+/**
+ * Generic "nearest ER" search in the device's maps app. The app sends no location of its own and
+ * never names a specific hospital — the maps app finds what is near the user (M-2).
+ */
+const NEAREST_ER_MAPS =
+  Platform.OS === 'ios'
+    ? 'https://maps.apple.com/?q=emergency+room'
+    : 'https://www.google.com/maps/search/?api=1&query=emergency+room+near+me';
 
 /** Final hours use the brand alarm colour; a passed window drops to steel. */
 const FINAL = STATE_FAIL;
@@ -298,8 +304,8 @@ export function PepTimer() {
         />
         <ActionButton
           icon={<Navigation size={18} color={HUD} />}
-          label="Directions: Ben Taub ER (Houston, 24/7)"
-          onPress={() => void Linking.openURL(BEN_TAUB_MAPS).catch(() => undefined)}
+          label="Find an ER near me"
+          onPress={() => void Linking.openURL(NEAREST_ER_MAPS).catch(() => undefined)}
         />
         {windowPassed ? null : (
           <ActionButton

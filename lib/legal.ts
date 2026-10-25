@@ -1,10 +1,11 @@
 /**
  * MATCH Flow — Legal & Compliance content.
  *
- * These are working drafts written to match how this app actually behaves
+ * These documents are written to match how this app actually behaves
  * (local-first storage, no accounts, no server sync). Edit the constants below
- * once and every document picks up the change. Have a licensed attorney in your
- * operating jurisdiction review the text before public release.
+ * once and every document picks up the change. Attorney review is in progress (Oct 2026);
+ * when the reviewed text lands, bump LEGAL_VERSION and remove the pending-review note in
+ * app/legal/index.tsx.
  */
 
 import { GHOST_COLOR, HUD, MATCH_COLOR } from '@/lib/palette';

@@ -61,17 +61,19 @@ export default function LegalIndexScreen() {
         <BodyText className="text-muted">
           <Text className="text-foreground font-bold">
             MATCH Flow is for educational purposes only
-          </Text>{' '}
-          and is not medical advice. Always consult a qualified healthcare provider for personal
-          medical decisions. In an emergency, call 911 or your local emergency number.
+          </Text>
+          {
+            ' and is not medical advice. Always consult a qualified healthcare provider for personal medical decisions. In an emergency, call 911 or your local emergency number.'
+          }
         </BodyText>
       </HudPanel>
 
       <View className="border-border/60 mt-6 rounded-2xl border border-dashed p-4">
         <Text className="font-body text-muted text-[13px] leading-5">
-          Questions about any document: {LEGAL_CONTACT_EMAIL}. These drafts describe how this build
-          actually stores data — no accounts, no sync, no sale of information. Have them reviewed by
-          a licensed attorney in your operating jurisdiction before public release.
+          Legal pack v{LEGAL_VERSION}, last updated {LEGAL_LAST_UPDATED}. These documents describe
+          how this app stores and handles data — no accounts, no sync, no sale of information. A
+          review by a licensed attorney is in progress. We will post the reviewed version here and
+          update the date above. Questions about any document: {LEGAL_CONTACT_EMAIL}.
         </Text>
       </View>
     </ScreenShell>

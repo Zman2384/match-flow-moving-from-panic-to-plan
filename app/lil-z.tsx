@@ -156,6 +156,16 @@ export default function LilZScreen() {
         <View className="border-hud/15 border-b px-5 pt-2 pb-3">
           <View className="mb-3 flex-row flex-wrap items-center gap-2">
             <BackChip label="Command Center" href="/(tabs)" />
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Privacy and memory: what Lil Z remembers"
+              accessibilityState={{ expanded: memoryOpen }}
+              onPress={() => setMemoryOpen((open) => !open)}
+              className="border-hud/30 bg-hud/10 ml-auto h-8 flex-row items-center gap-1.5 rounded-full border px-3 active:opacity-70"
+            >
+              <Brain size={16} color={CYAN} />
+              <Text className="text-hud text-[11px] font-semibold">Privacy & memory</Text>
+            </Pressable>
           </View>
 
           <View className="flex-row items-center gap-3">
@@ -166,16 +176,6 @@ export default function LilZScreen() {
                 Christopher Zacharie&apos;s digital avatar · your guide, not your doctor
               </BodyText>
             </View>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Privacy and memory: what Lil Z remembers"
-              accessibilityState={{ expanded: memoryOpen }}
-              onPress={() => setMemoryOpen((open) => !open)}
-              className="border-hud/30 bg-hud/10 h-9 flex-row items-center gap-1.5 rounded-full border px-3 active:opacity-70"
-            >
-              <Brain size={16} color={CYAN} />
-              <Text className="text-hud text-[11px] font-semibold">Privacy & memory</Text>
-            </Pressable>
             {messages.length > 0 ? (
               <Pressable
                 accessibilityRole="button"

@@ -2,11 +2,10 @@
 import '../global.css';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { AllertaStencil_400Regular } from '@expo-google-fonts/allerta-stencil';
 import { BebasNeue_400Regular } from '@expo-google-fonts/bebas-neue';
 import { DMSans_400Regular, useFonts } from '@expo-google-fonts/dm-sans';
+import { PlayfairDisplay_700Bold_Italic } from '@expo-google-fonts/playfair-display';
 import { SpaceMono_400Regular } from '@expo-google-fonts/space-mono';
-import { Yellowtail_400Regular } from '@expo-google-fonts/yellowtail';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { Platform } from 'react-native';
 import { useEffect } from 'react';
@@ -58,9 +57,8 @@ export default function RootLayout() {
     DMSans_400Regular,
     BebasNeue_400Regular,
     SpaceMono_400Regular,
-    // Wordmark lettering only.
-    AllertaStencil_400Regular,
-    Yellowtail_400Regular,
+    // Wordmark "Flow" only. Brand rule: the four site fonts, nothing else.
+    PlayfairDisplay_700Bold_Italic,
   });
 
   // Report uncaught JS errors and unhandled promise rejections to parent (Bilt preview iframe)
@@ -100,7 +98,7 @@ export default function RootLayout() {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href =
-          'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Allerta+Stencil&family=Yellowtail&display=swap';
+          'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap';
         link.crossOrigin = 'anonymous';
         document.head.appendChild(link);
       }

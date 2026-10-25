@@ -18,7 +18,10 @@ const AnimatedPath = createAnimatedComponent(Path);
 const HEARTBEAT =
   'M278 103 H310 L317 98 L324 109 L332 87 L341 117 L349 103 H375 L382 99 L389 106 L396 103 H456';
 
-/** Font-backed, resolution-independent lettering; puzzle artwork stays separate. */
+/**
+ * Font-backed, resolution-independent lettering; puzzle artwork stays separate.
+ * Brand rule: site fonts only — Bebas Neue for MATCH, Playfair Display italic for Flow.
+ */
 export function MatchFlowWordmark({ className }: { className?: string }) {
   const reducedMotion = useReducedMotion();
   const offset = useSharedValue(190);
@@ -51,10 +54,10 @@ export function MatchFlowWordmark({ className }: { className?: string }) {
           </LinearGradient>
         </Defs>
         <SvgText
-          x="3"
-          y="83"
-          fontSize="76"
-          fontFamily="AllertaStencil_400Regular"
+          x="4"
+          y="89"
+          fontSize="104"
+          fontFamily="BebasNeue_400Regular"
           fill={LINE_SOFT}
           stroke={LINE_SOFT}
           strokeWidth="2"
@@ -62,10 +65,10 @@ export function MatchFlowWordmark({ className }: { className?: string }) {
           MATCH
         </SvgText>
         <SvgText
-          x="1"
-          y="80"
-          fontSize="76"
-          fontFamily="AllertaStencil_400Regular"
+          x="2"
+          y="86"
+          fontSize="104"
+          fontFamily="BebasNeue_400Regular"
           fill="url(#armor)"
           stroke={SILVER_LIGHT}
           strokeWidth="0.5"
@@ -73,10 +76,10 @@ export function MatchFlowWordmark({ className }: { className?: string }) {
           MATCH
         </SvgText>
         <SvgText
-          x="283"
-          y="82"
-          fontSize="88"
-          fontFamily="Yellowtail_400Regular"
+          x="244"
+          y="86"
+          fontSize="92"
+          fontFamily="PlayfairDisplay_700Bold_Italic"
           fill={HUD}
           stroke={HUD}
           strokeWidth="6"
@@ -84,7 +87,13 @@ export function MatchFlowWordmark({ className }: { className?: string }) {
         >
           Flow
         </SvgText>
-        <SvgText x="283" y="82" fontSize="88" fontFamily="Yellowtail_400Regular" fill={HUD}>
+        <SvgText
+          x="244"
+          y="86"
+          fontSize="92"
+          fontFamily="PlayfairDisplay_700Bold_Italic"
+          fill={HUD}
+        >
           Flow
         </SvgText>
         <Path d={HEARTBEAT} fill="none" stroke={HUD} strokeWidth="7" opacity="0.1" />

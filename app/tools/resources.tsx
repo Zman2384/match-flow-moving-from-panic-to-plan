@@ -7,7 +7,7 @@ import { Linking, Pressable, Text, View } from 'react-native';
 
 import { MatchPiece } from '@/components/BrandArt';
 import { BodyText, ScreenShell } from '@/components/ScreenShell';
-import { RESOURCE_GROUPS } from '@/lib/content';
+import { RESOURCE_GROUPS, SOURCES_CHECKED } from '@/lib/content';
 import { MATCH_PIECES, PIECE_BY_KEY, type PieceKey } from '@/lib/match';
 import { HUD, LINE } from '@/lib/palette';
 
@@ -92,6 +92,10 @@ export default function ResourcesScreen() {
           ))}
         </>
       ) : null}
+
+      <Text className="text-muted mt-4 font-mono text-[11px] leading-4">
+        Briefings and links checked against current guidance on {SOURCES_CHECKED}.
+      </Text>
     </ScreenShell>
   );
 }

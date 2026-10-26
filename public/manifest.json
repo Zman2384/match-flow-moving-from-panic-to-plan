@@ -1,7 +1,7 @@
 {
   "name": "MATCH Flow",
   "short_name": "MATCH Flow",
-  "description": "Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a SafER Score. No sign-ups. Everything stays on your phone.",
+  "description": "Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a SafER Score. No sign-ups. Your entries stay on your phone.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

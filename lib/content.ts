@@ -591,6 +591,9 @@ export interface ResourceGroup {
   links: { label: string; url: string }[];
 }
 
+/** W-8: the date these briefings and links were last checked against current guidance. */
+export const SOURCES_CHECKED = 'October 26, 2026';
+
 export const RESOURCE_GROUPS: ResourceGroup[] = [
   {
     piece: 'M',
@@ -626,6 +629,10 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
     links: [
       { label: 'CDC — HIV prevention', url: 'https://www.cdc.gov/hiv/basics/prevention.html' },
       { label: 'Find PrEP near you', url: 'https://preplocator.org' },
+      {
+        label: 'Kaiser Permanente — doxy-PEP and gonorrhea (May 2026)',
+        url: 'https://www.kp-scalresearch.org/doxypep-protects-against-some-stis-but-effectiveness-against-gonorrhea-diminishes/',
+      },
     ],
   },
   {

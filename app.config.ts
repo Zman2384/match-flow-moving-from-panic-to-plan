@@ -56,7 +56,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       name: 'MATCH Flow: The Biomedical Command Center | The HARNESS Project',
       shortName: 'MATCH Flow',
       description:
-        'Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a SafER Score. No sign-ups. Everything stays on your phone.',
+        'Free panic-to-plan app: 72-hour PEP window timer, clinic finder, boundary scripts and a SafER Score. No sign-ups. Your entries stay on your phone.',
       themeColor: '#0d1a2e',
       backgroundColor: '#0d1a2e',
     },

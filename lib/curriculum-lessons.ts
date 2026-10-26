@@ -526,7 +526,7 @@ export const LESSON_DETAILS: LessonDetail[] = [
     number: 9,
     keyPoints: [
       'Doxy-PEP is prescription doxycycline: 200 mg within 72 hours after sex, ideally sooner, and no more than 200 mg in 24 hours.',
-      'Studies report reductions of about 80–87% for syphilis and 87–88% for chlamydia (CDC, 2024). Early studies showed partial protection against gonorrhea; more recent data suggest that benefit has faded as resistance spreads. Protection against chlamydia and syphilis has held. These are study estimates, not guarantees; keep testing every 3–6 months.',
+      'Studies report reductions of about 80–87% for syphilis and 87–88% for chlamydia (CDC, 2024). Early studies showed partial protection against gonorrhea, but a large Kaiser Permanente Southern California study (The Lancet Infectious Diseases, May 2026) found no measurable gonorrhea benefit by 2025 as resistant strains spread. Protection against chlamydia and syphilis has held. Gonorrhea is still treatable: the CDC-recommended treatment is still a single ceftriaxone injection, and two oral antibiotics approved in December 2025 are reserved for people who can’t use it. These are study estimates, not guarantees; keep testing every 3–6 months.',
       'It does not prevent HIV, herpes or HPV.',
       'It is a backup layer, not a replacement for Tools or Communication.',
       'Ask a provider about eligibility and a prescription before you need it: “Based on my life right now, can we get a prescription on file for me just in case?”',

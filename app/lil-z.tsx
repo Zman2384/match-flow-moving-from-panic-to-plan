@@ -11,6 +11,7 @@ import {
   Text,
   TextInput,
   View,
+  type ScrollViewInstance,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -41,7 +42,7 @@ function plain(text: string) {
 
 export default function LilZScreen() {
   const insets = useSafeAreaInsets();
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const [draft, setDraft] = useState('');
   const [pending, setPending] = useState(false);
   const [memoryOpen, setMemoryOpen] = useState(false);

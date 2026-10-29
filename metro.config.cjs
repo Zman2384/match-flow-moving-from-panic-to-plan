@@ -5,6 +5,13 @@ const { withUniwindConfig } = require('uniwind/metro');
 
 const config = getDefaultConfig(__dirname);
 
+// Keep file-map caches separate across SDK upgrades so new package files are
+// not resolved against an earlier Expo installation's filesystem snapshot.
+config.fileMapCacheDirectory = path.join(
+  require('os').tmpdir(),
+  `matchflow-file-map-expo-${require('expo/package.json').version}`,
+);
+
 const unique = (values) => Array.from(new Set(values));
 
 // Expo already includes the common source and asset extensions. Keep only the

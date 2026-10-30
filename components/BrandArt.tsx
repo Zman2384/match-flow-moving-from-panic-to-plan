@@ -5,6 +5,8 @@ import { cn } from '@/lib/utils';
 
 /** Source artwork is 1830 x 1030. */
 const BANNER_ASPECT = 1830 / 1030;
+/** The MATCH Flow banner (match-flow-banner.webp, match-flow-hero.webp) is 1888 x 1056. */
+const FLOW_BANNER_ASPECT = 1888 / 1056;
 
 /**
  * Brand puzzle lockup (assets/match-puzzle-wordmark.webp) keeps the 1255 x 396 RGBA
@@ -30,7 +32,7 @@ function useArtWidth(gutter: number, max: number) {
 /** MATCH Flow command-center banner. Decorative header art. */
 export function MatchFlowBanner({ className }: { className?: string }) {
   const width = useArtWidth(40, 560);
-  const height = width / BANNER_ASPECT;
+  const height = width / FLOW_BANNER_ASPECT;
 
   return (
     <View
@@ -44,7 +46,7 @@ export function MatchFlowBanner({ className }: { className?: string }) {
         source={require('../assets/match-flow-banner.webp')}
         style={{ width, height }}
         resizeMode="cover"
-        accessibilityLabel="MATCH Flow — The Biomedical Command Center"
+        accessibilityLabel="MATCH Flow. Panic to a Plan. The Biomedical Command Center."
       />
     </View>
   );
@@ -53,7 +55,7 @@ export function MatchFlowBanner({ className }: { className?: string }) {
 /** Full MATCH Flow lockup used in place of a text title on the consent gate. */
 export function MatchFlowHero({ className }: { className?: string }) {
   const width = useArtWidth(48, 520);
-  const height = width / BANNER_ASPECT;
+  const height = width / FLOW_BANNER_ASPECT;
 
   return (
     <View
@@ -67,7 +69,7 @@ export function MatchFlowHero({ className }: { className?: string }) {
         source={require('../assets/match-flow-hero.webp')}
         style={{ width, height }}
         resizeMode="cover"
-        accessibilityLabel="MATCH Flow — The Biomedical Command Center. Your science-based wingman for real-world friction."
+        accessibilityLabel="MATCH Flow. Panic to a Plan. The Biomedical Command Center: your science-based wingman for real-world friction."
       />
     </View>
   );

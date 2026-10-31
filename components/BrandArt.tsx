@@ -100,24 +100,17 @@ export function MatchFlowIcon({
   );
 }
 
-/** Framework title lockup with unused vertical artboard padding clipped away. */
+/** Framework title: the 3D MATCH Framework render (1200 x 400). */
 export function MatchFrameworkTitle({ className }: { className?: string }) {
   const width = useArtWidth(48, 520);
-  const source = require('../assets/match-framework-title.webp');
-  const fullHeight = width * (666 / 2000);
-  const height = fullHeight * 0.54;
+  const height = width / 3;
 
   return (
-    <View className={cn('self-center overflow-hidden', className)} style={{ width, height }}>
+    <View className={cn('self-center overflow-hidden rounded-2xl', className)} style={{ width, height }}>
       <Image
-        source={source}
-        style={{
-          position: 'absolute',
-          top: -fullHeight * 0.24,
-          width,
-          height: fullHeight,
-        }}
-        resizeMode="contain"
+        source={require('../assets/match-framework-3d.webp')}
+        style={{ width, height }}
+        resizeMode="cover"
         accessibilityLabel="MATCH Framework — Medications, Awareness, Tools, Communication, Habits"
       />
     </View>

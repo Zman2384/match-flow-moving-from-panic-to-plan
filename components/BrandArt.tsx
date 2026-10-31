@@ -5,8 +5,10 @@ import { cn } from '@/lib/utils';
 
 /** Source artwork is 1830 x 1030. */
 const BANNER_ASPECT = 1830 / 1030;
-/** The MATCH Flow banner (match-flow-banner.webp, match-flow-hero.webp) is 1888 x 1056. */
+/** The MATCH Flow banner (match-flow-banner.webp) is 1888 x 1056. */
 const FLOW_BANNER_ASPECT = 1888 / 1056;
+/** The 3D MATCH Framework title (match-framework-3d.webp) is 1200 x 400. */
+const FRAMEWORK_ASPECT = 1200 / 400;
 
 /**
  * Brand puzzle lockup (assets/match-puzzle-wordmark.webp) keeps the 1255 x 396 RGBA
@@ -66,7 +68,7 @@ export function MatchFlowHero({ className }: { className?: string }) {
       style={{ width, height }}
     >
       <Image
-        source={require('../assets/match-flow-hero.webp')}
+        source={require('../assets/match-flow-banner.webp')}
         style={{ width, height }}
         resizeMode="cover"
         accessibilityLabel="MATCH Flow. Panic to a Plan. The Biomedical Command Center: your science-based wingman for real-world friction."
@@ -100,10 +102,10 @@ export function MatchFlowIcon({
   );
 }
 
-/** Framework title: the 3D MATCH Framework render (1200 x 400). */
+/** Framework title: the 3D MATCH Framework render. */
 export function MatchFrameworkTitle({ className }: { className?: string }) {
   const width = useArtWidth(48, 520);
-  const height = width / 3;
+  const height = width / FRAMEWORK_ASPECT;
 
   return (
     <View className={cn('self-center overflow-hidden rounded-2xl', className)} style={{ width, height }}>

@@ -1,4 +1,4 @@
-import { Link, Redirect, router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { ArrowRight, Settings2, TriangleAlert } from '@/lib/icons';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -21,12 +21,9 @@ const FEATURED = ['safer-score', 'emergency', 'scripts', 'live-session'];
 
 export default function CommandCenter() {
   const insets = useSafeAreaInsets();
-  const ageConfirmed = useMatchStore((s) => s.ageConfirmed);
   const armed = useMatchStore((s) => s.armed);
   const sessions = useMatchStore((s) => s.sessions);
   const checkIns = useMatchStore((s) => s.checkIns);
-
-  if (!ageConfirmed) return <Redirect href="/gate" />;
 
   const score = saferScore(armed);
   const tier = scoreTier(score);

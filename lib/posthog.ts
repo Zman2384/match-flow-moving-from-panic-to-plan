@@ -4,6 +4,7 @@ let initStarted = false;
 
 export function initPostHog(): void {
   if (
+    !__DEV__ ||
     initStarted ||
     Platform.OS !== 'web' ||
     typeof window === 'undefined' ||

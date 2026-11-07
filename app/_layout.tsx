@@ -27,7 +27,7 @@ import { NAVY } from '@/lib/palette';
 import { registerServiceWorker } from '@/lib/registerServiceWorker';
 import { reportErrorToParent } from '@/lib/reportPreviewError';
 import { useMatchStore } from '@/lib/store';
-import { GateGuard } from '@/components/GateGuard';
+import { useGateConsent } from '@/lib/useGateConsent';
 import { InstallPrompt } from '@/components/InstallPrompt';
 
 /**
@@ -52,6 +52,7 @@ Uniwind.setTheme('dark');
 void SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const { ageConfirmed, hydrated } = useGateConsent();
   const [loaded, error] = useFonts({
     // Brand type stack: Bebas Neue (titles), Space Mono (labels), Bree Serif (body).
     BreeSerif_400Regular,
@@ -130,13 +131,13 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (loaded || error) {
+    if ((loaded || error) && hydrated) {
       void SplashScreen.hideAsync();
       hideBootSplash();
     }
-  }, [loaded, error]);
+  }, [loaded, error, hydrated]);
 
-  if (!loaded && !error) {
+  if ((!loaded && !error) || !hydrated) {
     return null;
   }
 
@@ -150,32 +151,35 @@ export default function RootLayout() {
             animation: 'slide_from_right',
           }}
         >
-          <Stack.Screen name="(tabs)" />
+          <Stack.Protected guard={ageConfirmed}>
+            <Stack.Screen name="(tabs)" />
+          </Stack.Protected>
           <Stack.Screen name="gate" options={{ animation: 'fade' }} />
-          <Stack.Screen name="piece/[key]" />
-          <Stack.Screen name="settings" />
-          <Stack.Screen name="lil-z" />
           <Stack.Screen name="legal/index" />
           <Stack.Screen name="legal/[doc]" />
-          <Stack.Screen name="tools/safer-score" />
-          <Stack.Screen name="tools/stress-test" />
-          <Stack.Screen name="tools/analytics" />
-          <Stack.Screen name="tools/scripts" />
-          <Stack.Screen name="tools/flow-builder" />
-          <Stack.Screen name="tools/frameworks" />
-          <Stack.Screen name="tools/emergency" />
-          <Stack.Screen name="tools/clinics" />
-          <Stack.Screen name="tools/live-session" />
-          <Stack.Screen name="tools/checkin" />
-          <Stack.Screen name="tools/anxiety" />
-          <Stack.Screen name="tools/ghost-vault" />
-          <Stack.Screen name="tools/rituals" />
-          <Stack.Screen name="tools/reminders" />
-          <Stack.Screen name="tools/resources" />
-          <Stack.Screen name="tools/curriculum" />
-          <Stack.Screen name="tools/lesson" />
+          <Stack.Protected guard={ageConfirmed}>
+            <Stack.Screen name="piece/[key]" />
+            <Stack.Screen name="settings" />
+            <Stack.Screen name="lil-z" />
+            <Stack.Screen name="tools/safer-score" />
+            <Stack.Screen name="tools/stress-test" />
+            <Stack.Screen name="tools/analytics" />
+            <Stack.Screen name="tools/scripts" />
+            <Stack.Screen name="tools/flow-builder" />
+            <Stack.Screen name="tools/frameworks" />
+            <Stack.Screen name="tools/emergency" />
+            <Stack.Screen name="tools/clinics" />
+            <Stack.Screen name="tools/live-session" />
+            <Stack.Screen name="tools/checkin" />
+            <Stack.Screen name="tools/anxiety" />
+            <Stack.Screen name="tools/ghost-vault" />
+            <Stack.Screen name="tools/rituals" />
+            <Stack.Screen name="tools/reminders" />
+            <Stack.Screen name="tools/resources" />
+            <Stack.Screen name="tools/curriculum" />
+            <Stack.Screen name="tools/lesson" />
+          </Stack.Protected>
         </Stack>
-        <GateGuard />
         <InstallPrompt />
       </HeroUINativeProvider>
     </GestureHandlerRootView>

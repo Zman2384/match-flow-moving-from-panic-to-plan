@@ -64,7 +64,7 @@ export function ScreenShell({
       )}
       {hint ? (
         <View className="border-hud/25 bg-hud/[0.07] mt-3 flex-row items-center gap-2 rounded-xl border px-3 py-2">
-          <Text className="text-hud text-[13px] font-semibold">💡 {hint}</Text>
+          <Text className="text-hud text-[13px] font-semibold">{hint}</Text>
         </View>
       ) : null}
     </View>
@@ -74,6 +74,7 @@ export function ScreenShell({
     <View className="bg-background flex-1">
       <HudBackdrop />
       <View className="flex-1" style={{ paddingTop: insets.top + 8 }}>
+        <Disclaimer compact className="mx-5 mb-3" />
         {plain ? (
           <>
             {header}
@@ -177,7 +178,7 @@ export function Disclaimer({
         </Text>
         <BodyText className="text-caution-soft mt-1">
           {compact
-            ? 'Consult a qualified healthcare provider for prescriptions, diagnoses and any medical decision.'
+            ? 'Consult a qualified healthcare provider.'
             : 'Consult a qualified healthcare provider for prescriptions, diagnoses and any medical decision. In an emergency call your local emergency number or go to the nearest emergency department.'}
         </BodyText>
       </View>
@@ -191,7 +192,7 @@ export function BrandFooter({ className = '' }: { className?: string }) {
     <View className={`border-hud/15 mt-8 items-center border-t pt-5 ${className}`}>
       <Text className="font-body text-muted text-center text-[13px] leading-5">
         The HARNESS Project LLC | theharnessproject.org. For educational purposes only. Not medical
-        advice. © 2026 Christopher Zacharie and The HARNESS Project LLC. All rights reserved.
+        advice. © 2026 Christopher Zacharie.
       </Text>
     </View>
   );

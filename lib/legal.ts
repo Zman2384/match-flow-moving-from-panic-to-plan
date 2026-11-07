@@ -89,7 +89,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       },
       {
         heading: '6. Your content and your data',
-        body: 'Everything you type into the App — plans, scripts, session logs, check-ins, contacts, notes — is written to your device’s local storage. We do not host it, back it up, or have any means of retrieving it. You are solely responsible for that content, for keeping your device secure, and for any backup you choose to make. Deleting the App, or using "Wipe all local data" in Settings, destroys that content permanently. We cannot restore it.',
+        body: 'Everything you save in the App — plans, scripts, session logs, check-ins, contacts, notes — is written to your device’s local storage. We do not host or back up these saved records. Optional live AI sends chat context off-device only after you enable it. Keep your device secure and review its backup settings. "Wipe all local data" clears the app’s local records. Uninstalling removes native app storage, but separate backups and previously sent AI requests are outside that control. On the web, clear the site’s storage; removing a shortcut alone does not clear it. We cannot restore your local records.',
       },
       {
         heading: '7. Free to use',
@@ -197,7 +197,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
         bullets: [
           'Platform stores (Apple, Google) handle distribution, crash reporting you opt into at the OS level, and any purchase. Their own privacy policies apply to those interactions.',
           'Clinic Finder links to official locators and to Google Maps. Only when you tap Open map search does the App send your ZIP or typed address and the type of care to Google Maps; your plans, Ghost Audits and notes are never sent. Google’s Terms of Service (https://policies.google.com/terms) and Privacy Policy (https://policies.google.com/privacy) apply. When you tap Open finder after entering a ZIP, that ZIP may be included in the official finder’s link (for example, HRSA Find a Health Center). Official finders open in your browser under their own policies.',
-          'Fonts are loaded from a public font CDN on the web build, which sees a standard web request.',
+          'Fonts are bundled with the App rather than requested from a public font CDN.',
           'Product analytics are not enabled in released builds. Anonymous, non-identifying usage counters may run only inside our internal development preview and are never linked to a person or to any content you enter.',
         ],
       },

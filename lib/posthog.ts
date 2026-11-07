@@ -26,8 +26,9 @@ export function initPostHog(): void {
         autocapture: false,
         capture_pageview: false,
         capture_pageleave: false,
-        disable_session_recording: false,
-        session_recording: {},
+        disable_session_recording: true,
+        person_profiles: 'never',
+        persistence: 'memory',
       });
     })
     .catch(() => {

@@ -83,7 +83,7 @@ export default function ScriptVaultScreen() {
                 onChangeText={setTitle}
                 placeholder="What is this for?"
                 placeholderTextColorClassName="accent-muted"
-                className="border-border bg-panel-deep text-foreground mb-3 rounded-xl border px-3 py-3 text-sm"
+                className="border-border bg-panel-deep text-foreground font-body mb-3 rounded-xl border px-3 py-3 text-base"
               />
               <TextInput
                 value={body}
@@ -91,7 +91,7 @@ export default function ScriptVaultScreen() {
                 placeholder="The exact sentence you want to be able to say"
                 placeholderTextColorClassName="accent-muted"
                 multiline
-                className="border-border bg-panel-deep text-foreground min-h-[96px] rounded-xl border px-3 py-3 text-sm"
+                className="border-border bg-panel-deep text-foreground font-body min-h-[96px] rounded-xl border px-3 py-3 text-base"
                 style={{ textAlignVertical: 'top' }}
               />
               <Pressable

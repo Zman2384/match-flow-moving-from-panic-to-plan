@@ -28,7 +28,7 @@ export default function TabsLayout() {
             shadowOpacity: 0,
             shadowRadius: 0,
           },
-          tabBarLabelStyle: { fontSize: 10, fontWeight: '600' },
+          tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
           sceneStyle: { backgroundColor: NAVY },
         }}
       >

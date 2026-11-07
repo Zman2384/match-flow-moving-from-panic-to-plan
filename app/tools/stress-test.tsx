@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics';
 import { useMemo, useState } from 'react';
 import { Link } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
@@ -32,18 +33,17 @@ export default function StressTestScreen() {
     const passed = outcomes.filter(Boolean).length;
     const pct = Math.round((passed / STRESS_SCENARIOS.length) * 100);
     return (
-      <ScreenShell title="Stress test complete" subtitle="How your current plan held up">
-        <HudPanel label="Result" status={`${passed}/${STRESS_SCENARIOS.length} held`}>
+      <ScreenShell title="Stress test complete" subtitle="Review your backup options">
+        <HudPanel label="Backup check" status={`${passed}/${STRESS_SCENARIOS.length} planned`}>
           <Text className="text-foreground text-5xl font-bold">{pct}%</Text>
           <BodyText className="text-muted mt-2">
-            {pct >= 80
-              ? 'Redundant enough that one failure does not cascade. Keep the medication layer current.'
-              : pct >= 50
-                ? 'Half your scenarios hold. The gaps are all in the same place — add a second independent layer.'
-                : 'Most scenarios broke through. Arm one medication option and one tool option, then retest.'}
+            This is the share of drills with the suggested layers recorded in your plan, not a
+            prediction of protection. Rehearse each pivot and choose a next step for any gap.
           </BodyText>
           {best !== null ? (
-            <Text className="text-hud mt-3 text-[11px] font-semibold">Personal best: {best}%</Text>
+            <Text className="text-hud mt-3 text-[11px] font-semibold">
+              Best backup check: {best}%
+            </Text>
           ) : null}
         </HudPanel>
 
@@ -58,10 +58,10 @@ export default function StressTestScreen() {
               <BodyText className="text-muted mt-0.5">{item.fallback}</BodyText>
             </View>
             <Text
-              className="text-[10px] font-bold uppercase"
+              className="text-[11px] font-bold uppercase"
               style={{ color: outcomes[i] ? STATE_PASS : STATE_FAIL }}
             >
-              {outcomes[i] ? 'Held' : 'Broke'}
+              {outcomes[i] ? 'Planned' : 'Review'}
             </Text>
           </View>
         ))}
@@ -71,6 +71,7 @@ export default function StressTestScreen() {
             setIndex(0);
             setOutcomes([]);
             setRevealed(false);
+            void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           }}
           className="border-hud bg-hud/15 mt-4 items-center rounded-2xl border py-3.5 active:opacity-80"
         >
@@ -104,7 +105,7 @@ export default function StressTestScreen() {
       </View>
 
       <HudPanel label="Scenario" status={scenario.title}>
-        <Text className="text-foreground text-[14px] leading-6">{scenario.setup}</Text>
+        <BodyText className="text-foreground">{scenario.setup}</BodyText>
       </HudPanel>
 
       <SectionLabel>Pieces under load</SectionLabel>
@@ -124,7 +125,7 @@ export default function StressTestScreen() {
               <Text className="text-[11px] font-bold" style={{ color: on ? piece.color : STEEL }}>
                 {piece.key} · {piece.name}
               </Text>
-              <Text className="text-[10px]" style={{ color: on ? STATE_PASS : STATE_FAIL }}>
+              <Text className="text-[11px]" style={{ color: on ? STATE_PASS : STATE_FAIL }}>
                 {on ? 'armed' : 'missing'}
               </Text>
             </View>
@@ -141,10 +142,10 @@ export default function StressTestScreen() {
           }}
         >
           <Text
-            className="font-mono text-[10px] tracking-widest uppercase"
+            className="font-mono text-[11px] tracking-widest uppercase"
             style={{ color: holds ? STATE_PASS : STATE_FAIL }}
           >
-            {holds ? 'Shield held' : 'Shield broke'}
+            {holds ? 'Backup layers recorded' : 'Choose a backup step'}
           </Text>
           <BodyText className="text-foreground mt-1.5">{scenario.fallback}</BodyText>
         </View>
@@ -164,6 +165,7 @@ export default function StressTestScreen() {
           if (nextIndex >= STRESS_SCENARIOS.length) {
             const passed = nextOutcomes.filter(Boolean).length;
             recordStressTest(Math.round((passed / STRESS_SCENARIOS.length) * 100));
+            void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           }
         }}
         className="bg-hud mt-5 items-center rounded-2xl py-4 active:opacity-80"

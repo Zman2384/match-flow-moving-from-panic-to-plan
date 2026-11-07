@@ -83,7 +83,7 @@ export default function MeScreen() {
             <Metric label="Check-ins" value={`${checkIns.length}`} />
             <Metric label="Assessments" value={`${riskResults.length}`} />
             <Metric
-              label="Best stress test"
+              label="Best backup check"
               value={stressTestBest === null ? '—' : `${stressTestBest}%`}
             />
           </View>

@@ -67,7 +67,8 @@ export const MATCH_PIECES: MatchPiece[] = [
         id: 'doxypep',
         label: 'Doxy-PEP on hand',
         points: 8,
-        detail: 'A prescription on file: one dose within 72 hours after sex.',
+        detail:
+          'If prescribed: 200 mg as soon as possible within 72 hours after sex; no more than 200 mg in 24 hours. Ask a provider about eligibility.',
       },
       {
         id: 'vaccines',
@@ -276,27 +277,27 @@ export function scoreTier(score: number): ScoreTier {
     return {
       label: 'Solid',
       color: HUD,
-      blurb: 'Strong core coverage with a couple of thin spots.',
+      blurb: 'Several planned layers are recorded. Review the remaining gaps.',
     };
   }
   if (score >= 45) {
     return {
       label: 'Partial',
       color: MATCH_COLOR.C,
-      blurb: 'Real protection, but too dependent on a single layer.',
+      blurb: 'Some layers are planned. Add a backup that fits your needs.',
     };
   }
   if (score >= 20) {
     return {
-      label: 'Exposed',
+      label: 'Building',
       color: MATCH_COLOR.H,
-      blurb: 'Thin coverage. Add a medication layer.',
+      blurb: 'A few options are recorded. Choose your next planning step.',
     };
   }
   return {
-    label: 'Critical',
+    label: 'Getting started',
     color: MATCH_COLOR.T,
-    blurb: 'No puzzle pieces armed. Start with one medication and one tool.',
+    blurb: 'Start with one practical step, then discuss clinical options with a provider.',
   };
 }
 

@@ -59,9 +59,12 @@ export default function GateScreen() {
   return (
     <View className="bg-background flex-1">
       <HudBackdrop />
+      <View style={{ paddingTop: insets.top + 8 }}>
+        <Disclaimer compact className="mx-6 mb-3" />
+      </View>
       <ScrollView
         contentContainerStyle={{
-          paddingTop: insets.top + 24,
+          paddingTop: 12,
           paddingBottom: insets.bottom + 40,
           paddingHorizontal: 24,
         }}
@@ -98,8 +101,6 @@ export default function GateScreen() {
           resizeMode="contain"
           accessibilityLabel="Metallic MATCH shield with five colored interlocking protection pieces"
         />
-
-        <Disclaimer className="mt-6" />
 
         <View className="mt-8 gap-3">
           {CHECKS.map((check) => {

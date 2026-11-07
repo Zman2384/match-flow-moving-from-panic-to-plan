@@ -46,7 +46,7 @@ export default function SettingsScreen() {
     >
       <ScreenShell
         title="Settings & privacy"
-        subtitle="Everything here is stored only on this device"
+        subtitle="Saved records stay on this device; live AI is a separate opt-in"
       >
         <HudPanel label="Primary support contact">
           <BodyText className="text-muted mb-3">

@@ -110,8 +110,8 @@
 }
 
 @theme {
-  /* Brand type stack. Body: DM Sans, 16pt floor enforced by <BodyText />. */
-  --font-body: 'DMSans_400Regular';
+  /* Brand type stack. Body: Bree Serif, 16pt floor enforced by <BodyText />. */
+  --font-body: 'BreeSerif_400Regular';
   /* Screen titles: Bebas Neue (stencil-tactical display). */
   --font-display: 'BebasNeue_400Regular';
   /* Eyebrows, telemetry and labels: Space Mono. */

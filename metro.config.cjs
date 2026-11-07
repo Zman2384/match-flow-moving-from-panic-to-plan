@@ -1,5 +1,6 @@
 /** @type {import('expo/metro-config').MetroConfig} */
 const path = require('path');
+const fs = require('fs');
 const { getDefaultConfig } = require('expo/metro-config');
 const { withUniwindConfig } = require('uniwind/metro');
 
@@ -11,6 +12,7 @@ config.fileMapCacheDirectory = path.join(
   require('os').tmpdir(),
   `matchflow-file-map-expo-${require('expo/package.json').version}`,
 );
+fs.mkdirSync(config.fileMapCacheDirectory, { recursive: true });
 
 const unique = (values) => Array.from(new Set(values));
 

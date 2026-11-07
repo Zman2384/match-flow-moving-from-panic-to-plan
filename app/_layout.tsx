@@ -3,7 +3,7 @@ import '../global.css';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BebasNeue_400Regular } from '@expo-google-fonts/bebas-neue';
-import { DMSans_400Regular, useFonts } from '@expo-google-fonts/dm-sans';
+import { BreeSerif_400Regular, useFonts } from '@expo-google-fonts/bree-serif';
 import { PlayfairDisplay_700Bold_Italic } from '@expo-google-fonts/playfair-display';
 import { SpaceMono_400Regular } from '@expo-google-fonts/space-mono';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
@@ -46,15 +46,15 @@ function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 
 export { ErrorBoundary };
 
-// Starter is light-only by default. Remove this when implementing requested dark mode.
-Uniwind.setTheme('light');
+// Keep the tactical cockpit dark on every platform.
+Uniwind.setTheme('dark');
 
 void SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    // Brand type stack: Bebas Neue (titles), Space Mono (labels), DM Sans (body).
-    DMSans_400Regular,
+    // Brand type stack: Bebas Neue (titles), Space Mono (labels), Bree Serif (body).
+    BreeSerif_400Regular,
     BebasNeue_400Regular,
     SpaceMono_400Regular,
     // Wordmark "Flow" only. Brand rule: the four site fonts, nothing else.
@@ -83,31 +83,6 @@ export default function RootLayout() {
       window.removeEventListener('error', handleError);
       window.removeEventListener('unhandledrejection', handleUnhandledRejection);
     };
-  }, []);
-
-  // Inject Google Fonts link tag for web to ensure fonts load through proxy
-  // Also register font family names as fallback if expo-font fails
-  useEffect(() => {
-    if (Platform.OS === 'web') {
-      // Check if link already exists
-      const existingLink = document.querySelector(
-        'link[href*="fonts.googleapis.com/css2?family=DM+Sans"]',
-      );
-
-      if (!existingLink) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href =
-          'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap';
-        link.crossOrigin = 'anonymous';
-        document.head.appendChild(link);
-      }
-
-      // Note: The @import in global.css and the link tag above ensure the brand
-      // faces load. expo-font registers the family names (DMSans_400Regular,
-      // BebasNeue_400Regular, SpaceMono_400Regular). If expo-font fails due to
-      // proxy issues the faces are still available via the Google Fonts CDN link.
-    }
   }, []);
 
   useEffect(() => {

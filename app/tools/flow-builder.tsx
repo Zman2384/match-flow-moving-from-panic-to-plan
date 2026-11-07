@@ -52,7 +52,7 @@ export default function FlowBuilderScreen() {
               onChangeText={setPrompt}
               placeholder="The question you will face"
               placeholderTextColorClassName="accent-muted"
-              className="border-border bg-panel-deep text-foreground rounded-xl border px-3 py-3 text-sm"
+              className="border-border bg-panel-deep text-foreground font-body rounded-xl border px-3 py-3 text-base"
             />
           </Labeled>
           <Labeled label="Then, if yes">
@@ -61,7 +61,7 @@ export default function FlowBuilderScreen() {
               onChangeText={setIfYes}
               placeholder="What you do"
               placeholderTextColorClassName="accent-muted"
-              className="border-border bg-panel-deep text-foreground rounded-xl border px-3 py-3 text-sm"
+              className="border-border bg-panel-deep text-foreground font-body rounded-xl border px-3 py-3 text-base"
             />
           </Labeled>
           <Labeled label="Then, if no">
@@ -70,7 +70,7 @@ export default function FlowBuilderScreen() {
               onChangeText={setIfNo}
               placeholder="What you do instead"
               placeholderTextColorClassName="accent-muted"
-              className="border-border bg-panel-deep text-foreground rounded-xl border px-3 py-3 text-sm"
+              className="border-border bg-panel-deep text-foreground font-body rounded-xl border px-3 py-3 text-base"
             />
           </Labeled>
           <Pressable

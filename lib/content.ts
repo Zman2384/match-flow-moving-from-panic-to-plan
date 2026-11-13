@@ -592,7 +592,7 @@ export interface ResourceGroup {
 }
 
 /** W-8: the date these briefings and links were last checked against current guidance. */
-export const SOURCES_CHECKED = 'October 26, 2026';
+export const SOURCES_CHECKED = 'November 13, 2026';
 
 export const RESOURCE_GROUPS: ResourceGroup[] = [
   {
@@ -756,7 +756,9 @@ export const RESOURCE_GROUPS: ResourceGroup[] = [
         body: 'A five-item weekly sweep keeps small gaps from compounding into a crisis.',
       },
     ],
-    links: [{ label: 'CDC — sexual health basics', url: 'https://www.cdc.gov/sexualhealth/' }],
+    links: [
+      { label: 'CDC — how to prevent STIs', url: 'https://www.cdc.gov/sti/prevention/index.html' },
+    ],
   },
 ];
 
